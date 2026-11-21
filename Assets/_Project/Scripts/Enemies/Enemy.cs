@@ -27,6 +27,8 @@ namespace PixelSurvivor
         [SerializeField, Range(0f, 45f)] private float maxApproachAngle = 15f;
         [SerializeField] private Color hitFlashColor = new(1f, 0.35f, 0.35f);
         [SerializeField, Min(0f)] private float hitFlashTime = 0.08f;
+        [Tooltip("Hits within this window are summed into one damage number.")]
+        [SerializeField, Min(0f)] private float damageNumberInterval = 0.3f;
         [SerializeField] private AudioClip hitSfx;
         [SerializeField] private AudioClip deathSfx;
 
@@ -48,6 +50,8 @@ namespace PixelSurvivor
         private float contactDps;
         private float projectileDamage;
         private float attackTimer;
+        private float pendingNumber;
+        private float numberTimer;
         private Color baseColor = Color.white;
 
         public bool IsAlive => !dying;
@@ -96,6 +100,8 @@ namespace PixelSurvivor
             knockbackTimer = 0f;
             flashTimer = 0f;
             deathTimer = 0f;
+            pendingNumber = 0f;
+            numberTimer = 0f;
             approachAngle = UnityEngine.Random.Range(-maxApproachAngle, maxApproachAngle);
             col.enabled = true;
             body.sortingOrder = 0;
@@ -191,6 +197,12 @@ namespace PixelSurvivor
                 body.color = flashTimer > 0f ? hitFlashColor : baseColor;
             }
 
+            if (numberTimer > 0f)
+            {
+                numberTimer -= Time.deltaTime;
+                if (numberTimer <= 0f) FlushDamageNumber();
+            }
+
             TryShoot();
         }
 
@@ -205,7 +217,9 @@ namespace PixelSurvivor
         {
             if (dying) return;
 
-            DamageNumbers.Show(transform.position + Vector3.up * (0.6f * stats.scale), damage);
+            // Damage numbers are batched per enemy (see FlushDamageNumber) so crowds stay readable.
+            pendingNumber += damage;
+            if (numberTimer <= 0f) FlushDamageNumber();
             health.TakeDamage(damage);
             if (dying) return; // killed by this hit
 
@@ -221,8 +235,18 @@ namespace PixelSurvivor
             }
         }
 
+        /// <summary>Shows the damage gathered since the last number as one number, then waits a moment.</summary>
+        private void FlushDamageNumber()
+        {
+            if (pendingNumber <= 0f) return;
+            DamageNumbers.Show(transform.position + Vector3.up * (0.6f * transform.localScale.y), pendingNumber);
+            pendingNumber = 0f;
+            numberTimer = damageNumberInterval;
+        }
+
         private void OnDied()
         {
+            FlushDamageNumber(); // always show the killing blow
             dying = true;
             col.enabled = false;
             rb.linearVelocity = Vector2.zero;

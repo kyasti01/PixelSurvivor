@@ -20,7 +20,7 @@ namespace PixelSurvivor
         [Tooltip("The spawn interval halves every this many seconds.")]
         [SerializeField, Min(1f)] private float intervalHalvingTime = 150f;
         [Tooltip("One more enemy per spawn tick every this many seconds.")]
-        [SerializeField, Min(1f)] private float extraEnemyEvery = 75f;
+        [SerializeField, Min(1f)] private float extraEnemyEvery = 90f;
 
         [Header("Ring waves")]
         [SerializeField, Min(1f)] private float waveEvery = 60f;
@@ -30,7 +30,8 @@ namespace PixelSurvivor
         [Header("Scaling over time (m = minutes into the run)")]
         [Tooltip("Health x (1 + perMinute*m + quadratic*m²): slow at first, steep later.")]
         [SerializeField, Min(0f)] private float healthGrowthPerMinute = 0.35f;
-        [SerializeField, Min(0f)] private float healthGrowthQuadratic = 0.1f;
+        [Tooltip("Raised when the enemy cap was lowered: fewer but tougher enemies keep the challenge with less clutter.")]
+        [SerializeField, Min(0f)] private float healthGrowthQuadratic = 0.14f;
         [Tooltip("Contact damage x (1 + this*m).")]
         [SerializeField, Min(0f)] private float damageGrowthPerMinute = 0.12f;
         [Tooltip("Move speed x (1 + this*m), capped below.")]
@@ -47,7 +48,7 @@ namespace PixelSurvivor
         [SerializeField] private Color eliteTint = new(1f, 0.8f, 0.25f);
 
         [Header("Limits")]
-        [SerializeField, Min(1)] private int maxAlive = 260;
+        [SerializeField, Min(1)] private int maxAlive = 180;
         [Tooltip("Distance beyond the screen edge where enemies appear.")]
         [SerializeField, Min(0f)] private float spawnPadding = 1.5f;
 

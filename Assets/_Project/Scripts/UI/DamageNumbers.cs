@@ -10,14 +10,15 @@ namespace PixelSurvivor
     public class DamageNumbers : MonoBehaviour
     {
         [SerializeField] private Font font;
-        [SerializeField, Min(8)] private int poolSize = 80;
+        [SerializeField, Min(8)] private int poolSize = 50;
         [SerializeField, Min(8)] private int fontSize = 28;
         [SerializeField, Min(0.1f)] private float lifetime = 0.6f;
         [Tooltip("World units the number floats up over its lifetime.")]
         [SerializeField] private float rise = 0.8f;
         [SerializeField] private Color normalColor = Color.white;
         [SerializeField] private Color bigColor = new(1f, 0.8f, 0.25f);
-        [SerializeField, Min(1f)] private float bigHit = 40f;
+        [Tooltip("Numbers at or above this are gold. Numbers are per-enemy sums over ~0.3 s.")]
+        [SerializeField, Min(1f)] private float bigHit = 80f;
 
         private class Entry
         {
