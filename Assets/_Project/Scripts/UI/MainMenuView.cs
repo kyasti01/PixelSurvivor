@@ -7,8 +7,8 @@ using UnityEngine.UI;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Title screen (Start / How to play / Shop / Quit), then character select with difficulty choice.
-    /// Locked characters are bought with gold or unlocked by winning.
+    /// Başlık ekranı (Başla / Nasıl Oynanır / Dükkan / Çıkış), ardından zorluk seçimiyle karakter seçimi.
+    /// Kilitli karakterler altınla satın alınır ya da oyunu kazanınca açılır.
     /// </summary>
     public class MainMenuView : MonoBehaviour
     {
@@ -84,7 +84,7 @@ namespace PixelSurvivor
 
         private void Update()
         {
-            // Animate unlocked portraits with each character's run cycle.
+            // Açık karakterlerin portrelerini kendi koşu animasyonlarıyla oynat.
             for (int i = 0; i < cards.Length && i < characters.Length; i++)
             {
                 CharacterDefinition c = characters[i];

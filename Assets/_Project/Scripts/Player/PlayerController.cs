@@ -17,35 +17,35 @@ namespace PixelSurvivor
         [SerializeField] private AudioClip dashSfx;
         [SerializeField] private Sprite[] dashEffectFrames;
         [SerializeField, Min(0.05f)] private float dashEffectScale = 0.7f;
-        [Tooltip("Added to the dash angle so the effect sprite points the right way (180 for art drawn moving left).")]
+        [Tooltip("Efekt sprite'ı doğru yöne baksın diye atılma açısına eklenir (sola doğru hareket ederken çizilmiş görseller için 180).")]
         [SerializeField] private float dashEffectAngleOffset = 180f;
 
         [Header("Visuals")]
         [SerializeField] private SpriteRenderer body;
         [SerializeField] private SpriteFrameAnimator frameAnimator;
-        [Tooltip("Tick if the source sprite looks to the right when not flipped.")]
+        [Tooltip("Orijinal sprite çevrilmemişken sağa bakıyorsa işaretle.")]
         [SerializeField] private bool spriteFacesRight = true;
         [SerializeField] private Color damageFlashColor = new(1f, 0.45f, 0.45f);
         [SerializeField, Min(0f)] private float damageFlashTime = 0.1f;
 
         [Header("Contact damage")]
-        [Tooltip("Enemies whose collider overlaps this circle hurt the player.")]
+        [Tooltip("Collider'ı bu daireyle kesişen düşmanlar oyuncuya hasar verir.")]
         [SerializeField, Min(0.1f)] private float hurtRadius = 0.5f;
         [SerializeField] private Vector2 hurtOffset = new(0f, -0.2f);
-        [Tooltip("Only the strongest N touching enemies deal damage, so being surrounded is dangerous but not instant death.")]
+        [Tooltip("Sadece en güçlü N temas eden düşman hasar verir; kuşatılmak tehlikeli olur ama anında ölüm olmaz.")]
         [SerializeField, Min(1)] private int maxContactAttackers = 4;
 
         [Header("Feedback")]
         [SerializeField] private AudioClip hurtSfx;
         [SerializeField] private AudioClip deathSfx;
-        [Tooltip("Minimum seconds between hurt sounds/shakes while taking continuous damage.")]
+        [Tooltip("Sürekli hasar alırken hasar sesleri/sarsıntıları arasındaki en kısa süre (saniye).")]
         [SerializeField, Min(0.05f)] private float hurtFeedbackInterval = 0.35f;
         [SerializeField, Min(0f)] private float hurtShake = 0.12f;
 
-        /// <summary>Multiplies all weapon damage (permanent upgrades).</summary>
+        /// <summary>Bütün silah hasarlarını çarpar (kalıcı yükseltmeler).</summary>
         public float DamageMultiplier { get; set; } = 1f;
 
-        /// <summary>Damage multiplier of the current player, or 1 if there is none.</summary>
+        /// <summary>Mevcut oyuncunun hasar çarpanı; oyuncu yoksa 1.</summary>
         public static float CurrentDamageMultiplier => Instance != null ? Instance.DamageMultiplier : 1f;
 
         public static PlayerController Instance { get; private set; }
@@ -53,11 +53,11 @@ namespace PixelSurvivor
         public Health Health { get; private set; }
         public PlayerExperience Experience { get; private set; }
         public Vector2 MoveInput { get; private set; }
-        /// <summary>Last non-zero movement direction (normalized).</summary>
+        /// <summary>Sıfır olmayan son hareket yönü (normalize).</summary>
         public Vector2 FacingDirection { get; private set; } = Vector2.right;
         public float MoveSpeed { get => moveSpeed; set => moveSpeed = Mathf.Max(0f, value); }
         public bool IsDashing => dashTimer > 0f;
-        /// <summary>0 right after a dash, 1 when the dash is ready again.</summary>
+        /// <summary>Atılmadan hemen sonra 0, atılma tekrar hazır olunca 1.</summary>
         public float DashReadiness => 1f - Mathf.Clamp01(dashCooldownTimer / dashCooldown);
 
         private readonly List<Collider2D> touching = new();
@@ -84,8 +84,8 @@ namespace PixelSurvivor
             Health.Damaged += OnDamaged;
             Health.Died += OnDied;
 
-            // Project-wide actions (Assets/Settings/InputSystem_Actions): WASD, arrows, gamepad stick;
-            // "Sprint" is Left Shift / left stick press, used here for the dash.
+            // Proje genelindeki aksiyonlar (Assets/Settings/InputSystem_Actions): WASD, ok tuşları, gamepad çubuğu;
+            // "Sprint" Sol Shift / sol çubuğa basma; burada atılma için kullanılıyor.
             if (InputSystem.actions != null)
             {
                 moveAction = InputSystem.actions.FindAction("Player/Move");
@@ -139,7 +139,7 @@ namespace PixelSurvivor
             ApplyContactDamage();
         }
 
-        // ---------------------------------------------------------------- dash
+        // ---------------------------------------------------------------- atılma
 
         private void UpdateDash()
         {
@@ -163,7 +163,7 @@ namespace PixelSurvivor
             return kb != null && (kb.spaceKey.wasPressedThisFrame || kb.leftShiftKey.wasPressedThisFrame);
         }
 
-        /// <summary>Short burst of speed: no damage taken and enemies are passed through.</summary>
+        /// <summary>Kısa bir hız patlaması: hasar alınmaz ve düşmanların içinden geçilir.</summary>
         private void StartDash()
         {
             dashDirection = MoveInput.sqrMagnitude > 0.01f ? MoveInput.normalized : FacingDirection;
@@ -184,11 +184,11 @@ namespace PixelSurvivor
             GameLayers.SetPlayerEnemyCollision(true);
         }
 
-        // ---------------------------------------------------------------- damage
+        // ---------------------------------------------------------------- hasar
 
         /// <summary>
-        /// Every enemy overlapping the hurt circle deals its damage-per-second. Done with an overlap
-        /// query rather than collision callbacks, which stop firing reliably once a crowd presses in.
+        /// Hasar dairesiyle kesişen her düşman saniyelik hasarını verir. Çarpışma callback'leri yerine
+        /// kesişim sorgusuyla yapılır; callback'ler kalabalık üstüne yığılınca güvenilir şekilde tetiklenmiyor.
         /// </summary>
         private void ApplyContactDamage()
         {
@@ -202,7 +202,7 @@ namespace PixelSurvivor
                 if (c.TryGetComponent(out Enemy enemy) && enemy.ContactDps > 0f) contactDps.Add(enemy.ContactDps);
             if (contactDps.Count == 0) return;
 
-            contactDps.Sort((a, b) => b.CompareTo(a)); // strongest first
+            contactDps.Sort((a, b) => b.CompareTo(a)); // en güçlüler önce
             float dps = 0f;
             for (int i = 0; i < contactDps.Count && i < maxContactAttackers; i++) dps += contactDps[i];
 
@@ -219,7 +219,7 @@ namespace PixelSurvivor
         {
             if (moveAction != null) return moveAction.ReadValue<Vector2>();
 
-            // Fallback if the project-wide action asset is missing.
+            // Proje genelindeki aksiyon dosyası yoksa yedek yöntem.
             var kb = Keyboard.current;
             if (kb == null) return Vector2.zero;
             float x = (kb.dKey.isPressed || kb.rightArrowKey.isPressed ? 1f : 0f) - (kb.aKey.isPressed || kb.leftArrowKey.isPressed ? 1f : 0f);

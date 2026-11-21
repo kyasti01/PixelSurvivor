@@ -4,8 +4,8 @@ using UnityEngine.Pool;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Spawns enemies just outside the camera view. Pressure grows three ways over time:
-    /// shorter interval, more enemies per tick, and periodic ring waves that surround the player.
+    /// Düşmanları kamera görüşünün hemen dışında doğurur. Baskı zamanla üç şekilde artar:
+    /// daha kısa aralık, her doğuşta daha çok düşman ve oyuncuyu saran periyodik çember dalgaları.
     /// </summary>
     public class EnemySpawner : MonoBehaviour
     {
@@ -13,13 +13,13 @@ namespace PixelSurvivor
         [SerializeField] private EnemyStats[] enemyTypes;
 
         [Header("Steady stream")]
-        // Tuned so Normal reaches ~4-6 min on a first try and the 8:00 final boss with good builds
-        // (at 2:20 the old values spawned ~14 enemies/s, which killed players around then).
+        // Normal modda ilk denemede ~4-6. dakikaya, iyi gelişimle 8:00'deki son boss'a ulaşılsın diye ayarlandı
+        // (eski değerlerle 2:20'de saniyede ~14 düşman doğuyordu ve oyuncular o civarda ölüyordu).
         [SerializeField, Min(0.01f)] private float initialInterval = 0.9f;
         [SerializeField, Min(0.01f)] private float minInterval = 0.08f;
-        [Tooltip("The spawn interval halves every this many seconds.")]
+        [Tooltip("Doğma aralığı bu kadar saniyede bir yarıya iner.")]
         [SerializeField, Min(1f)] private float intervalHalvingTime = 150f;
-        [Tooltip("One more enemy per spawn tick every this many seconds.")]
+        [Tooltip("Her bu kadar saniyede doğuş başına bir düşman daha eklenir.")]
         [SerializeField, Min(1f)] private float extraEnemyEvery = 90f;
 
         [Header("Ring waves")]
@@ -28,18 +28,18 @@ namespace PixelSurvivor
         [SerializeField, Min(0)] private int waveGrowthPerWave = 8;
 
         [Header("Scaling over time (m = minutes into the run)")]
-        [Tooltip("Health x (1 + perMinute*m + quadratic*m²): slow at first, steep later.")]
+        [Tooltip("Can x (1 + perMinute*m + quadratic*m²): başta yavaş, sonra hızlı artar.")]
         [SerializeField, Min(0f)] private float healthGrowthPerMinute = 0.35f;
-        [Tooltip("Raised when the enemy cap was lowered: fewer but tougher enemies keep the challenge with less clutter.")]
+        [Tooltip("Düşman sınırı düşürülünce artırıldı: daha az ama daha dayanıklı düşman, aynı zorluk ve daha az karmaşa.")]
         [SerializeField, Min(0f)] private float healthGrowthQuadratic = 0.14f;
-        [Tooltip("Contact damage x (1 + this*m).")]
+        [Tooltip("Temas hasarı x (1 + bu*m).")]
         [SerializeField, Min(0f)] private float damageGrowthPerMinute = 0.12f;
-        [Tooltip("Move speed x (1 + this*m), capped below.")]
+        [Tooltip("Hareket hızı x (1 + bu*m), alttaki değerle sınırlı.")]
         [SerializeField, Min(0f)] private float speedGrowthPerMinute = 0.05f;
         [SerializeField, Min(1f)] private float maxSpeedMultiplier = 1.4f;
 
         [Header("Elites")]
-        [Tooltip("Chance that a normal spawn is an elite: base + perMinute*m, capped.")]
+        [Tooltip("Normal bir doğuşun elit olma şansı: temel + perMinute*m, sınırlı.")]
         [SerializeField, Range(0f, 1f)] private float eliteBaseChance = 0.02f;
         [SerializeField, Range(0f, 1f)] private float eliteChancePerMinute = 0.01f;
         [SerializeField, Range(0f, 1f)] private float maxEliteChance = 0.1f;
@@ -49,7 +49,7 @@ namespace PixelSurvivor
 
         [Header("Limits")]
         [SerializeField, Min(1)] private int maxAlive = 180;
-        [Tooltip("Distance beyond the screen edge where enemies appear.")]
+        [Tooltip("Düşmanların göründüğü, ekran kenarının ötesindeki mesafe.")]
         [SerializeField, Min(0f)] private float spawnPadding = 1.5f;
 
         private ObjectPool<Enemy> pool;
@@ -120,12 +120,12 @@ namespace PixelSurvivor
             for (int i = 0; i < count; i++) Spawn(RandomPointOutsideView());
         }
 
-        /// <summary>Spawns one specific enemy (e.g. a boss) just off-screen, ignoring the alive cap.</summary>
+        /// <summary>Belirli bir düşmanı (örn. boss) ekranın hemen dışında doğurur; düşman sınırını yok sayar.</summary>
         public Enemy SpawnSpecial(EnemyStats stats, float healthMultiplier)
         {
             if (pool == null || player == null || cam == null || stats == null) return null;
 
-            // Bosses get the time scaling for health and damage, but keep their designed speed.
+            // Boss'lar can ve hasarda zaman çarpanını alır, ama tasarlandıkları hızı korur.
             Enemy enemy = pool.Get();
             enemy.Init(stats, RandomPointOutsideView(), player, pool.Release,
                 healthMultiplier * HealthMultiplier, DamageMultiplier, 1f);
@@ -138,7 +138,7 @@ namespace PixelSurvivor
             float radius = Mathf.Sqrt(halfH * halfH + Mathf.Pow(halfH * cam.aspect, 2f)) + spawnPadding;
             Vector2 center = player.position;
             float offset = Random.value * 360f;
-            EnemyStats waveType = PickType(); // one type per wave, so each wave reads as an event
+            EnemyStats waveType = PickType(); // her dalga tek türden; her dalga ayrı bir olay gibi hissettirsin
 
             for (int i = 0; i < count; i++)
             {
@@ -158,7 +158,7 @@ namespace PixelSurvivor
             if (Random.value < EliteChance) enemy.MakeElite(eliteHealthMultiplier, eliteScale, eliteTint);
         }
 
-        /// <summary>Weighted random pick among the types active at the current time.</summary>
+        /// <summary>O anda aktif olan türler arasından ağırlıklı rastgele seçim.</summary>
         private EnemyStats PickType()
         {
             float elapsed = Elapsed;
@@ -186,7 +186,7 @@ namespace PixelSurvivor
             Vector2 dir = Random.insideUnitCircle.normalized;
             if (dir == Vector2.zero) dir = Vector2.right;
 
-            // Distance from the camera centre to the screen rectangle along dir.
+            // Kamera merkezinden, dir yönünde ekran dikdörtgeninin kenarına olan mesafe.
             float toEdge = Mathf.Min(
                 Mathf.Abs(dir.x) > 0.0001f ? halfW / Mathf.Abs(dir.x) : float.MaxValue,
                 Mathf.Abs(dir.y) > 0.0001f ? halfH / Mathf.Abs(dir.y) : float.MaxValue);

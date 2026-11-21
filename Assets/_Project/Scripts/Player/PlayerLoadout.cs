@@ -3,13 +3,13 @@ using UnityEngine;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Applies the selected <see cref="CharacterDefinition"/> to the player before anything else runs:
-    /// sprites, stats and which weapons are active.
+    /// Seçilen <see cref="CharacterDefinition"/> karakterini, başka hiçbir şey çalışmadan önce oyuncuya uygular:
+    /// sprite'lar, değerler ve hangi silahların aktif olduğu.
     /// </summary>
     [DefaultExecutionOrder(-100)]
     public class PlayerLoadout : MonoBehaviour
     {
-        [Tooltip("Used when the game scene is started directly instead of from the menu.")]
+        [Tooltip("Oyun sahnesi menü yerine doğrudan açılırsa kullanılır.")]
         [SerializeField] private CharacterDefinition defaultCharacter;
 
         public CharacterDefinition Character { get; private set; }
@@ -21,7 +21,7 @@ namespace PixelSurvivor
             ApplyPermanentUpgrades();
         }
 
-        /// <summary>Bonuses bought in the main-menu shop, on top of the character's stats.</summary>
+        /// <summary>Ana menüdeki dükkandan alınan bonuslar, karakterin değerlerinin üstüne eklenir.</summary>
         private void ApplyPermanentUpgrades()
         {
             var health = GetComponent<Health>();

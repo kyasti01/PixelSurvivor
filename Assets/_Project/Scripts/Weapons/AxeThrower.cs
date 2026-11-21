@@ -3,8 +3,8 @@ using UnityEngine;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Throws spinning axes up into the air; they arc back down through the horde and pierce
-    /// everything they touch. Starts with zero axes; upgrades add them.
+    /// Havaya dönen baltalar fırlatır; kalabalığın içinden kavis çizerek düşerler ve değdikleri her şeyi
+    /// delerler. Sıfır baltayla başlar; yükseltmeler balta ekler.
     /// </summary>
     public class AxeThrower : MonoBehaviour
     {
@@ -16,7 +16,7 @@ namespace PixelSurvivor
         [SerializeField, Min(0.1f)] private float fireInterval = 1.5f;
         [SerializeField, Min(0f)] private float damage = 27f;
         [SerializeField, Min(1f)] private float upSpeed = 10f;
-        [Tooltip("Sideways speed range; several axes fan out across it.")]
+        [Tooltip("Yanlara hız aralığı; birden fazla balta bu aralığa yelpaze gibi dağılır.")]
         [SerializeField, Min(0f)] private float sideSpeed = 3f;
         [SerializeField, Min(0)] private int pierce = 50;
         [SerializeField, Min(0f)] private float knockback = 1.5f;

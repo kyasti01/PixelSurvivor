@@ -4,13 +4,13 @@ using UnityEngine.Tilemaps;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Paints ground tiles around the camera as it moves, so the map never ends.
+    /// Kamera ilerledikçe etrafına zemin karoları döşer; böylece harita hiç bitmez.
     /// </summary>
     [RequireComponent(typeof(Tilemap))]
     public class InfiniteGround : MonoBehaviour
     {
         [SerializeField] private TileBase tile;
-        [Tooltip("Extra tiles painted beyond the screen edge.")]
+        [Tooltip("Ekran kenarının ötesine fazladan döşenen karo sayısı.")]
         [SerializeField, Min(0)] private int margin = 4;
 
         private Tilemap map;

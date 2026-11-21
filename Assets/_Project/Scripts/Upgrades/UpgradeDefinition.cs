@@ -4,30 +4,30 @@ namespace PixelSurvivor
 {
     public enum UpgradeKind
     {
-        GunDamage,        // value = fraction, e.g. 0.25 = +25 %
-        GunFireRate,      // value = fraction shorter interval
-        GunProjectiles,   // value = extra projectiles
-        GunPierce,        // value = extra enemies pierced
-        OrbitCount,       // value = extra blades
-        OrbitPower,       // value = fraction more speed and damage
-        MoveSpeed,        // value = fraction
-        MaxHealth,        // value = flat HP (also heals that much)
-        PickupRadius,     // value = fraction
-        Heal,             // value = flat HP
-        // Values are stored as numbers in the upgrade assets: only ever append new kinds here.
-        RingCount,        // value = extra projectiles per ring
-        RingFireRate,     // value = fraction shorter interval
-        RingDamage,       // value = fraction
-        AxeCount,         // value = extra axes per throw (first one unlocks the weapon)
-        AxePower,         // value = fraction more damage
-        BombCount,        // value = extra bombs per volley (first one unlocks the weapon)
-        BombRadius,       // value = fraction larger blast
-        EvolveGun,        // evolutions: big one-time boosts, see UpgradeManager.Apply
+        GunDamage,        // value = oran, örn. 0.25 = +%25
+        GunFireRate,      // value = aralığın kısalma oranı
+        GunProjectiles,   // value = ek mermi sayısı
+        GunPierce,        // value = ek delinen düşman sayısı
+        OrbitCount,       // value = ek kürek sayısı
+        OrbitPower,       // value = hız ve hasardaki artış oranı
+        MoveSpeed,        // value = oran
+        MaxHealth,        // value = sabit can (o kadar da iyileştirir)
+        PickupRadius,     // value = oran
+        Heal,             // value = sabit can
+        // Değerler yükseltme asset'lerine sayı olarak kaydedilir: yeni türleri her zaman sadece sona ekle.
+        RingCount,        // value = çember başına ek mermi
+        RingFireRate,     // value = aralığın kısalma oranı
+        RingDamage,       // value = oran
+        AxeCount,         // value = atış başına ek balta (ilki silahı açar)
+        AxePower,         // value = hasar artış oranı
+        BombCount,        // value = atış başına ek bomba (ilki silahı açar)
+        BombRadius,       // value = patlama alanı artış oranı
+        EvolveGun,        // evrimler: tek seferlik büyük güçlendirmeler, bkz. UpgradeManager.Apply
         EvolveRing,
         EvolveOrbit,
     }
 
-    /// <summary>One choice that can appear on the level-up screen.</summary>
+    /// <summary>Seviye atlama ekranında çıkabilecek bir seçenek.</summary>
     [CreateAssetMenu(menuName = "PixelSurvivor/Upgrade", fileName = "Upgrade")]
     public class UpgradeDefinition : ScriptableObject
     {
@@ -36,15 +36,15 @@ namespace PixelSurvivor
         public Sprite icon;
         public UpgradeKind kind;
         public float value = 0.1f;
-        [Tooltip("0 = can be taken forever.")]
+        [Tooltip("0 = sınırsız alınabilir.")]
         [Min(0)] public int maxLevel = 5;
-        [Tooltip("Only offered after this upgrade has been taken at least once.")]
+        [Tooltip("Sadece bu yükseltme en az bir kez alındıktan sonra sunulur.")]
         public UpgradeDefinition requires;
-        [Tooltip("Only offered once ALL of these are at their max level (weapon evolutions).")]
+        [Tooltip("Sadece bunların HEPSİ maks seviyedeyken sunulur (silah evrimleri).")]
         public UpgradeDefinition[] requiresMaxed = System.Array.Empty<UpgradeDefinition>();
-        [Tooltip("Shown with an EVOLUTION badge on the level-up screen.")]
+        [Tooltip("Seviye atlama ekranında EVRİM rozetiyle gösterilir.")]
         public bool isEvolution;
-        [Tooltip("Relative chance of being offered.")]
+        [Tooltip("Sunulma ihtimalinin göreli ağırlığı.")]
         [Min(0f)] public float weight = 1f;
     }
 }

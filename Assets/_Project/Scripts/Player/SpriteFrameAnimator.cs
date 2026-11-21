@@ -4,8 +4,8 @@ using UnityEngine;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Minimal frame-by-frame sprite animator. Lighter than an Animator Controller
-    /// for characters that only need a handful of looping clips.
+    /// Basit kare kare sprite animatörü. Sadece birkaç döngüsel klibe ihtiyaç duyan karakterler için
+    /// Animator Controller'dan daha hafif.
     /// </summary>
     public class SpriteFrameAnimator : MonoBehaviour
     {
@@ -30,7 +30,7 @@ namespace PixelSurvivor
             if (clips.Length > 0) Play(clips[0].name);
         }
 
-        /// <summary>Replace the frames of an existing clip (e.g. to swap in another character's sprites).</summary>
+        /// <summary>Mevcut bir klibin karelerini değiştirir (örn. başka bir karakterin sprite'larını koymak için).</summary>
         public void SetFrames(string clipName, Sprite[] frames)
         {
             Clip clip = Array.Find(clips, c => c.name == clipName);

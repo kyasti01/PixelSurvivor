@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>One blade of an <see cref="OrbitWeapon"/>; hits each enemy once per pass.</summary>
+    /// <summary><see cref="OrbitWeapon"/> silahının bir küreği; her geçişte her düşmana bir kez vurur.</summary>
     [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
     public class OrbitBlade : MonoBehaviour
     {

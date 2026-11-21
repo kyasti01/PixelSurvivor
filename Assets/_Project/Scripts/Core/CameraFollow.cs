@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>Follows the target and supports short screen shakes.</summary>
+    /// <summary>Hedefi (oyuncuyu) takip eder ve kısa ekran sarsıntılarını destekler.</summary>
     public class CameraFollow : MonoBehaviour
     {
         [SerializeField] private Transform target;
-        [Tooltip("0 = locked to target. Higher values add a little lag.")]
+        [Tooltip("0 = hedefe kilitli. Daha yüksek değerler hafif bir gecikme ekler.")]
         [SerializeField, Min(0f)] private float smoothTime = 0.05f;
 
         private static CameraFollow instance;
@@ -26,7 +26,7 @@ namespace PixelSurvivor
             basePosition = transform.position;
         }
 
-        /// <summary>Shake the camera; a stronger shake overrides a weaker one already running.</summary>
+        /// <summary>Kamerayı sarsar; daha güçlü bir sarsıntı, devam eden zayıf olanın yerini alır.</summary>
         public static void Shake(float strength, float duration)
         {
             if (instance == null) return;

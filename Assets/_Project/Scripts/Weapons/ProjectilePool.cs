@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Pool of projectiles parented to a scene-root object, so shots don't move with the shooter.
+    /// Sahne köküne bağlı bir mermi havuzu; böylece mermiler ateş edenle birlikte hareket etmez.
     /// </summary>
     public sealed class ProjectilePool
     {
@@ -34,7 +34,7 @@ namespace PixelSurvivor
             if (root != null) Object.Destroy(root.gameObject);
         }
 
-        /// <summary>Nearest living enemy within <paramref name="range"/> of <paramref name="origin"/>, or null.</summary>
+        /// <summary><paramref name="origin"/> noktasına <paramref name="range"/> mesafesindeki en yakın canlı düşman, yoksa null.</summary>
         public static Enemy FindNearestEnemy(Vector2 origin, float range)
         {
             float bestSqr = range * range;

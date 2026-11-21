@@ -3,7 +3,7 @@ using UnityEngine.Pool;
 
 namespace PixelSurvivor
 {
-    /// <summary>Shared pool for every ranged enemy's shots.</summary>
+    /// <summary>Bütün menzilli düşmanların mermileri için ortak havuz.</summary>
     public class EnemyProjectiles : MonoBehaviour
     {
         [SerializeField] private EnemyProjectile prefab;

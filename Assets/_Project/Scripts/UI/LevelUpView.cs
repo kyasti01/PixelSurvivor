@@ -8,8 +8,8 @@ using UnityEngine.UI;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Level-up choices: pick one upgrade with the mouse or keys 1-3. Shown as a strip at the
-    /// bottom of the screen while the game keeps running (see UpgradeManager.pauseWhileChoosing).
+    /// Seviye atlama seçenekleri: fareyle ya da 1-3 tuşlarıyla bir yükseltme seç. Oyun devam ederken
+    /// ekranın altında bir şerit olarak gösterilir (bkz. UpgradeManager.pauseWhileChoosing).
     /// </summary>
     public class LevelUpView : MonoBehaviour
     {
@@ -20,7 +20,7 @@ namespace PixelSurvivor
             public Image icon;
             public Text title;
             public Text description;
-            [Tooltip("Small tag such as YENİ! / Sv.2 / EVRİM! (optional).")]
+            [Tooltip("YENİ! / Sv.2 / EVRİM! gibi küçük etiket (isteğe bağlı).")]
             public Text badge;
         }
 
@@ -31,7 +31,7 @@ namespace PixelSurvivor
         [SerializeField] private GameObject root;
         [SerializeField] private Text titleText;
         [SerializeField] private Option[] options;
-        [Tooltip("Ignore input briefly after opening, so a held key or click doesn't pick by accident.")]
+        [Tooltip("Açıldıktan hemen sonra girdiyi kısa süre yok say; basılı tutulan tuş ya da tıklama yanlışlıkla seçim yapmasın.")]
         [SerializeField, Min(0f)] private float inputDelay = 0.3f;
 
         private readonly List<UpgradeDefinition> current = new();
@@ -105,10 +105,10 @@ namespace PixelSurvivor
             GameManager gm = GameManager.Instance;
             if (gm != null && gm.IsGameOver)
             {
-                root.SetActive(false); // the run ended while choices were still on screen
+                root.SetActive(false); // seçenekler ekrandayken oyun bitti
                 return;
             }
-            if (gm != null && gm.IsMenuPaused) return; // Esc menu is open on top
+            if (gm != null && gm.IsMenuPaused) return; // Esc menüsü üstte açık
 
             Keyboard kb = Keyboard.current;
             if (kb == null) return;
@@ -126,7 +126,7 @@ namespace PixelSurvivor
             root.SetActive(false);
             Action<UpgradeDefinition> callback = onPick;
             onPick = null;
-            callback?.Invoke(current[index]); // may immediately Show() again for the next level
+            callback?.Invoke(current[index]); // sonraki seviye için hemen tekrar Show() çağrılabilir
         }
     }
 }

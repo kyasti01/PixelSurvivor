@@ -5,8 +5,8 @@ namespace PixelSurvivor
     public enum MetaStat { MaxHealth, Damage, MoveSpeed, PickupRadius, Greed }
 
     /// <summary>
-    /// Gold and permanent upgrades bought in the main-menu shop. Stored in PlayerPrefs,
-    /// so they survive between runs and game sessions.
+    /// Ana menüdeki dükkandan alınan altın ve kalıcı yükseltmeler. PlayerPrefs'te saklanır,
+    /// yani oyunlar ve oturumlar arasında kaybolmaz.
     /// </summary>
     public static class MetaProgression
     {
@@ -42,7 +42,7 @@ namespace PixelSurvivor
             return true;
         }
 
-        // Bonuses applied at the start of every run.
+        // Her oyunun başında uygulanan bonuslar.
         public static float HealthBonus => 10f * Level(MetaStat.MaxHealth);
         public static float DamageMultiplier => 1f + 0.06f * Level(MetaStat.Damage);
         public static float SpeedMultiplier => 1f + 0.04f * Level(MetaStat.MoveSpeed);
@@ -71,9 +71,9 @@ namespace PixelSurvivor
 
         private static string LevelKey(MetaStat stat) => "meta.level." + stat;
 
-        // ---------------------------------------------------------------- victories & characters
+        // ---------------------------------------------------------------- zaferler ve karakterler
 
-        /// <summary>True once the final boss has been beaten at least once.</summary>
+        /// <summary>Son boss en az bir kez yenildiyse true.</summary>
         public static bool HasWon => PlayerPrefs.GetInt("meta.won", 0) == 1;
 
         public static void RecordVictory()
@@ -89,7 +89,7 @@ namespace PixelSurvivor
             return PlayerPrefs.GetInt(CharacterKey(c), 0) == 1;
         }
 
-        /// <summary>Buys a gold-locked character. Victory-locked ones unlock by winning instead.</summary>
+        /// <summary>Altınla kilitli bir karakteri satın alır. Zaferle kilitli olanlar oyunu kazanınca açılır.</summary>
         public static bool TryUnlock(CharacterDefinition c)
         {
             if (IsUnlocked(c)) return true;

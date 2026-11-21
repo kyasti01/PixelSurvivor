@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>A shot fired by a ranged enemy; hurts the player on contact.</summary>
+    /// <summary>Menzilli bir düşmanın attığı mermi; değerse oyuncuya hasar verir.</summary>
     [RequireComponent(typeof(Rigidbody2D))]
     public class EnemyProjectile : MonoBehaviour
     {
@@ -11,7 +11,7 @@ namespace PixelSurvivor
         [SerializeField] private Sprite[] frames;
         [SerializeField, Min(1f)] private float fps = 10f;
         [SerializeField, Min(0.5f)] private float lifetime = 4f;
-        [Tooltip("Rotation to add so the sprite points along its flight direction (-90 for art drawn pointing up).")]
+        [Tooltip("Sprite uçuş yönünü göstersin diye eklenen dönüş (yukarı bakacak çizilmiş görseller için -90).")]
         [SerializeField] private float spriteAngleOffset = -90f;
 
         private Rigidbody2D rb;
@@ -52,7 +52,7 @@ namespace PixelSurvivor
             if (released || other.attachedRigidbody == null) return;
             if (!other.attachedRigidbody.TryGetComponent(out PlayerController player)) return;
 
-            player.Health.TakeDamage(damage); // ignored while dashing
+            player.Health.TakeDamage(damage); // atılma sırasında yok sayılır
             Release();
         }
 

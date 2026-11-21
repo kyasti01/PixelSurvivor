@@ -6,9 +6,9 @@ namespace PixelSurvivor
     public class PlayerExperience : MonoBehaviour
     {
         [SerializeField, Min(0.1f)] private float pickupRadius = 2.5f;
-        [Tooltip("XP needed for level 1 -> 2.")]
+        [Tooltip("Seviye 1 -> 2 için gereken XP.")]
         [SerializeField, Min(1)] private int baseXpToLevel = 3;
-        [Tooltip("Extra XP needed for each further level.")]
+        [Tooltip("Sonraki her seviye için gereken ek XP.")]
         [SerializeField, Min(0)] private int xpGrowthPerLevel = 3;
         [SerializeField] private AudioClip levelUpSfx;
 
@@ -16,7 +16,7 @@ namespace PixelSurvivor
         public int Xp { get; private set; }
         public int XpToNext => baseXpToLevel + (Level - 1) * xpGrowthPerLevel;
         public float Progress => (float)Xp / XpToNext;
-        /// <summary>Levels gained whose upgrade has not been chosen yet.</summary>
+        /// <summary>Kazanılmış ama yükseltmesi henüz seçilmemiş seviyeler.</summary>
         public int PendingLevelUps { get; private set; }
 
         public float PickupRadius
@@ -25,7 +25,7 @@ namespace PixelSurvivor
             set => pickupRadius = Mathf.Max(0.1f, value);
         }
 
-        /// <summary>Raised once for every level gained.</summary>
+        /// <summary>Kazanılan her seviye için bir kez tetiklenir.</summary>
         public event Action LeveledUp;
 
         public void AddXp(int amount)

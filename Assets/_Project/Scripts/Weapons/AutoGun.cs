@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>Fires automatically at the nearest living enemy in range.</summary>
+    /// <summary>Menzildeki en yakın canlı düşmana otomatik ateş eder.</summary>
     public class AutoGun : MonoBehaviour
     {
         [SerializeField] private Projectile projectilePrefab;
@@ -13,11 +13,11 @@ namespace PixelSurvivor
         [SerializeField, Min(0.5f)] private float range = 8f;
         [SerializeField, Min(0f)] private float damage = 13f;
         [SerializeField, Min(0.5f)] private float projectileSpeed = 10f;
-        [Tooltip("How many extra enemies a projectile passes through.")]
+        [Tooltip("Bir merminin delip geçtiği ek düşman sayısı.")]
         [SerializeField, Min(0)] private int pierce = 1;
         [SerializeField, Min(0f)] private float knockback = 1.2f;
         [SerializeField, Min(1)] private int projectileCount = 1;
-        [Tooltip("Degrees between projectiles when firing several at once.")]
+        [Tooltip("Aynı anda birden fazla mermi atılırken mermiler arası açı (derece).")]
         [SerializeField, Min(0f)] private float spreadAngle = 12f;
 
         private ProjectilePool pool;

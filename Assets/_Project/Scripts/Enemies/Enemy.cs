@@ -8,26 +8,26 @@ namespace PixelSurvivor
     [RequireComponent(typeof(Rigidbody2D), typeof(Health), typeof(Collider2D))]
     public class Enemy : MonoBehaviour
     {
-        /// <summary>Every enemy currently in play (alive or playing its death animation).</summary>
+        /// <summary>Şu an oyunda olan bütün düşmanlar (hayatta olanlar ya da ölüm animasyonu oynayanlar).</summary>
         public static readonly List<Enemy> Active = new();
-        /// <summary>Raised once when an enemy's health reaches zero.</summary>
+        /// <summary>Bir düşmanın canı sıfıra indiğinde bir kez tetiklenir.</summary>
         public static event Action<Enemy> Killed;
 
         [SerializeField] private SpriteRenderer body;
         [SerializeField] private Animator animator;
-        [Tooltip("Tick if the source sprite looks to the right when not flipped.")]
+        [Tooltip("Orijinal sprite çevrilmemişken sağa bakıyorsa işaretle.")]
         [SerializeField] private bool spriteFacesRight = true;
         [SerializeField, Min(0f)] private float deathDuration = 0.6f;
-        [Tooltip("How long a knockback overrides chasing.")]
+        [Tooltip("Geri itilme, takibi ne kadar süre bastırır.")]
         [SerializeField, Min(0f)] private float knockbackTime = 0.08f;
-        [Tooltip("Enemies left this far behind are moved back in front of the player.")]
+        [Tooltip("Bu kadar geride kalan düşmanlar oyuncunun önüne taşınır.")]
         [SerializeField, Min(5f)] private float recycleDistance = 22f;
         [SerializeField, Min(1f)] private float recycleSpawnDistance = 15f;
-        [Tooltip("Random per-enemy offset (degrees) from the straight line to the player.")]
+        [Tooltip("Her düşmana özel, oyuncuya giden düz çizgiden rastgele sapma (derece).")]
         [SerializeField, Range(0f, 45f)] private float maxApproachAngle = 15f;
         [SerializeField] private Color hitFlashColor = new(1f, 0.35f, 0.35f);
         [SerializeField, Min(0f)] private float hitFlashTime = 0.08f;
-        [Tooltip("Hits within this window are summed into one damage number.")]
+        [Tooltip("Bu süre içindeki vuruşlar tek bir hasar sayısında toplanır.")]
         [SerializeField, Min(0f)] private float damageNumberInterval = 0.3f;
         [SerializeField] private AudioClip hitSfx;
         [SerializeField] private AudioClip deathSfx;
@@ -46,7 +46,7 @@ namespace PixelSurvivor
         private float flashTimer;
         private float deathTimer;
         private float approachAngle;
-        private float moveSpeed;  // stats scaled by run time, set in Init
+        private float moveSpeed;  // oyun süresine göre ölçeklenmiş değerler, Init'te ayarlanır
         private float contactDps;
         private float projectileDamage;
         private float attackTimer;
@@ -55,11 +55,11 @@ namespace PixelSurvivor
         private Color baseColor = Color.white;
 
         public bool IsAlive => !dying;
-        /// <summary>Tougher, golden variant with better drops (see MakeElite).</summary>
+        /// <summary>Daha güçlü, altın renkli ve daha iyi ödül veren versiyon (bkz. MakeElite).</summary>
         public bool IsElite { get; private set; }
         public EnemyStats Stats => stats;
         public Health Health => health;
-        /// <summary>Damage per second dealt while touching the player (already scaled by run time).</summary>
+        /// <summary>Oyuncuya değerken verilen saniyelik hasar (oyun süresine göre zaten ölçeklenmiş).</summary>
         public float ContactDps => dying ? 0f : contactDps;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -87,7 +87,7 @@ namespace PixelSurvivor
             moveSpeed = stats.moveSpeed * speedMultiplier;
             contactDps = stats.contactDps * damageMultiplier;
             projectileDamage = stats.projectileDamage * damageMultiplier;
-            attackTimer = stats.attackInterval * UnityEngine.Random.Range(0.3f, 1f); // don't all fire at once
+            attackTimer = stats.attackInterval * UnityEngine.Random.Range(0.3f, 1f); // hepsi aynı anda ateş etmesin
             IsElite = false;
             target = chaseTarget;
             release = releaseToPool;
@@ -116,7 +116,7 @@ namespace PixelSurvivor
             health.SetMax(stats.maxHealth * healthMultiplier);
         }
 
-        /// <summary>Call right after Init: bigger, golden, more health (drops are handled by DropManager).</summary>
+        /// <summary>Init'ten hemen sonra çağır: daha büyük, altın renkli, daha çok can (ödülleri DropManager halleder).</summary>
         public void MakeElite(float healthMultiplier, float scaleMultiplier, Color tint)
         {
             IsElite = true;
@@ -143,22 +143,22 @@ namespace PixelSurvivor
             Vector2 toTarget = (Vector2)target.position - rb.position;
             if (toTarget.sqrMagnitude > recycleDistance * recycleDistance)
             {
-                // Left far behind: reappear on the side the player is heading towards.
+                // Çok geride kaldı: oyuncunun gittiği tarafta yeniden ortaya çık.
                 Vector2 p = (Vector2)target.position + toTarget.normalized * recycleSpawnDistance;
                 rb.position = p;
                 transform.position = p;
                 return;
             }
 
-            // Ranged enemies stop at a comfortable distance and shoot instead of closing in.
+            // Menzilli düşmanlar yaklaşmak yerine rahat bir mesafede durup ateş eder.
             if (stats.IsRanged && toTarget.sqrMagnitude < Sq(stats.attackRange * 0.7f))
             {
                 rb.linearVelocity = Vector2.zero;
                 return;
             }
 
-            // Each enemy approaches at a slight personal angle, so the crowd spreads out and
-            // enemies slide past obstacles instead of pushing into their exact centre.
+            // Her düşman hafif kişisel bir açıyla yaklaşır; böylece kalabalık yayılır ve
+            // düşmanlar engellerin tam ortasına yüklenmek yerine kenarından kayar.
             Vector2 dir = Quaternion.Euler(0f, 0f, approachAngle) * toTarget.normalized;
             rb.linearVelocity = dir * moveSpeed;
         }
@@ -183,7 +183,7 @@ namespace PixelSurvivor
         {
             if (dying)
             {
-                // Fade the corpse out over the death animation.
+                // Ölüm animasyonu boyunca cesedi soldur.
                 deathTimer += Time.deltaTime;
                 Color c = baseColor;
                 c.a *= 1f - Mathf.Clamp01(deathTimer / deathDuration);
@@ -217,11 +217,11 @@ namespace PixelSurvivor
         {
             if (dying) return;
 
-            // Damage numbers are batched per enemy (see FlushDamageNumber) so crowds stay readable.
+            // Hasar sayıları her düşman için toplanır (bkz. FlushDamageNumber); kalabalıkta ekran okunur kalsın diye.
             pendingNumber += damage;
             if (numberTimer <= 0f) FlushDamageNumber();
             health.TakeDamage(damage);
-            if (dying) return; // killed by this hit
+            if (dying) return; // bu vuruşla öldü
 
             flashTimer = hitFlashTime;
             body.color = hitFlashColor;
@@ -235,7 +235,7 @@ namespace PixelSurvivor
             }
         }
 
-        /// <summary>Shows the damage gathered since the last number as one number, then waits a moment.</summary>
+        /// <summary>Son sayıdan bu yana birikmiş hasarı tek sayı olarak gösterir, sonra kısa bir süre bekler.</summary>
         private void FlushDamageNumber()
         {
             if (pendingNumber <= 0f) return;
@@ -246,11 +246,11 @@ namespace PixelSurvivor
 
         private void OnDied()
         {
-            FlushDamageNumber(); // always show the killing blow
+            FlushDamageNumber(); // öldüren vuruşu her zaman göster
             dying = true;
             col.enabled = false;
             rb.linearVelocity = Vector2.zero;
-            body.sortingOrder = -1; // corpses render under living enemies
+            body.sortingOrder = -1; // cesetler yaşayan düşmanların altında çizilir
             animator.SetBool(DeadHash, true);
             SfxPlayer.Play(deathSfx, 0.6f);
             Killed?.Invoke(this);

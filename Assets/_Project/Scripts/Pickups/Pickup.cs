@@ -7,9 +7,8 @@ namespace PixelSurvivor
     public enum PickupKind { Experience, Health, Magnet, Chest, Gold }
 
     /// <summary>
-    /// Something lying on the ground. Once the player gets within pickup radius it flies
-    /// to them and is collected. Uses distance checks instead of physics, which is cheaper
-    /// with hundreds of gems around.
+    /// Yerde duran bir şey. Oyuncu toplama alanına girince ona doğru uçar ve toplanır.
+    /// Fizik yerine mesafe kontrolü kullanır; etrafta yüzlerce taş varken bu daha ucuzdur.
     /// </summary>
     public class Pickup : MonoBehaviour
     {
@@ -19,7 +18,7 @@ namespace PixelSurvivor
         [SerializeField, Min(0.05f)] private float collectDistance = 0.4f;
         [SerializeField, Min(1f)] private float acceleration = 40f;
         [SerializeField, Min(1f)] private float maxSpeed = 16f;
-        [Tooltip("Sprites are scaled to this pixels-per-unit so art from different packs matches.")]
+        [Tooltip("Sprite'lar bu pixels-per-unit değerine göre ölçeklenir; farklı paketlerin çizimleri aynı boyutta görünsün diye.")]
         [SerializeField, Min(1f)] private float referencePpu = 18f;
         [SerializeField, Min(0.1f)] private float baseScale = 1.3f;
 

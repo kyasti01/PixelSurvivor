@@ -7,11 +7,11 @@ namespace PixelSurvivor
     public class Projectile : MonoBehaviour
     {
         [SerializeField, Min(0.1f)] private float lifetime = 2f;
-        [Tooltip("Rotation to add so the sprite points along its flight direction (-90 for sprites drawn pointing up).")]
+        [Tooltip("Sprite uçuş yönünü göstersin diye eklenen dönüş (yukarı bakacak çizilmiş sprite'lar için -90).")]
         [SerializeField] private float spriteAngleOffset = -90f;
-        [Tooltip("Downward acceleration, for thrown weapons that arc (0 = straight line).")]
+        [Tooltip("Aşağı doğru ivme; kavis çizerek atılan silahlar için (0 = düz çizgi).")]
         [SerializeField, Min(0f)] private float gravity;
-        [Tooltip("Degrees per second. Non-zero spins the sprite instead of aligning it to the flight direction.")]
+        [Tooltip("Saniyede derece. Sıfır değilse sprite uçuş yönüne hizalanmak yerine döner.")]
         [SerializeField] private float spinSpeed;
 
         private Rigidbody2D rb;

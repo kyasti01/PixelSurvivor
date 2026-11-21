@@ -4,7 +4,7 @@ namespace PixelSurvivor
 {
     public enum Difficulty { Easy, Normal, Hard }
 
-    /// <summary>Difficulty chosen in the menu (remembered in PlayerPrefs) and what it changes.</summary>
+    /// <summary>Menüde seçilen zorluk (PlayerPrefs'te saklanır) ve neyi değiştirdiği.</summary>
     public static class DifficultySettings
     {
         private const string Key = "settings.difficulty";
@@ -21,7 +21,7 @@ namespace PixelSurvivor
 
         public static float EnemyHealth => Pick(0.7f, 1f, 1.4f);
         public static float EnemyDamage => Pick(0.6f, 1f, 1.4f);
-        /// <summary>Multiplies the time between spawns: higher = fewer enemies.</summary>
+        /// <summary>Düşman doğma aralığını çarpar: yüksek = daha az düşman.</summary>
         public static float SpawnInterval => Pick(1.3f, 1f, 0.8f);
         public static float GoldReward => Pick(0.75f, 1f, 1.5f);
 

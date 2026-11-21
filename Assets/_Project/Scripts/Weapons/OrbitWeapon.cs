@@ -4,8 +4,8 @@ using UnityEngine;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Blades circling the player, hitting every enemy they pass through.
-    /// Starts with zero blades; upgrades add them.
+    /// Oyuncunun etrafında dönen kürekler; içinden geçtikleri her düşmana vururlar.
+    /// Sıfır kürekle başlar; yükseltmeler kürek ekler.
     /// </summary>
     public class OrbitWeapon : MonoBehaviour
     {
@@ -18,7 +18,7 @@ namespace PixelSurvivor
         [SerializeField] private float degreesPerSecond = 200f;
         [SerializeField, Min(0f)] private float damage = 15f;
         [SerializeField, Min(0f)] private float knockback = 2f;
-        [Tooltip("Rotation added so the sprite points outward (-90 for sprites drawn pointing up).")]
+        [Tooltip("Sprite dışarı baksın diye eklenen dönüş (yukarı bakacak çizilmiş sprite'lar için -90).")]
         [SerializeField] private float spriteAngleOffset = -90f;
 
         private readonly List<OrbitBlade> blades = new();

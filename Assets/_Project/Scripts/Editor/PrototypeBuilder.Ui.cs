@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 namespace PixelSurvivor.EditorTools
 {
-    /// <summary>Builds the screen-space UI: HUD, level-up, pause and game-over panels, and the main menu.</summary>
+    /// <summary>Ekran UI'ını kurar: HUD, seviye atlama, duraklatma ve oyun sonu panelleri ile ana menü.</summary>
     public static partial class PrototypeBuilder
     {
         private static readonly Color Gold = new(1f, 0.82f, 0.35f);
         private static readonly Color Muted = new(0.85f, 0.8f, 0.75f);
         private static Font uiFont;
-        // Set before building UI; every button made by UiButton gets these sounds.
+        // UI kurulmadan önce ayarlanır; UiButton ile yapılan her buton bu sesleri alır.
         private static AudioClip uiClickSfx;
         private static AudioClip uiHoverSfx;
 
@@ -20,14 +20,14 @@ namespace PixelSurvivor.EditorTools
             Transform root = CreateCanvas("UI").transform;
 
             HudView hud = BuildHud(root);
-            BuildDamageNumbers(root);   // under the panels, above the HUD
+            BuildDamageNumbers(root);   // panellerin altında, HUD'un üstünde
             LevelUpView levelUp = BuildLevelUp(root);
             BuildPauseMenu(root, levelUp);
             GameOverView gameOver = BuildGameOver(root);
             return (hud, levelUp, gameOver);
         }
 
-        /// <summary>Screen-space canvas scaled from a 1920x1080 reference.</summary>
+        /// <summary>1920x1080 referansına göre ölçeklenen ekran canvas'ı.</summary>
         private static Canvas CreateCanvas(string name)
         {
             var go = new GameObject(name, typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster))
@@ -40,8 +40,8 @@ namespace PixelSurvivor.EditorTools
             var scaler = go.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
-            // Expand: the whole 1920x1080 layout always fits on screen, whatever the aspect ratio
-            // (match-width/height cut panels off on wide or small Game views).
+            // Expand: 1920x1080 düzenin tamamı, en-boy oranı ne olursa olsun her zaman ekrana sığar
+            // (match-width/height modu geniş ya da küçük Game pencerelerinde panelleri kesiyordu).
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
             return canvas;
         }
@@ -53,7 +53,7 @@ namespace PixelSurvivor.EditorTools
             RectTransform hud = UiRect("HUD", canvas);
             Stretch(hud);
 
-            // XP bar across the top edge (Undead Survivor bar sprites).
+            // Üst kenar boyunca XP barı (Undead Survivor bar sprite'ları).
             Image xpBack = UiImage("XpBar", hud, null, new Color(0.08f, 0.08f, 0.1f, 0.9f));
             Place(xpBack.rectTransform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0.5f, 1), Vector2.zero, new Vector2(0, 36));
             Image xpFill = UiImage("Fill", xpBack.transform, SpriteNamed(UiSheet, "Front 0"), Color.white);
@@ -63,9 +63,9 @@ namespace PixelSurvivor.EditorTools
             Stretch(level.rectTransform);
             level.rectTransform.offsetMax = new Vector2(-14, 0);
 
-            // Health bar, top-left (GUI_Parts frame + line).
+            // Can barı, sol üst (GUI_Parts çerçeve + çizgi).
             RectTransform hp = UiRect("Health", hud);
-            // Shorter and thicker than the source art; the frame is 9-sliced so its edges keep their size.
+            // Orijinal görselden daha kısa ve kalın; çerçeve 9-slice olduğu için kenarları bozulmaz.
             Place(hp, new Vector2(0, 1), new Vector2(0, 1), new Vector2(0, 1), new Vector2(24, -46), new Vector2(340, 54));
             Image hpFill = UiImage("Line", hp, GuiSprite("Hp_line"), Color.white);
             Stretch(hpFill.rectTransform, 4f);
@@ -74,22 +74,22 @@ namespace PixelSurvivor.EditorTools
             Text hpText = UiText("Value", hp, "100 / 100", 34, TextAnchor.MiddleCenter, Color.white);
             Stretch(hpText.rectTransform);
 
-            // Dash readiness, a thin bar under the health bar.
+            // Atılma hazırlık barı, can barının altında ince bir bar.
             Image dashBack = UiImage("DashBar", hud, null, new Color(0f, 0f, 0f, 0.6f));
             Place(dashBack.rectTransform, new Vector2(0, 1), new Vector2(0, 1), new Vector2(0, 1), new Vector2(30, -104), new Vector2(328, 12));
             Image dashFill = UiImage("Fill", dashBack.transform, null, Color.white);
             Stretch(dashFill.rectTransform, 2f);
             MakeFilled(dashFill);
 
-            // Kill and gold counters, top-right.
+            // Kill ve altın sayaçları, sağ üst.
             Text killText = IconCounter(hud, "Kills", SpriteNamed(UiSheet, "Icon 0"), -42);
             Text goldText = IconCounter(hud, "Gold", BrackeysSprite("Items & Icons/Pixel Art/Coin.png"), -94);
 
-            // Countdown to the final boss, top-centre.
+            // Son boss'a geri sayım, üst orta.
             Text timer = UiText("Timer", hud, "00:00", 44, TextAnchor.MiddleCenter, Color.white);
             Place(timer.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -42), new Vector2(500, 56));
 
-            // Boss health bar under the timer (hidden until a boss appears) and the warning text.
+            // Sayacın altında boss can barı (boss gelene kadar gizli) ve uyarı yazısı.
             RectTransform bossBar = UiRect("BossBar", hud);
             Place(bossBar, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -100), new Vector2(720, 46));
             Image bossFill = UiImage("Line", bossBar, GuiSprite("Hp_line"), new Color(0.75f, 0.35f, 1f));
@@ -121,7 +121,7 @@ namespace PixelSurvivor.EditorTools
             return view;
         }
 
-        /// <summary>Icon on the left, right-aligned number, anchored to the top-right corner.</summary>
+        /// <summary>Solda ikon, sağa hizalı sayı; sağ üst köşeye sabitlenir.</summary>
         private static Text IconCounter(Transform hud, string name, Sprite icon, float y)
         {
             RectTransform root = UiRect(name, hud);
@@ -141,7 +141,7 @@ namespace PixelSurvivor.EditorTools
             Set(layer.gameObject.AddComponent<DamageNumbers>(), "font", BodyFont);
         }
 
-        // ------------------------------------------------------------------ level up
+        // ------------------------------------------------------------------ seviye atlama
 
         private static LevelUpView BuildLevelUp(Transform canvas)
         {
@@ -149,13 +149,12 @@ namespace PixelSurvivor.EditorTools
             Stretch(holder);
             var view = holder.gameObject.AddComponent<LevelUpView>();
 
-            // A strip along the bottom edge: no dimming, nothing blocks clicks outside the cards,
-            // and the game keeps running while the player chooses.
-            // Font sizes are multiples of 16: neodgm is a 16 px pixel font and blurs at other sizes.
+            // Alt kenar boyunca bir şerit: ekran kararmaz, kartların dışındaki tıklamaları engellemez
+            // ve oyuncu seçim yaparken oyun devam eder.
             RectTransform strip = UiRect("Strip", holder);
             Place(strip, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0, 10), new Vector2(1820, 300));
 
-            // Dark backing so the text reads clearly over a busy battlefield.
+            // Kalabalık savaş alanının üstünde yazılar net okunsun diye koyu arka plan.
             Image backing = UiImage("Backing", strip, null, new Color(0f, 0f, 0f, 0.72f));
             Stretch(backing.rectTransform);
 
@@ -174,7 +173,7 @@ namespace PixelSurvivor.EditorTools
                 Place((RectTransform)button.transform, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0),
                     new Vector2(-600 + i * 600, 16), new Vector2(580, 210));
 
-                // Left column: key to press (top), icon, level badge (bottom).
+                // Sol sütun: basılacak tuş (üstte), ikon, seviye rozeti (altta).
                 Text key = UiText("Key", button.transform, (i + 1).ToString(), 48, TextAnchor.UpperLeft, Gold);
                 Place(key.rectTransform, new Vector2(0, 1), new Vector2(0, 1), new Vector2(0, 1), new Vector2(16, -8), new Vector2(50, 56));
 
@@ -185,7 +184,7 @@ namespace PixelSurvivor.EditorTools
                 Text badge = UiText("Badge", button.transform, "YENİ!", 32, TextAnchor.MiddleCenter, Color.white);
                 Place(badge.rectTransform, Vector2.zero, Vector2.zero, Vector2.zero, new Vector2(10, 12), new Vector2(196, 40));
 
-                // Right side: name, then description.
+                // Sağ taraf: isim, ardından açıklama.
                 Text name = UiText("Title", button.transform, "Upgrade", 34, TextAnchor.UpperLeft, Gold);
                 Place(name.rectTransform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0, 1), Vector2.zero, Vector2.zero);
                 name.rectTransform.offsetMin = new Vector2(210, -62);
@@ -209,7 +208,7 @@ namespace PixelSurvivor.EditorTools
             return view;
         }
 
-        // ------------------------------------------------------------------ pause
+        // ------------------------------------------------------------------ duraklatma
 
         private static void BuildPauseMenu(Transform canvas, LevelUpView levelUp)
         {
@@ -248,7 +247,7 @@ namespace PixelSurvivor.EditorTools
             return UiSlider(label + "Slider", parent, position + new Vector2(110, 0), new Vector2(440, 40));
         }
 
-        // ------------------------------------------------------------------ game over
+        // ------------------------------------------------------------------ oyun sonu
 
         private static GameOverView BuildGameOver(Transform canvas)
         {
@@ -282,7 +281,7 @@ namespace PixelSurvivor.EditorTools
             return view;
         }
 
-        // ------------------------------------------------------------------ main menu
+        // ------------------------------------------------------------------ ana menü
 
         private static void BuildMenuUi(Font font, CharacterDefinition[] characters, AudioClip buySfx)
         {
@@ -293,10 +292,10 @@ namespace PixelSurvivor.EditorTools
             Stretch(holder);
             var view = holder.gameObject.AddComponent<MainMenuView>();
 
-            // Dim the grass so the menu reads clearly.
+            // Menü net okunsun diye çimeni karart.
             Stretch(UiImage("Dim", holder, null, new Color(0f, 0f, 0f, 0.45f)).rectTransform);
 
-            // --- Title screen
+            // --- Başlık ekranı
             RectTransform main = UiRect("MainPanel", holder);
             Stretch(main);
 
@@ -313,7 +312,7 @@ namespace PixelSurvivor.EditorTools
             Button quit = UiButton("Quit", main, new Vector2(0, -355), new Vector2(480, 100));
             Stretch(UiText("Label", quit.transform, "ÇIKIŞ", 48, TextAnchor.MiddleCenter, Gold).rectTransform);
 
-            // --- Character select
+            // --- Karakter seçimi
             RectTransform select = UiRect("SelectPanel", holder);
             Stretch(select);
 
@@ -323,7 +322,7 @@ namespace PixelSurvivor.EditorTools
 
             var so = new SerializedObject(view);
 
-            // Difficulty row between the heading and the cards.
+            // Başlık ile kartlar arasında zorluk satırı.
             SerializedProperty diffButtons = so.FindProperty("difficultyButtons");
             SerializedProperty diffLabels = so.FindProperty("difficultyLabels");
             diffButtons.arraySize = 3;
@@ -367,7 +366,7 @@ namespace PixelSurvivor.EditorTools
             so.FindProperty("goldText").objectReferenceValue = selectGold;
             so.FindProperty("unlockSfx").objectReferenceValue = buySfx;
 
-            // --- Shop & how to play
+            // --- Dükkan ve nasıl oynanır
             RectTransform shopPanel = BuildShop(holder, buySfx, out Button shopBack);
             RectTransform howToPanel = BuildHowToPlay(holder, out Button howToBack);
 
@@ -480,8 +479,8 @@ namespace PixelSurvivor.EditorTools
             Image window = Window(panel, new Vector2(1620, 700));
             window.rectTransform.anchoredPosition = new Vector2(0, 0);
 
-            // Left column: controls + weapons. Right column: goal + tips.
-            // Section titles use the pixel font, paragraphs the readable body font.
+            // Sol sütun: kontroller + silahlar. Sağ sütun: amaç + ipuçları.
+            // Bölüm başlıkları piksel fontta, paragraflar okunaklı sade fontta.
             HowToSection(window.transform, "KONTROLLER", HowToControls, new Vector2(80, -60), 300);
             HowToSection(window.transform, "SİLAHLAR", HowToWeapons, new Vector2(80, -450), 140);
             HowToSection(window.transform, "AMAÇ", HowToGoal, new Vector2(850, -60), 300);
@@ -496,7 +495,7 @@ namespace PixelSurvivor.EditorTools
             return panel;
         }
 
-        /// <summary>Gold pixel-font title with a wrapped body paragraph below it (positions from the window's top-left).</summary>
+        /// <summary>Altın renkli piksel font başlık ve altında satır kaydıran bir paragraf (konumlar pencerenin sol üstüne göre).</summary>
         private static void HowToSection(Transform window, string title, string body, Vector2 topLeft, float bodyHeight)
         {
             var anchor = new Vector2(0, 1);
@@ -514,7 +513,7 @@ namespace PixelSurvivor.EditorTools
             Place(heading.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -70), new Vector2(1200, 100));
         }
 
-        // ------------------------------------------------------------------ UI helpers
+        // ------------------------------------------------------------------ UI yardımcı metotları
 
         private static readonly Vector2 Center = new(0.5f, 0.5f);
 
@@ -544,7 +543,7 @@ namespace PixelSurvivor.EditorTools
             rt.offsetMax = new Vector2(-inset, -inset);
         }
 
-        /// <summary>GUI_Parts background + ornate frame, centred.</summary>
+        /// <summary>GUI_Parts arka planı + süslü çerçeve, ortalanmış.</summary>
         private static Image Window(Transform parent, Vector2 size)
         {
             Image window = UiImage("Window", parent, GuiSprite("mid_background"), Color.white, Image.Type.Sliced, 1f);
@@ -574,12 +573,12 @@ namespace PixelSurvivor.EditorTools
         }
 
         /// <summary>
-        /// Unity's built-in sans-serif font: readable at any scale and has every Turkish letter.
-        /// Used for longer body text; titles and buttons keep the pixel font.
+        /// Unity'nin yerleşik sans-serif fontu: her boyutta okunur ve bütün Türkçe harfleri içerir.
+        /// Uzun metinlerde kullanılır; başlıklar ve butonlar piksel fontta kalır.
         /// </summary>
         private static Font BodyFont => Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
-        /// <summary>Paragraph text in the readable body font (see <see cref="BodyFont"/>).</summary>
+        /// <summary>Okunaklı sade fontta paragraf metni (bkz. <see cref="BodyFont"/>).</summary>
         private static Text BodyText(string name, Transform parent, string text, int size, TextAnchor anchor, Color color)
         {
             Text t = UiText(name, parent, text, size, anchor, color);
@@ -591,12 +590,12 @@ namespace PixelSurvivor.EditorTools
             return t;
         }
 
-        /// <summary>The pixel font is only used at or above this size; below it, it blurs when the UI is scaled down.</summary>
+        /// <summary>Piksel font sadece bu boyutta ve üstünde kullanılır; altında, arayüz küçüldüğünde bulanıklaşıyor.</summary>
         private const int PixelFontMinSize = 48;
 
         /// <summary>
-        /// Label text. Big titles use the pixel font for style; everything smaller uses the bold body font,
-        /// which stays readable even when the 1920x1080 UI is shown on a small window or laptop.
+        /// Etiket metni. Büyük başlıklar stil için piksel fontu kullanır; daha küçük her şey kalın sade fontu kullanır,
+        /// böylece 1920x1080 arayüz küçük bir pencerede ya da dizüstünde gösterilse bile okunur kalır.
         /// </summary>
         private static Text UiText(string name, Transform parent, string text, int size, TextAnchor anchor, Color color)
         {
@@ -618,7 +617,7 @@ namespace PixelSurvivor.EditorTools
             return t;
         }
 
-        /// <summary>GUI_Parts button; swaps to the lit sprite on hover/press and plays UI sounds.</summary>
+        /// <summary>GUI_Parts butonu; üstüne gelince/basılınca parlak sprite'a geçer ve UI sesleri çalar.</summary>
         private static Button UiButton(string name, Transform parent, Vector2 position, Vector2 size)
         {
             Image bg = UiImage(name, parent, GuiSprite("button_ready_off"), Color.white, Image.Type.Sliced, 2f);
@@ -643,14 +642,14 @@ namespace PixelSurvivor.EditorTools
             return button;
         }
 
-        /// <summary>0-1 horizontal slider: dark track, gold fill, small handle.</summary>
+        /// <summary>0-1 yatay kaydırıcı: koyu iz, altın dolgu, küçük tutamak.</summary>
         private static Slider UiSlider(string name, Transform parent, Vector2 position, Vector2 size)
         {
             RectTransform root = UiRect(name, parent);
             Place(root, Center, Center, Center, position, size);
 
             Image track = UiImage("Background", root, null, new Color(0f, 0f, 0f, 0.6f));
-            track.raycastTarget = true; // clicking the track jumps the handle there
+            track.raycastTarget = true; // ize tıklayınca tutamak oraya atlar
             Stretch(track.rectTransform);
             track.rectTransform.anchorMin = new Vector2(0f, 0.3f);
             track.rectTransform.anchorMax = new Vector2(1f, 0.7f);

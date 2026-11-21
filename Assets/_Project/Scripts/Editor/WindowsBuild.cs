@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace PixelSurvivor.EditorTools
 {
-    /// <summary>One-click Windows build into &lt;project&gt;/Builds/Windows.</summary>
+    /// <summary>Tek tıkla Windows build'i, &lt;proje&gt;/Builds/Windows klasörüne.</summary>
     public static class WindowsBuild
     {
         private const string OutputDir = "Builds/Windows";
@@ -63,9 +63,9 @@ namespace PixelSurvivor.EditorTools
         }
 
         /// <summary>
-        /// Zips the build into Builds/PixelSurvivor_Windows.zip, leaving out Unity's debug folders
-        /// ("..._DontShip...") that must not be distributed. Everything sits in a PixelSurvivor/ folder
-        /// inside the zip, so players extract it and run PixelSurvivor.exe.
+        /// Build'i Builds/PixelSurvivor_Windows.zip dosyasına sıkıştırır; dağıtılmaması gereken Unity
+        /// hata ayıklama klasörlerini ("..._DontShip...") dışarıda bırakır. Her şey zip içinde bir PixelSurvivor/
+        /// klasöründe durur; oyuncular zip'i çıkartıp PixelSurvivor.exe'yi çalıştırır.
         /// </summary>
         private static string CreateShareableZip()
         {

@@ -6,10 +6,10 @@ using Random = System.Random;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Scatters props (graves, rocks, barrels...) over the endless ground. Upright props are solid
-    /// obstacles; flat ones (skulls, pentagrams) can be walked over. The world is split into chunks;
-    /// each chunk's layout comes from a seed, so walking back shows the same props. Chunks far from
-    /// the camera are recycled.
+    /// Sonsuz zemine dekor serper (mezar taşı, kaya, fıçı...). Dik duran dekorlar katı engeldir;
+    /// yerde yatanların (kafatası, pentagram) üzerinden geçilebilir. Dünya parçalara (chunk) bölünür;
+    /// her parçanın yerleşimi bir seed'den gelir, yani geri dönünce aynı dekorlar görünür. Kameradan
+    /// uzaktaki parçalar geri dönüştürülür.
     /// </summary>
     public class DecorScatter : MonoBehaviour
     {
@@ -18,23 +18,23 @@ namespace PixelSurvivor
         {
             public Sprite sprite;
             [Min(0f)] public float weight = 1f;
-            [Tooltip("Flat on the ground (drawn under characters, can be walked over), e.g. a pentagram.")]
+            [Tooltip("Yerde yatar (karakterlerin altında çizilir, üzerinden geçilir), örn. pentagram.")]
             public bool flat;
         }
 
         [Header("Obstacles")]
-        [Tooltip("Collider radius as a fraction of the sprite's smaller side. Non-flat props block movement.")]
+        [Tooltip("Collider yarıçapı, sprite'ın kısa kenarının bu oranı kadar. Yerde yatmayan dekorlar hareketi engeller.")]
         [SerializeField, Range(0.1f, 0.6f)] private float colliderSize = 0.38f;
-        [Tooltip("No solid props this close to the start point, so the player never spawns stuck.")]
+        [Tooltip("Başlangıç noktasına bu mesafeden yakın katı dekor konmaz; oyuncu sıkışmış başlamasın diye.")]
         [SerializeField, Min(0f)] private float clearRadiusAtStart = 3f;
 
         [SerializeField] private Item[] items;
         [SerializeField, Min(2f)] private float chunkSize = 8f;
         [SerializeField, Min(0)] private int minPerChunk;
         [SerializeField, Min(0)] private int maxPerChunk = 3;
-        [Tooltip("Chunks kept around the camera in each direction.")]
+        [Tooltip("Kameranın etrafında her yönde tutulan parça (chunk) sayısı.")]
         [SerializeField, Min(1)] private int viewChunks = 2;
-        [Tooltip("Sprites are scaled to this pixels-per-unit so art from different packs matches.")]
+        [Tooltip("Sprite'lar bu pixels-per-unit değerine göre ölçeklenir; farklı paketlerin çizimleri aynı boyutta görünsün diye.")]
         [SerializeField, Min(1f)] private float referencePpu = 18f;
         [SerializeField] private int seed = 1337;
 
@@ -104,7 +104,7 @@ namespace PixelSurvivor
                 sr.transform.position = pos;
                 sr.transform.localScale = Vector3.one * (item.sprite.pixelsPerUnit / referencePpu);
 
-                // Round collider near the base: characters slide around it instead of snagging.
+                // Tabana yakın yuvarlak collider: karakterler takılmak yerine kenarından kayar.
                 CircleCollider2D col = colliders[sr];
                 col.enabled = !item.flat;
                 Vector2 size = item.sprite.bounds.size;
@@ -132,7 +132,7 @@ namespace PixelSurvivor
             var go = new GameObject("Decor");
             go.transform.SetParent(transform, false);
             var sr = go.AddComponent<SpriteRenderer>();
-            colliders[sr] = go.AddComponent<CircleCollider2D>(); // static: no Rigidbody2D
+            colliders[sr] = go.AddComponent<CircleCollider2D>(); // statik: Rigidbody2D yok
             return sr;
         }
 

@@ -4,8 +4,8 @@ using UnityEngine;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// One shared AudioSource for short sound effects. The same clip is throttled
-    /// so a hundred enemies dying in one frame does not blow out the speakers.
+    /// Kısa ses efektleri için tek bir ortak AudioSource. Aynı ses kısa aralıklarla sınırlanır;
+    /// böylece aynı karede ölen yüz düşman hoparlörü patlatmaz.
     /// </summary>
     [RequireComponent(typeof(AudioSource))]
     public class SfxPlayer : MonoBehaviour

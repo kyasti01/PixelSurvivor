@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>Small sprite health bar that follows a character (fill shrinks towards the left).</summary>
+    /// <summary>Karakteri takip eden küçük sprite can barı (dolgu sola doğru küçülür).</summary>
     public class WorldHealthBar : MonoBehaviour
     {
         [SerializeField] private Health health;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>Plays one-shot sprite animations (explosions etc.) from a pool of renderers.</summary>
+    /// <summary>Tek seferlik sprite animasyonlarını (patlama vb.) bir renderer havuzundan oynatır.</summary>
     public class EffectPlayer : MonoBehaviour
     {
         private class Effect
@@ -24,8 +24,8 @@ namespace PixelSurvivor
 
         private void Awake() => instance = this;
 
-        /// <param name="scale">World scale of the effect object.</param>
-        /// <param name="rotation">Degrees around Z.</param>
+        /// <param name="scale">Efekt nesnesinin dünya ölçeği.</param>
+        /// <param name="rotation">Z ekseni etrafında derece.</param>
         public static void Play(Sprite[] frames, float fps, Vector2 position, float scale, int sortingOrder = 30,
                                 float rotation = 0f)
         {

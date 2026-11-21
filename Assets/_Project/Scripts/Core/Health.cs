@@ -11,10 +11,10 @@ namespace PixelSurvivor
         public float Current { get; private set; }
         public bool IsDead => Current <= 0f;
         public float Normalized => Current / maxHealth;
-        /// <summary>While true, damage is ignored (e.g. during a dash).</summary>
+        /// <summary>True olduğu sürece hasar yok sayılır (örn. atılma sırasında).</summary>
         public bool Invulnerable { get; set; }
 
-        /// <summary>Raised with the amount of damage taken.</summary>
+        /// <summary>Alınan hasar miktarıyla birlikte tetiklenir.</summary>
         public event Action<float> Damaged;
         public event Action Died;
 

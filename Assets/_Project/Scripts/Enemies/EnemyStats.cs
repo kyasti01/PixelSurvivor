@@ -10,23 +10,23 @@ namespace PixelSurvivor
         public RuntimeAnimatorController animator;
         [Min(1f)] public float maxHealth = 20f;
         [Min(0f)] public float moveSpeed = 1.5f;
-        [Tooltip("Damage per second dealt while touching the player.")]
+        [Tooltip("Oyuncuya değerken verilen saniyelik hasar.")]
         [Min(0f)] public float contactDps = 10f;
-        [Tooltip("Experience dropped on death.")]
+        [Tooltip("Ölünce düşen XP.")]
         [Min(1)] public int xpValue = 1;
-        [Tooltip("Seconds into the run before this type starts spawning.")]
+        [Tooltip("Bu türün doğmaya başladığı saniye.")]
         [Min(0f)] public float unlockTime;
-        [Tooltip("Seconds into the run after which this type stops spawning. 0 = never.")]
+        [Tooltip("Bu türün artık doğmadığı saniye. 0 = hiçbir zaman.")]
         [Min(0f)] public float retireTime;
         [Min(0f)] public float spawnWeight = 1f;
 
-        [Tooltip("0 = full knockback, 1 = immovable.")]
+        [Tooltip("0 = tam geri itilme, 1 = hiç kıpırdamaz.")]
         [Range(0f, 1f)] public float knockbackResistance;
-        [Tooltip("Drops a treasure chest on death.")]
+        [Tooltip("Ölünce hazine sandığı düşürür.")]
         public bool dropsChest;
 
         [Header("Ranged attack (Attack Range 0 = melee only)")]
-        [Tooltip("Starts shooting within this distance and stops walking at 70 % of it.")]
+        [Tooltip("Bu mesafenin içinde ateş etmeye başlar, %70'inde yürümeyi bırakır.")]
         [Min(0f)] public float attackRange;
         [Min(0.2f)] public float attackInterval = 2.5f;
         [Min(0f)] public float projectileDamage = 10f;
@@ -35,11 +35,11 @@ namespace PixelSurvivor
         public bool IsRanged => attackRange > 0f;
 
         [Header("Look")]
-        [Tooltip("Scales the whole enemy, collider included.")]
+        [Tooltip("Düşmanın tamamını ölçekler, collider dahil.")]
         [Min(0.3f)] public float scale = 1f;
-        [Tooltip("Scales only the sprite; for art packs drawn at a different size.")]
+        [Tooltip("Sadece sprite'ı ölçekler; farklı boyutta çizilmiş paketler için.")]
         [Min(0.1f)] public float visualScale = 1f;
-        [Tooltip("Moves only the sprite, e.g. to put a character's feet on its shadow.")]
+        [Tooltip("Sadece sprite'ı kaydırır; örn. karakterin ayakları gölgesinin üstüne gelsin diye.")]
         public Vector2 visualOffset;
         public Color tint = Color.white;
 

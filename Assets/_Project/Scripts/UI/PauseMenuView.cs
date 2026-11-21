@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace PixelSurvivor
 {
-    /// <summary>Esc menu: resume, volume sliders, back to main menu.</summary>
+    /// <summary>Esc menüsü: devam, ses kaydırıcıları, ana menüye dönüş.</summary>
     public class PauseMenuView : MonoBehaviour
     {
         [SerializeField] private GameObject root;
@@ -12,7 +12,7 @@ namespace PixelSurvivor
         [SerializeField] private Button menuButton;
         [SerializeField] private Slider musicSlider;
         [SerializeField] private Slider sfxSlider;
-        [Tooltip("The pause menu doesn't open over the level-up screen.")]
+        [Tooltip("Seviye atlama ekranı oyunu duraklatıyorsa (Pause While Choosing açıksa) menü onun üstünde açılmaz.")]
         [SerializeField] private LevelUpView levelUpView;
 
         public bool IsOpen => root.activeSelf;
@@ -45,8 +45,8 @@ namespace PixelSurvivor
         {
             GameManager gm = GameManager.Instance;
             if (gm == null || gm.IsGameOver) return;
-            // With the non-pausing level-up strip the menu may open over it; only a full-screen
-            // (pausing) level-up panel blocks it.
+            // Oyunu durdurmayan seviye atlama şeridinin üstünde menü açılabilir; sadece tam ekran
+            // (oyunu duraklatan) seviye atlama paneli onu engeller.
             if (levelUpView != null && levelUpView.IsOpen && gm.IsPaused) return;
 
             root.SetActive(true);

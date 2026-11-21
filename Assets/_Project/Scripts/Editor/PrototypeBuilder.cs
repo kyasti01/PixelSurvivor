@@ -13,9 +13,9 @@ using Object = UnityEngine.Object;
 namespace PixelSurvivor.EditorTools
 {
     /// <summary>
-    /// One-click setup: layers, sorting, prefabs, upgrade assets, UI and the Game scene,
-    /// wired to the Undead Survivor + GUI_Parts art. Safe to run again: prefabs and the
-    /// scene are regenerated, upgrade assets are only created if missing (your tweaks stay).
+    /// Tek tıkla kurulum: katmanlar, sıralama, prefab'lar, yükseltme asset'leri, UI ve Game sahnesi;
+    /// hepsi Undead Survivor + GUI_Parts görselleriyle bağlanır. Tekrar çalıştırmak güvenlidir: prefab'lar
+    /// ve sahne baştan üretilir, yükseltme asset'leri sadece yoksa oluşturulur (yaptığın ayarlar korunur).
     /// </summary>
     public static partial class PrototypeBuilder
     {
@@ -39,7 +39,7 @@ namespace PixelSurvivor.EditorTools
         private const string SceneTemplate = "Assets/Settings/Scenes/URP2DSceneTemplate.unity";
         private const string Renderer2DPath = "Assets/Settings/Renderer2D.asset";
 
-        /// <summary>Bump when the builder changes, so the Console shows which version ran.</summary>
+        /// <summary>Builder her değiştiğinde artır; Console hangi sürümün çalıştığını göstersin.</summary>
         private const int BuilderVersion = 20;
 
         [MenuItem("PixelSurvivor/Build Prototype", priority = 0)]
@@ -75,7 +75,7 @@ namespace PixelSurvivor.EditorTools
                 BuildPlayerPrefab(projectile, axe, blade, noFriction);
                 AssetDatabase.SaveAssets();
 
-                // Each scene build loads what it needs fresh from disk after opening the scene.
+                // Her sahne kurulumu, sahneyi açtıktan sonra ihtiyacı olanı diskten yeniden yükler.
                 BuildScene();
                 BuildMenuScene();
                 SetBuildScenes(MenuScenePath, ScenePath);
@@ -90,7 +90,7 @@ namespace PixelSurvivor.EditorTools
             }
         }
 
-        // ------------------------------------------------------------------ project setup
+        // ------------------------------------------------------------------ proje kurulumu
 
         private static void EnsureFolders()
         {
@@ -115,7 +115,7 @@ namespace PixelSurvivor.EditorTools
                 if (exists) continue;
 
                 int slot = -1;
-                for (int i = 6; i < layers.arraySize && slot < 0; i++) // 0-5 are reserved by Unity
+                for (int i = 6; i < layers.arraySize && slot < 0; i++) // 0-5 Unity'ye ayrılmıştır
                     if (string.IsNullOrEmpty(layers.GetArrayElementAtIndex(i).stringValue)) slot = i;
                 if (slot < 0) throw new InvalidOperationException("No free user layer for " + layerName);
 
@@ -125,7 +125,7 @@ namespace PixelSurvivor.EditorTools
             tagManager.ApplyModifiedPropertiesWithoutUndo();
         }
 
-        /// <summary>Lower sprites draw in front of higher ones (top-down depth).</summary>
+        /// <summary>Ekranda aşağıda olan sprite önde çizilir (tepeden bakışta derinlik).</summary>
         private static void ConfigureYSorting()
         {
             Object renderer = AssetDatabase.LoadMainAssetAtPath(Renderer2DPath);
@@ -141,7 +141,7 @@ namespace PixelSurvivor.EditorTools
             so.ApplyModifiedPropertiesWithoutUndo();
         }
 
-        /// <summary>9-slice borders (in source pixels) so frames and buttons stretch without distorting.</summary>
+        /// <summary>9-slice kenarları (kaynak piksel cinsinden); çerçeve ve butonlar bozulmadan uzasın diye.</summary>
         private static void ConfigureGuiSprites()
         {
             var borders = new Dictionary<string, float>
@@ -171,8 +171,8 @@ namespace PixelSurvivor.EditorTools
         }
 
         /// <summary>
-        /// Smooth (anti-aliased) rendering for the pixel font. Raster mode looked crisp at exactly
-        /// 1080p but broke glyphs apart whenever the UI was scaled down (small Game view, laptops).
+        /// Piksel font için yumuşak (anti-aliased) çizim. Keskin (raster) mod tam 1080p'de net görünüyordu,
+        /// ama arayüz küçüldüğünde (küçük Game penceresi, dizüstü ekranı) harfleri parçalıyordu.
         /// </summary>
         private static void ConfigurePixelFont()
         {
@@ -196,14 +196,14 @@ namespace PixelSurvivor.EditorTools
             return mat;
         }
 
-        // ------------------------------------------------------------------ prefabs
+        // ------------------------------------------------------------------ prefab'lar
 
         private static Projectile BuildProjectilePrefab()
         {
             var go = new GameObject("Projectile") { layer = Layer(GameLayers.PlayerProjectile) };
 
             var sr = go.AddComponent<SpriteRenderer>();
-            sr.sprite = SpriteAt(Props, 31, 22); // small fireball, points up
+            sr.sprite = SpriteAt(Props, 31, 22); // küçük ateş topu, yukarı bakıyor
             sr.sortingOrder = 5;
 
             var rb = go.AddComponent<Rigidbody2D>();
@@ -223,10 +223,10 @@ namespace PixelSurvivor.EditorTools
             var go = new GameObject("OrbitBlade") { layer = Layer(GameLayers.PlayerProjectile) };
 
             var sr = go.AddComponent<SpriteRenderer>();
-            sr.sprite = SpriteAt(Props, 0, 13); // shovel, blade pointing up
+            sr.sprite = SpriteAt(Props, 0, 13); // kürek, ağzı yukarı bakıyor
             sr.sortingOrder = 4;
 
-            // Own kinematic body so its trigger isn't merged into the player's collider.
+            // Kendi kinematik gövdesi var; böylece trigger'ı oyuncunun collider'ına karışmaz.
             var rb = go.AddComponent<Rigidbody2D>();
             rb.bodyType = RigidbodyType2D.Kinematic;
             rb.gravityScale = 0f;
@@ -241,10 +241,10 @@ namespace PixelSurvivor.EditorTools
 
         private static void BuildPickupPrefab()
         {
-            var go = new GameObject("Pickup"); // scaled per sprite at runtime (Pickup.Init)
+            var go = new GameObject("Pickup"); // çalışma anında sprite'a göre ölçeklenir (Pickup.Init)
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = SpriteAt(Props, 0, 0);
-            sr.sortingOrder = -1; // on the ground: above shadows, below characters
+            sr.sortingOrder = -1; // yerde: gölgelerin üstünde, karakterlerin altında
 
             var pickup = go.AddComponent<Pickup>();
             Set(pickup, "spriteRenderer", sr);
@@ -291,7 +291,7 @@ namespace PixelSurvivor.EditorTools
 
             var rb = go.AddComponent<Rigidbody2D>();
             ConfigureTopDownBody(rb, mass: 5f, material);
-            rb.sleepMode = RigidbodySleepMode2D.NeverSleep; // keep contact-damage callbacks coming
+            rb.sleepMode = RigidbodySleepMode2D.NeverSleep; // temas hasarı kontrolü kesintisiz çalışsın diye
 
             var col = go.AddComponent<CircleCollider2D>();
             col.radius = 0.3f;
@@ -341,7 +341,7 @@ namespace PixelSurvivor.EditorTools
             Set(orbit, "bladePrefab", blade);
             Set(orbit, "hitSfx", Load<AudioClip>(Art + "/Audio/Melee0.wav"));
 
-            // Weapons unlocked by upgrades (start with zero).
+            // Yükseltmelerle açılan silahlar (sıfırdan başlar).
             var axe = CreateChild(go.transform, "AxeThrower", go.layer).AddComponent<AxeThrower>();
             Set(axe, "axePrefab", axeProjectile);
             Set(axe, "throwSfx", BrackeysSound("Whoosh.wav"));
@@ -363,7 +363,7 @@ namespace PixelSurvivor.EditorTools
             SavePrefab(go, "Player");
         }
 
-        /// <summary>Fireball shot by ranged enemies (Brackeys Fireball, 2-frame flicker).</summary>
+        /// <summary>Menzilli düşmanların attığı ateş topu (Brackeys Fireball, 2 kareli titreme).</summary>
         private static void BuildEnemyProjectilePrefab()
         {
             var go = new GameObject("EnemyProjectile") { layer = Layer(GameLayers.EnemyProjectile) };
@@ -372,7 +372,7 @@ namespace PixelSurvivor.EditorTools
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = frames[0];
             sr.sortingOrder = 7;
-            go.transform.localScale = Vector3.one * (frames[0].pixelsPerUnit / 18f * 0.55f); // ~0.7 units tall
+            go.transform.localScale = Vector3.one * (frames[0].pixelsPerUnit / 18f * 0.55f); // ~0.7 birim boyunda
 
             var rb = go.AddComponent<Rigidbody2D>();
             rb.bodyType = RigidbodyType2D.Kinematic;
@@ -380,7 +380,7 @@ namespace PixelSurvivor.EditorTools
 
             var col = go.AddComponent<CircleCollider2D>();
             col.isTrigger = true;
-            col.radius = 0.22f / go.transform.localScale.x; // ~0.22 world units
+            col.radius = 0.22f / go.transform.localScale.x; // ~0.22 dünya birimi
 
             var projectile = go.AddComponent<EnemyProjectile>();
             Set(projectile, "spriteRenderer", sr);
@@ -388,7 +388,7 @@ namespace PixelSurvivor.EditorTools
             SavePrefab(go, "EnemyProjectile");
         }
 
-        /// <summary>Spinning axe that is thrown up and falls back down (Brackeys Axe sprite).</summary>
+        /// <summary>Havaya atılıp dönerek geri düşen balta (Brackeys Axe sprite'ı).</summary>
         private static Projectile BuildAxePrefab()
         {
             var go = new GameObject("AxeProjectile") { layer = Layer(GameLayers.PlayerProjectile) };
@@ -396,7 +396,7 @@ namespace PixelSurvivor.EditorTools
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = BrackeysSprite("Weapons & Tools/Axe.png");
             sr.sortingOrder = 6;
-            // Match the Undead Survivor pixel size (18 px per unit).
+            // Undead Survivor'ın piksel boyutuyla eşleşsin (birim başına 18 px).
             go.transform.localScale = Vector3.one * (sr.sprite.pixelsPerUnit / 18f);
 
             var rb = go.AddComponent<Rigidbody2D>();
@@ -405,7 +405,7 @@ namespace PixelSurvivor.EditorTools
 
             var col = go.AddComponent<CircleCollider2D>();
             col.isTrigger = true;
-            col.radius = 0.4f / go.transform.localScale.x; // ~0.4 world units
+            col.radius = 0.4f / go.transform.localScale.x; // ~0.4 dünya birimi
 
             var projectile = go.AddComponent<Projectile>();
             var so = new SerializedObject(projectile);
@@ -421,7 +421,7 @@ namespace PixelSurvivor.EditorTools
         {
             var bar = CreateChild(parent, "HealthBar", parent.gameObject.layer);
             bar.transform.localPosition = new Vector3(0f, -0.85f, 0f);
-            var scale = new Vector3(2.2f, 0.5f, 1f); // 8x8 px sprites -> ~1.0 x 0.22 units
+            var scale = new Vector3(2.2f, 0.5f, 1f); // 8x8 px sprite'lar -> ~1.0 x 0.22 birim
 
             var back = CreateChild(bar.transform, "Back", bar.layer).AddComponent<SpriteRenderer>();
             back.sprite = SpriteNamed(UiSheet, "Back 1");
@@ -469,7 +469,7 @@ namespace PixelSurvivor.EditorTools
                 f.GetArrayElementAtIndex(i).objectReferenceValue = frames[i];
         }
 
-        // ------------------------------------------------------------------ upgrades
+        // ------------------------------------------------------------------ yükseltmeler
 
         private static readonly (string file, string name, string desc, string icon, UpgradeKind kind, float value, int max, float weight)[] UpgradeTable =
         {
@@ -489,13 +489,13 @@ namespace PixelSurvivor.EditorTools
             ("AxePower",     "Keskin Balta",      "Balta hasarı +%30",               "B:Weapons & Tools/Pickaxe.png", UpgradeKind.AxePower, 0.3f, 4, 1f),
             ("BombCount",    "Alev Bombası",      "Düşmanların arasına +1 bomba",    "B:Effects/Explosion.png#3", UpgradeKind.BombCount, 1f, 5, 1.2f),
             ("BombRadius",   "Büyük Patlama",     "Bomba patlama alanı +%20",        "B:Effects/Explosion.png#2", UpgradeKind.BombRadius, 0.2f, 4, 1f),
-            // Evolutions (max level 1): offered only once all upgrades in UpgradeLinks' "maxed" list are maxed.
+            // Evrimler (maks seviye 1): UpgradeLinks'teki "maxed" listesindeki bütün yükseltmeler maks olunca sunulur.
             ("EvolveGun",    "EJDERHA TÜFEĞİ",    "Tüfek hasarı x2, +5 delme, %30 daha hızlı", "B:Items & Icons/Pixel Art/Crown.png", UpgradeKind.EvolveGun, 1f, 1, 3f),
             ("EvolveRing",   "CEHENNEM ÇEMBERİ",  "+8 ateş topu, x1.5 hasar, %40 daha sık",    "B:Items & Icons/Pixel Art/MagicEssence.png", UpgradeKind.EvolveRing, 1f, 1, 3f),
             ("EvolveOrbit",  "KÜREK FIRTINASI",   "+2 kürek, x2 hasar, daha geniş ve hızlı",   "B:Items & Icons/Pixel Art/World Ender.png", UpgradeKind.EvolveOrbit, 1f, 1, 3f),
         };
 
-        /// <summary>Which upgrades unlock others: "requires" = owned once, "maxed" = all at max level.</summary>
+        /// <summary>Hangi yükseltme hangisini açar: "requires" = bir kez alınmış, "maxed" = hepsi maks seviyede.</summary>
         private static readonly (string file, string requires, string[] maxed, bool evolution)[] UpgradeLinks =
         {
             ("OrbitPower",  "OrbitShovel", null, false),
@@ -515,7 +515,7 @@ namespace PixelSurvivor.EditorTools
 
             GetOrCreateUpgrade(FallbackUpgradeFile, "Şifa", "30 can yeniler", "Select 8", UpgradeKind.Heal, 30f, 0, 1f);
 
-            // Links are only filled in when empty, so changes made in the Inspector are kept.
+            // Bağlantılar sadece boşsa doldurulur; Inspector'da yapılan değişiklikler korunur.
             foreach (var link in UpgradeLinks)
             {
                 var def = Load<UpgradeDefinition>($"{UpgradeDir}/{link.file}.asset");
@@ -543,7 +543,7 @@ namespace PixelSurvivor.EditorTools
                                                UpgradeKind kind, float value, int max, float weight)
         {
             string path = $"{UpgradeDir}/{file}.asset";
-            if (AssetDatabase.LoadAssetAtPath<UpgradeDefinition>(path) != null) return; // keep user tweaks
+            if (AssetDatabase.LoadAssetAtPath<UpgradeDefinition>(path) != null) return; // kullanıcının ayarlarını koru
 
             var def = ScriptableObject.CreateInstance<UpgradeDefinition>();
             def.displayName = name;
@@ -556,7 +556,7 @@ namespace PixelSurvivor.EditorTools
             AssetDatabase.CreateAsset(def, path);
         }
 
-        // ------------------------------------------------------------------ characters
+        // ------------------------------------------------------------------ karakterler
 
         private static readonly (string file, string name, string desc, int sheet, float hp, float speed, float pickup,
             bool gun, int gunShots, bool ring, int ringCount, float ringInterval, int orbit)[] CharacterTable =
@@ -571,7 +571,7 @@ namespace PixelSurvivor.EditorTools
                 3,  90f, 3.6f, 3.5f, true,  2, false,  8, 1.4f, 0),
         };
 
-        // How each character is unlocked: gold cost, or beating the final boss once. Not listed = free.
+        // Her karakterin nasıl açıldığı: altın fiyatı ya da son boss'u bir kez yenmek. Listede olmayan = ücretsiz.
         private static readonly Dictionary<string, (int cost, bool victory)> CharacterUnlocks = new()
         {
             { "Gardener", (100, false) },
@@ -579,7 +579,7 @@ namespace PixelSurvivor.EditorTools
             { "Wanderer", (0, true) },
         };
 
-        /// <summary>Character assets are created once; edits made in the Inspector are kept.</summary>
+        /// <summary>Karakter asset'leri bir kez oluşturulur; Inspector'da yapılan değişiklikler korunur.</summary>
         private static void BuildCharacterAssets()
         {
             foreach (var c in CharacterTable)
@@ -588,7 +588,7 @@ namespace PixelSurvivor.EditorTools
                 var existing = AssetDatabase.LoadAssetAtPath<CharacterDefinition>(path);
                 if (existing != null)
                 {
-                    // Assets made before unlocks existed: fill the lock in once (free = untouched).
+                    // Kilit sistemi eklenmeden önce oluşturulmuş asset'ler: kilit bilgisini bir kez doldur (ücretsizlere dokunma).
                     if (existing.unlockCost == 0 && !existing.requiresVictory &&
                         CharacterUnlocks.TryGetValue(c.file, out var lockInfo))
                     {
@@ -627,11 +627,11 @@ namespace PixelSurvivor.EditorTools
         private static CharacterDefinition[] LoadCharacters() =>
             CharacterTable.Select(c => Load<CharacterDefinition>($"{CharacterDir}/{c.file}.asset")).ToArray();
 
-        // ------------------------------------------------------------------ monster animations
+        // ------------------------------------------------------------------ canavar animasyonları
 
         private const string MonsterArt = "Assets/Monsters Creatures Fantasy/Sprites";
 
-        // key, folder in the pack, name of the movement sheet
+        // anahtar, paketteki klasör, hareket sayfasının adı
         private static readonly (string key, string folder, string move)[] MonsterTable =
         {
             ("Goblin", "Goblin", "Run"),
@@ -641,11 +641,11 @@ namespace PixelSurvivor.EditorTools
         };
 
         /// <summary>
-        /// Builds Run/Hit/Dead clips from the monster sprite sheets and an override of the Undead
-        /// enemy animator, so the monsters use the same Hit trigger / Dead bool as everything else.
+        /// Canavar sprite sayfalarından Run/Hit/Dead klipleri ve Undead düşman animatörünün bir override'ını üretir;
+        /// böylece canavarlar da diğer düşmanlarla aynı Hit trigger'ını ve Dead bool'unu kullanır.
         /// </summary>
-        // Brackeys walk cycles: no hit/death frames, so those states reuse the first frame
-        // (the enemy flashes red on hit and fades out on death anyway).
+        // Brackeys yürüme döngüleri: vurulma/ölüm kareleri yok, o yüzden bu durumlar ilk kareyi kullanır
+        // (düşman zaten vurulunca kırmızı parlıyor, ölünce soluyor).
         private static readonly (string key, string sheet)[] SimpleMonsterTable =
         {
             ("Beetle", "Enemies/Insects/Beetle.png"),
@@ -655,7 +655,7 @@ namespace PixelSurvivor.EditorTools
             ("Warlock", "Enemies/Gothic/GothicEnemy03.png"),
         };
 
-        /// <summary>Enemies (by name in EnemyTable / BossTable) that shoot: range, interval, damage, shot speed.</summary>
+        /// <summary>Ateş eden düşmanlar (EnemyTable / BossTable'daki adlarıyla): menzil, aralık, hasar, mermi hızı.</summary>
         private static readonly Dictionary<string, (float range, float interval, float damage, float speed)> RangedStats = new()
         {
             { "Firehead", (7f, 2.2f, 10f, 6f) },
@@ -711,7 +711,7 @@ namespace PixelSurvivor.EditorTools
             else EditorUtility.SetDirty(aoc);
         }
 
-        /// <summary>Sprite-swap clip on the SpriteRenderer of the Animator's own GameObject.</summary>
+        /// <summary>Animator'ın kendi GameObject'indeki SpriteRenderer üzerinde sprite değiştiren klip.</summary>
         private static AnimationClip SaveSpriteClip(string path, Sprite[] frames, float fps, bool loop)
         {
             var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
@@ -719,7 +719,7 @@ namespace PixelSurvivor.EditorTools
             if (isNew) clip = new AnimationClip();
             clip.frameRate = fps;
 
-            // One key per frame plus a closing key, so the last frame is shown for a full frame too.
+            // Her kare için bir anahtar artı bir kapanış anahtarı; böylece son kare de tam bir kare süresince görünür.
             var keys = new ObjectReferenceKeyframe[frames.Length + 1];
             for (int i = 0; i < frames.Length; i++)
                 keys[i] = new ObjectReferenceKeyframe { time = i / fps, value = frames[i] };
@@ -738,8 +738,8 @@ namespace PixelSurvivor.EditorTools
         }
 
         /// <summary>
-        /// "Select 3" = slice of UI.png; "Props@31,22" = Props.png slice at that rect position;
-        /// "B:Weapons &amp; Tools/Axe.png" = Brackeys single sprite; "B:Effects/Explosion.png#3" = 4th slice.
+        /// "Select 3" = UI.png'deki dilim; "Props@31,22" = Props.png'de o konumdaki dilim;
+        /// "B:Weapons &amp; Tools/Axe.png" = Brackeys tek sprite; "B:Effects/Explosion.png#3" = 4. dilim.
         /// </summary>
         private static Sprite ResolveIcon(string icon)
         {
@@ -758,7 +758,7 @@ namespace PixelSurvivor.EditorTools
 
         private static Sprite BrackeysSprite(string relativePath) => Load<Sprite>($"{Brackeys}/{relativePath}");
 
-        /// <summary>Slices of a Brackeys sheet in frame order ("Explosion_0", "Explosion_1"...).</summary>
+        /// <summary>Bir Brackeys sayfasının dilimleri, kare sırasıyla ("Explosion_0", "Explosion_1"...).</summary>
         private static Sprite[] BrackeysSlices(string relativePath) =>
             SpritesNamed($"{Brackeys}/{relativePath}", System.IO.Path.GetFileNameWithoutExtension(relativePath));
 
@@ -768,7 +768,7 @@ namespace PixelSurvivor.EditorTools
         private static Sprite[] DragonExplosionFrames() =>
             Enumerable.Range(1, 6).Select(i => Load<Sprite>($"{DragonFx}/explosion_0{i}.png")).ToArray();
 
-        // ------------------------------------------------------------------ scene
+        // ------------------------------------------------------------------ sahne
 
         private static void BuildScene()
         {
@@ -778,20 +778,20 @@ namespace PixelSurvivor.EditorTools
 
             var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
 
-            // Opening a scene unloads unused assets, which invalidates references loaded before.
-            // Everything below is loaded fresh from disk.
+            // Sahne açmak kullanılmayan asset'leri bellekten atar; daha önce yüklenen referanslar geçersiz olur.
+            // Aşağıdaki her şey diskten yeniden yüklenir.
             GameObject playerPrefab = Load<GameObject>($"{PrefabDir}/Player.prefab");
             Enemy enemyPrefab = Load<GameObject>($"{PrefabDir}/Enemy.prefab").GetComponent<Enemy>();
             Pickup pickupPrefab = Load<GameObject>($"{PrefabDir}/Pickup.prefab").GetComponent<Pickup>();
             Font font = Load<Font>(Art + "/Fonts/neodgm.ttf");
 
-            // Camera (comes from the URP 2D template, together with a Global Light 2D).
-            Camera cam = Object.FindAnyObjectByType<Camera>(); // the template has exactly one
-            cam.orthographicSize = 7.5f; // ~27 x 15 tiles visible at 16:9
+            // Kamera (URP 2D şablonundan gelir, yanında bir Global Light 2D ile).
+            Camera cam = Object.FindAnyObjectByType<Camera>(); // şablonda tam bir tane var
+            cam.orthographicSize = 7.5f; // 16:9'da ~27 x 15 karo görünür
             cam.backgroundColor = new Color(0.12f, 0.14f, 0.12f);
             cam.transform.position = new Vector3(0f, 0f, -10f);
 
-            // Endless ground.
+            // Sonsuz zemin.
             var grid = new GameObject("Ground", typeof(Grid));
             var tilemapGo = CreateChild(grid.transform, "Tilemap", 0);
             tilemapGo.AddComponent<Tilemap>();
@@ -799,13 +799,13 @@ namespace PixelSurvivor.EditorTools
             var ground = tilemapGo.AddComponent<InfiniteGround>();
             Set(ground, "tile", Load<TileBase>(Art + "/Tiles/RanTile.asset"));
 
-            // Player + camera follow.
+            // Oyuncu + kamera takibi.
             var player = (GameObject)PrefabUtility.InstantiatePrefab(playerPrefab);
             player.transform.position = Vector3.zero;
             var follow = cam.gameObject.AddComponent<CameraFollow>();
             Set(follow, "target", player.transform);
 
-            // Props scattered over the ground (Brackeys pack).
+            // Zemine serpiştirilmiş dekorlar (Brackeys paketi).
             var decor = new GameObject("Decor").AddComponent<DecorScatter>();
             var decorSo = new SerializedObject(decor);
             SerializedProperty decorItems = decorSo.FindProperty("items");
@@ -834,26 +834,26 @@ namespace PixelSurvivor.EditorTools
             Set(enemyShots, "prefab", Load<GameObject>($"{PrefabDir}/EnemyProjectile.prefab").GetComponent<EnemyProjectile>());
             Set(enemyShots, "fireSfx", BrackeysSound("Shot.wav"));
 
-            // Audio.
+            // Ses.
             var music = CreateMusic(Load<AudioClip>(Art + "/Audio/BGM.wav"));
             var sfxGo = new GameObject("Sfx", typeof(AudioSource));
             sfxGo.AddComponent<SfxPlayer>();
 
             // UI.
-            // The module assigns its default UI actions itself in OnEnable when none are set.
+            // Modül, hiç aksiyon atanmamışsa varsayılan UI aksiyonlarını OnEnable'da kendisi atar.
             new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
             uiClickSfx = BrackeysSound("ButtonPress.wav");
             uiHoverSfx = BrackeysSound("ButtonHover.wav");
             var (_, levelUpView, gameOverView) = BuildUi(font);
 
-            // Game state.
+            // Oyun durumu.
             var gm = new GameObject("GameManager").AddComponent<GameManager>();
             Set(gm, "gameOverView", gameOverView);
             Set(gm, "music", music.GetComponent<AudioSource>());
             Set(gm, "loseSfx", Load<AudioClip>(Art + "/Audio/Lose.wav"));
             Set(gm, "winSfx", Load<AudioClip>(Art + "/Audio/Win.wav"));
 
-            // Upgrades.
+            // Yükseltmeler.
             var upgrades = new GameObject("UpgradeManager").AddComponent<UpgradeManager>();
             SetArray(upgrades, "upgrades",
                 UpgradeTable.Select(u => (Object)Load<UpgradeDefinition>($"{UpgradeDir}/{u.file}.asset")).ToArray());
@@ -861,7 +861,7 @@ namespace PixelSurvivor.EditorTools
             Set(upgrades, "view", levelUpView);
             Set(upgrades, "selectSfx", Load<AudioClip>(Art + "/Audio/Select.wav"));
 
-            // Drops.
+            // Düşenler (drop'lar).
             var drops = new GameObject("DropManager").AddComponent<DropManager>();
             Set(drops, "pickupPrefab", pickupPrefab);
             SetArray(drops, "gemSprites", new Object[] { SpriteAt(Props, 0, 0), SpriteAt(Props, 11, 0), SpriteAt(Props, 22, 0) });
@@ -870,12 +870,12 @@ namespace PixelSurvivor.EditorTools
             Set(drops, "chestSprite", SpriteNamed(UiSheet, "Box 0"));
             Set(drops, "goldSprite", BrackeysSprite("Items & Icons/Pixel Art/Coin.png"));
 
-            // Enemies.
+            // Düşmanlar.
             var spawner = new GameObject("EnemySpawner").AddComponent<EnemySpawner>();
             Set(spawner, "enemyPrefab", enemyPrefab);
             SetEnemyTypes(spawner);
 
-            // Bosses: giant versions that can't be pushed back and drop a chest. One per boss time.
+            // Boss'lar: geri itilemeyen ve sandık düşüren dev versiyonlar. Her boss zamanı için bir tane.
             var bosses = spawner.gameObject.AddComponent<BossDirector>();
             Set(bosses, "spawner", spawner);
             WriteEnemyList(bosses, "bosses", BossTable);
@@ -896,11 +896,11 @@ namespace PixelSurvivor.EditorTools
             source.clip = clip;
             source.loop = true;
             source.playOnAwake = true;
-            return source.gameObject.AddComponent<MusicPlayer>(); // sets the volume from settings
+            return source.gameObject.AddComponent<MusicPlayer>(); // sesi ayarlardan alır
         }
 
-        // art: "U0".."U4" = Undead Survivor sheet Enemy N; otherwise a key from MonsterTable.
-        // vScale/vOffset size the 150x150 monster frames to match the 18 px Undead sprites.
+        // art: "U0".."U4" = Undead Survivor'ın Enemy N sayfası; diğerleri MonsterTable'daki bir anahtar.
+        // vScale/vOffset: 150x150'lik canavar karelerini 18 px'lik Undead sprite'larıyla aynı boya getirir.
         private static readonly (string art, string name, float hp, float speed, float dps, int xp, float unlock, float retire,
             float weight, float scale, float vScale, float vOffset, float kbRes, Color tint, bool chest)[] EnemyTable =
         {
@@ -923,9 +923,9 @@ namespace PixelSurvivor.EditorTools
         private static readonly (string art, string name, float hp, float speed, float dps, int xp, float unlock, float retire,
             float weight, float scale, float vScale, float vOffset, float kbRes, Color tint, bool chest)[] BossTable =
         {
-            // One per minute (BossDirector.bossTimes). Odd minutes: smaller, faster mini-bosses.
-            // Base health; the spawner multiplies it by the run's time scaling (~1.45x at 1:00, ~10x at 8:00).
-            // Tuned down after playtest ("a bit too hard"): ~25 % less health, ~20 % less contact damage.
+            // Dakikada bir (BossDirector.bossTimes). Tek dakikalar: daha küçük ve hızlı mini boss'lar.
+            // Temel can; spawner bunu oyunun zaman çarpanıyla çarpar (1:00'da ~1.45x, 8:00'de ~10x).
+            // Test sonrası hafifletildi ("biraz fazla zor"): ~%25 daha az can, ~%20 daha az temas hasarı.
             ("Goblin",    "Mini Boss: Goblin Chief",  230f, 2.6f, 24f, 15, 0f, 0f, 1f, 2.0f, 3.2f, 0.24f, 1f, new Color(1f, 0.85f, 0.5f),  true),
             ("U3",        "Boss: Red Brute",          380f, 2.0f, 32f, 25, 0f, 0f, 1f, 2.6f, 1f,   0f,    1f, new Color(1f, 0.55f, 0.55f), true),
             ("FlyingEye", "Mini Boss: Watcher",       300f, 2.8f, 24f, 15, 0f, 0f, 1f, 2.0f, 3.2f, 0.3f,  1f, new Color(0.7f, 1f, 0.7f),   true),
@@ -933,7 +933,7 @@ namespace PixelSurvivor.EditorTools
             ("Skeleton",  "Mini Boss: Bone Knight",   450f, 2.3f, 32f, 20, 0f, 0f, 1f, 2.0f, 3.2f, 0.3f,  1f, new Color(0.85f, 0.85f, 0.85f), true),
             ("U1",        "Boss: Ghoul Giant",        680f, 2.1f, 40f, 35, 0f, 0f, 1f, 2.6f, 1f,   0f,    1f, new Color(0.6f, 1f, 0.6f),   true),
             ("Skeleton",  "Boss: Bone Lord",          750f, 2.1f, 44f, 40, 0f, 0f, 1f, 2.6f, 3.2f, 0.3f,  1f, new Color(0.75f, 0.75f, 1f), true),
-            // Final boss (last entry): defeating it wins the run.
+            // Son boss (son satır): yenilince oyun kazanılır.
             ("FlyingEye", "Final Boss: Great Eye",   1900f, 2.5f, 56f, 60, 0f, 0f, 1f, 3.4f, 3.2f, 0.3f,  1f, new Color(1f, 0.45f, 0.9f),  true),
         };
 
@@ -995,7 +995,7 @@ namespace PixelSurvivor.EditorTools
             e.FindPropertyRelative("tint").colorValue = tint;
         }
 
-        /// <summary>Exactly the game's scenes, menu first (it is what the build starts with).</summary>
+        /// <summary>Tam olarak oyunun sahneleri, önce menü (build onunla başlar).</summary>
         private static void SetBuildScenes(params string[] ordered)
         {
             EditorBuildSettings.scenes = ordered.Select(p => new EditorBuildSettingsScene(p, true)).ToArray();
@@ -1015,7 +1015,7 @@ namespace PixelSurvivor.EditorTools
             cam.backgroundColor = new Color(0.12f, 0.14f, 0.12f);
             cam.transform.position = new Vector3(0f, 0f, -10f);
 
-            // Same grass as the game, behind the menu.
+            // Menünün arkasında oyundaki çimenin aynısı.
             var grid = new GameObject("Ground", typeof(Grid));
             var tilemapGo = CreateChild(grid.transform, "Tilemap", 0);
             tilemapGo.AddComponent<Tilemap>();
@@ -1034,7 +1034,7 @@ namespace PixelSurvivor.EditorTools
             EditorSceneManager.SaveScene(scene);
         }
 
-        // ------------------------------------------------------------------ helpers
+        // ------------------------------------------------------------------ yardımcı metotlar
 
         private static GameObject SavePrefab(GameObject go, string name)
         {
@@ -1065,7 +1065,7 @@ namespace PixelSurvivor.EditorTools
             return asset;
         }
 
-        /// <summary>All sprites in a sheet, in reading order (top-left to bottom-right).</summary>
+        /// <summary>Bir sayfadaki bütün sprite'lar, okuma sırasıyla (sol üstten sağ alta).</summary>
         private static Sprite[] SpritesIn(string path)
         {
             Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>()
@@ -1075,8 +1075,8 @@ namespace PixelSurvivor.EditorTools
         }
 
         /// <summary>
-        /// Frames of one animation, e.g. "Run" returns "Run 0", "Run 1", ... ordered by frame number.
-        /// A slice named exactly "Hit" (no number) also matches "Hit".
+        /// Bir animasyonun kareleri; örn. "Run" -> "Run 0", "Run 1", ... kare numarasına göre sıralı.
+        /// Adı sadece "Hit" olan (numarasız) bir dilim de "Hit" ile eşleşir.
         /// </summary>
         private static Sprite[] SpritesNamed(string path, string spriteName)
         {
@@ -1098,7 +1098,7 @@ namespace PixelSurvivor.EditorTools
             return result;
         }
 
-        /// <summary>The single sprite with exactly this name, e.g. "Select 3".</summary>
+        /// <summary>Tam olarak bu ada sahip tek sprite, örn. "Select 3".</summary>
         private static Sprite SpriteNamed(string path, string exactName)
         {
             Sprite[] all = SpritesIn(path);
@@ -1114,12 +1114,12 @@ namespace PixelSurvivor.EditorTools
             return s;
         }
 
-        /// <summary>Single-file sprite (e.g. a GUI_Parts texture).</summary>
+        /// <summary>Tek dosyalık sprite (örn. bir GUI_Parts görseli).</summary>
         private static Sprite GuiSprite(string file) => Load<Sprite>($"{Gui}/{file}.png");
 
         private static void Set(Object target, string property, Object value)
         {
-            if (value == null) // also catches destroyed/unloaded objects
+            if (value == null) // yok edilmiş/bellekten atılmış nesneleri de yakalar
                 throw new InvalidOperationException($"{target.GetType().Name}.{property}: value is null");
 
             var so = new SerializedObject(target);

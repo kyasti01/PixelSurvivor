@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace PixelSurvivor
 {
-    /// <summary>Health, experience, level, kills and survival time.</summary>
+    /// <summary>Can, XP, seviye, kill, altın, atılma ve süre göstergeleri.</summary>
     public class HudView : MonoBehaviour
     {
         [SerializeField] private Image healthFill;
@@ -22,7 +22,7 @@ namespace PixelSurvivor
         [SerializeField] private Image bossFill;
         [SerializeField] private Text announcementText;
 
-        // Last shown values, so strings are only rebuilt when something changes.
+        // Son gösterilen değerler; metinler sadece bir şey değişince yeniden oluşturulur.
         private int shownHp = -1, shownMaxHp = -1, shownLevel = -1, shownKills = -1, shownSeconds = -1, shownGold = -1;
 
         private void LateUpdate()
@@ -71,7 +71,7 @@ namespace PixelSurvivor
                     goldText.text = shownGold.ToString();
                 }
 
-                // Count down to the final boss; once it's out, tell the player what to do.
+                // Son boss'a geri say; geldiğinde oyuncuya ne yapacağını söyle.
                 float final = BossDirector.FinalBossTime;
                 int seconds = gm.Elapsed < final ? Mathf.CeilToInt(final - gm.Elapsed) : -1;
                 if (float.IsInfinity(final)) seconds = (int)gm.Elapsed;
@@ -89,7 +89,7 @@ namespace PixelSurvivor
 
         private void UpdateBoss()
         {
-            // Scenes built before the boss feature have no boss UI; rebuild to get it.
+            // Boss özelliğinden önce kurulmuş sahnelerde boss UI'ı yok; almak için yeniden kur.
             if (bossBar == null || bossFill == null || announcementText == null) return;
 
             Enemy boss = BossDirector.CurrentBoss;
@@ -103,7 +103,7 @@ namespace PixelSurvivor
             {
                 announcementText.text = BossDirector.Announcement;
                 Color c = announcementText.color;
-                c.a = 0.4f + 0.6f * Mathf.PingPong(Time.time * 3f, 1f); // blink
+                c.a = 0.4f + 0.6f * Mathf.PingPong(Time.time * 3f, 1f); // yanıp sönme
                 announcementText.color = c;
             }
         }

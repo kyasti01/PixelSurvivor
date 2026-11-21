@@ -3,8 +3,8 @@ using UnityEngine;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Physics layer names used by the game and the collision rules between them.
-    /// Layers are created by the PixelSurvivor/Build Prototype editor menu.
+    /// Oyunun kullandığı fizik katmanlarının adları ve aralarındaki çarpışma kuralları.
+    /// Katmanlar PixelSurvivor/Build Prototype editör menüsüyle oluşturulur.
     /// </summary>
     public static class GameLayers
     {
@@ -18,13 +18,13 @@ namespace PixelSurvivor
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ConfigureCollisionMatrix()
         {
-            // Player shots only touch enemies, enemy shots only touch the player.
-            // (Pickups use distance checks, not physics.)
+            // Oyuncu mermileri sadece düşmanlara, düşman mermileri sadece oyuncuya çarpar.
+            // (Pickup'lar fizik değil mesafe kontrolü kullanır.)
             CollideOnlyWith(LayerMask.NameToLayer(PlayerProjectile), LayerMask.NameToLayer(Enemy));
             CollideOnlyWith(LayerMask.NameToLayer(EnemyProjectile), LayerMask.NameToLayer(Player));
 
-            // The dash turns this off temporarily; make sure every run starts with it on
-            // (the setting would otherwise survive leaving Play mode mid-dash).
+            // Atılma bunu geçici olarak kapatır; her oyunun açık başladığından emin ol
+            // (yoksa atılmanın ortasında Play modundan çıkılırsa ayar kapalı kalabilir).
             SetPlayerEnemyCollision(true);
         }
 

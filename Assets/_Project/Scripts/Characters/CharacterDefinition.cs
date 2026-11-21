@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>A playable character: look, base stats and starting weapons.</summary>
+    /// <summary>Oynanabilir bir karakter: görünüşü, temel değerleri ve başlangıç silahları.</summary>
     [CreateAssetMenu(menuName = "PixelSurvivor/Character", fileName = "Character")]
     public class CharacterDefinition : ScriptableObject
     {
@@ -28,9 +28,9 @@ namespace PixelSurvivor
         [Min(0)] public int orbitBlades;
 
         [Header("Unlock")]
-        [Tooltip("Gold needed to unlock in the character select (0 = free).")]
+        [Tooltip("Karakter seçiminde kilidi açmak için gereken altın (0 = ücretsiz).")]
         [Min(0)] public int unlockCost;
-        [Tooltip("Unlocked by beating the final boss once (ignores Unlock Cost).")]
+        [Tooltip("Son boss bir kez yenilince açılır (Unlock Cost değerini yok sayar).")]
         public bool requiresVictory;
     }
 }

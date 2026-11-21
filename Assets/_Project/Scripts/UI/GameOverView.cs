@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace PixelSurvivor
 {
-    /// <summary>End-of-run panel: "DEAD..." or "SURVIVED!", run stats and a restart button.</summary>
+    /// <summary>Oyun sonu paneli: DEAD... ya da SURVIVED!, oyun istatistikleri ve yeniden başlat butonu.</summary>
     public class GameOverView : MonoBehaviour
     {
         [SerializeField] private GameObject root;
@@ -30,7 +30,7 @@ namespace PixelSurvivor
         public void Show(bool victory, float elapsed, int kills, int level, int gold)
         {
             title.sprite = victory ? victoryTitle : defeatTitle;
-            title.rectTransform.sizeDelta = title.sprite.rect.size * 6f; // 6 screen px per art px
+            title.rectTransform.sizeDelta = title.sprite.rect.size * 6f; // her sanat pikseli için 6 ekran pikseli
 
             int s = (int)elapsed;
             stats.text = $"{DifficultySettings.DisplayName(DifficultySettings.Current)}     " +

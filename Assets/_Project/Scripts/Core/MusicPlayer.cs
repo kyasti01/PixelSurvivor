@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>Background music that follows the music volume setting and can switch tracks.</summary>
+    /// <summary>Müzik ses ayarına uyan ve parça değiştirebilen arka plan müziği.</summary>
     [RequireComponent(typeof(AudioSource))]
     public class MusicPlayer : MonoBehaviour
     {

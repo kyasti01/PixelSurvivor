@@ -4,14 +4,14 @@ using UnityEngine;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Drops fire bombs on random enemies near the player; each blast damages everything in
-    /// its radius. Starts with zero bombs; upgrades add them.
+    /// Oyuncunun yakınındaki rastgele düşmanlara alev bombası atar; her patlama yarıçapı içindeki her şeye
+    /// hasar verir. Sıfır bombayla başlar; yükseltmeler bomba ekler.
     /// </summary>
     public class BombThrower : MonoBehaviour
     {
         [SerializeField] private Sprite[] explosionFrames;
         [SerializeField, Min(1f)] private float explosionFps = 14f;
-        [Tooltip("World width of the last explosion frame at scale 1; used to match the sprite to the blast radius.")]
+        [Tooltip("Son patlama karesinin ölçek 1'deki dünya genişliği; sprite'ı patlama yarıçapına uydurmak için kullanılır.")]
         [SerializeField, Min(0.01f)] private float explosionSpriteWidth = 1.5f;
         [SerializeField] private AudioClip explosionSfx;
 
@@ -62,7 +62,7 @@ namespace PixelSurvivor
             Vector2 origin = transform.position;
             float sqrRange = range * range;
 
-            // A few random samples is plenty with a crowd on screen, and costs O(1).
+            // Ekran kalabalıkken birkaç rastgele deneme yeterli ve maliyeti O(1).
             for (int tries = 0; tries < 12; tries++)
             {
                 Enemy e = Enemy.Active[Random.Range(0, Enemy.Active.Count)];

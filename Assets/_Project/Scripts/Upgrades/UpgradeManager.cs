@@ -4,22 +4,22 @@ using UnityEngine;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Pauses the game on each level-up, offers random upgrades through the
-    /// <see cref="LevelUpView"/>, and applies the one the player picks.
+    /// Her seviye atlamada <see cref="LevelUpView"/> üzerinden rastgele yükseltmeler sunar ve oyuncunun
+    /// seçtiğini uygular. Varsayılan olarak oyunu durdurmaz (bkz. pauseWhileChoosing).
     /// </summary>
     public class UpgradeManager : MonoBehaviour
     {
         [SerializeField] private UpgradeDefinition[] upgrades;
-        [Tooltip("Offered to fill empty slots once everything else is maxed.")]
+        [Tooltip("Her şey maks seviyeye gelince boş kalan yerleri doldurmak için sunulur.")]
         [SerializeField] private UpgradeDefinition fallback;
         [SerializeField] private LevelUpView view;
         [SerializeField, Min(1)] private int choicesPerLevel = 3;
         [SerializeField] private AudioClip selectSfx;
-        [Tooltip("Weight multiplier for upgrades that were offered on the previous level-up, so options vary.")]
+        [Tooltip("Bir önceki seviyede sunulan yükseltmelerin ağırlık çarpanı; seçenekler çeşitlensin diye.")]
         [SerializeField, Range(0f, 1f)] private float repeatPenalty = 0.3f;
         [SerializeField] private string levelUpTitle = "SEVİYE ATLADIN!";
         [SerializeField] private string chestTitle = "HAZİNE SANDIĞI!";
-        [Tooltip("Off: choices appear at the bottom of the screen while the game keeps running.")]
+        [Tooltip("Kapalı: seçenekler oyun devam ederken ekranın altında çıkar.")]
         [SerializeField] private bool pauseWhileChoosing;
 
         private string currentTitle;
@@ -52,7 +52,7 @@ namespace PixelSurvivor
         {
             player = PlayerController.Instance;
             if (player == null) return;
-            // Include inactive/disabled weapons: a character may start without some of them.
+            // Kapalı/devre dışı silahları da dahil et: bir karakter bazılarına sahip olmadan başlayabilir.
             gun = player.GetComponentInChildren<AutoGun>(true);
             ring = player.GetComponentInChildren<RingShooter>(true);
             orbit = player.GetComponentInChildren<OrbitWeapon>(true);
@@ -67,7 +67,7 @@ namespace PixelSurvivor
             if (Instance == this) Instance = null;
         }
 
-        /// <summary>Opens the upgrade screen <paramref name="picks"/> extra times (treasure chest).</summary>
+        /// <summary>Yükseltme ekranını <paramref name="picks"/> kez daha açar (hazine sandığı).</summary>
         public void GrantChest(int picks)
         {
             pendingChestPicks += Mathf.Max(1, picks);
@@ -81,7 +81,7 @@ namespace PixelSurvivor
             else RefreshTitle();
         }
 
-        /// <summary>Title plus how many more picks are queued, e.g. "SEVİYE ATLADIN!  (+2)".</summary>
+        /// <summary>Başlık artı sırada kaç seçim beklediği, örn. "SEVİYE ATLADIN!  (+2)".</summary>
         private void RefreshTitle()
         {
             int waiting = player.Experience.PendingLevelUps + pendingChestPicks;
@@ -130,7 +130,7 @@ namespace PixelSurvivor
             Apply(def);
             levels[def] = LevelOf(def) + 1;
             SfxPlayer.Play(selectSfx);
-            ShowNext(); // several levels may have been gained at once
+            ShowNext(); // aynı anda birden fazla seviye atlanmış olabilir
         }
 
         private void RollChoices()
@@ -174,8 +174,8 @@ namespace PixelSurvivor
         }
 
         /// <summary>
-        /// Taken at least once, or the weapon it grants is already there
-        /// (e.g. a character that starts with shovels "owns" the shovel upgrade).
+        /// En az bir kez alınmışsa ya da verdiği silah zaten varsa true
+        /// (örn. küreklerle başlayan bir karakter kürek yükseltmesine "sahip" sayılır).
         /// </summary>
         private bool IsOwned(UpgradeDefinition def)
         {
@@ -192,7 +192,7 @@ namespace PixelSurvivor
             };
         }
 
-        /// <summary>True when every upgrade in requiresMaxed is at its max level (or there are none).</summary>
+        /// <summary>requiresMaxed'teki her yükseltme maks seviyedeyse (ya da liste boşsa) true.</summary>
         private bool RequirementsMaxed(UpgradeDefinition def)
         {
             if (def.requiresMaxed == null) return true;
@@ -205,7 +205,7 @@ namespace PixelSurvivor
         {
             float v = def.value;
 
-            // A character that started without this weapon gets it with its first upgrade.
+            // Bu silah olmadan başlayan bir karakter, silahı ilk yükseltmesiyle kazanır.
             switch (def.kind)
             {
                 case UpgradeKind.GunDamage or UpgradeKind.GunFireRate or UpgradeKind.GunProjectiles or UpgradeKind.GunPierce:
@@ -230,7 +230,7 @@ namespace PixelSurvivor
                 case UpgradeKind.BombCount: bomb.Count += Mathf.RoundToInt(v); break;
                 case UpgradeKind.BombRadius: bomb.Radius *= 1f + v; break;
 
-                // Evolutions: a big jump in power once a weapon's upgrades are all maxed.
+                // Evrimler: bir silahın yükseltmelerinin hepsi maks olunca güçte büyük bir sıçrama.
                 case UpgradeKind.EvolveGun:
                     gun.Damage *= 2f;
                     gun.Pierce += 5;

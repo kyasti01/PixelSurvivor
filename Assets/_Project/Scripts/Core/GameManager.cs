@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Run state: survival time, kills, gold, pause, win/lose and restart.
-    /// The run is won by defeating the final boss (see <see cref="BossDirector"/>).
+    /// Oyunun durumu: hayatta kalma süresi, kill sayısı, altın, duraklatma, kazanma/kaybetme ve yeniden başlatma.
+    /// Oyun son boss yenilince kazanılır (bkz. <see cref="BossDirector"/>).
     /// </summary>
     public class GameManager : MonoBehaviour
     {
@@ -20,7 +20,7 @@ namespace PixelSurvivor
 
         public float Elapsed { get; private set; }
         public int Kills { get; private set; }
-        /// <summary>Gold collected this run (already multiplied by the Greed upgrade).</summary>
+        /// <summary>Bu oyunda toplanan altın (Açgözlülük yükseltmesiyle zaten çarpılmış).</summary>
         public int RunGold { get; private set; }
         public bool IsGameOver { get; private set; }
         public bool IsPaused => levelUpPaused || menuPaused;
@@ -69,14 +69,14 @@ namespace PixelSurvivor
             Elapsed += Time.deltaTime;
         }
 
-        /// <summary>Pause for the level-up / chest screen.</summary>
+        /// <summary>Seviye atlama / sandık ekranı için duraklatma.</summary>
         public void SetPaused(bool paused)
         {
             levelUpPaused = paused;
             ApplyTimeScale();
         }
 
-        /// <summary>Pause for the Esc menu.</summary>
+        /// <summary>Esc menüsü için duraklatma.</summary>
         public void SetMenuPaused(bool paused)
         {
             menuPaused = paused;
@@ -108,7 +108,7 @@ namespace PixelSurvivor
             SceneManager.LoadScene(menuScene);
         }
 
-        /// <summary>Moves this run's gold into the permanent purse (once).</summary>
+        /// <summary>Bu oyunda toplanan altını kalıcı kasaya aktarır (sadece bir kez).</summary>
         private void BankGold()
         {
             if (goldBanked) return;

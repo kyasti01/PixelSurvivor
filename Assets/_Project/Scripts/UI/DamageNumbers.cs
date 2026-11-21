@@ -4,8 +4,8 @@ using UnityEngine.UI;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Floating damage numbers. Uses a fixed pool of UI texts on the overlay canvas; when every
-    /// text is busy the oldest one is reused, so heavy fights never allocate new objects.
+    /// Uçuşan hasar sayıları. Overlay canvas'ta sabit boyutlu bir UI metin havuzu kullanır; bütün metinler
+    /// meşgulse en eskisi yeniden kullanılır, böylece yoğun savaşlarda hiç yeni nesne oluşturulmaz.
     /// </summary>
     public class DamageNumbers : MonoBehaviour
     {
@@ -13,11 +13,11 @@ namespace PixelSurvivor
         [SerializeField, Min(8)] private int poolSize = 50;
         [SerializeField, Min(8)] private int fontSize = 32;
         [SerializeField, Min(0.1f)] private float lifetime = 0.6f;
-        [Tooltip("World units the number floats up over its lifetime.")]
+        [Tooltip("Sayının ömrü boyunca yukarı süzüldüğü mesafe (dünya birimi).")]
         [SerializeField] private float rise = 0.8f;
         [SerializeField] private Color normalColor = Color.white;
         [SerializeField] private Color bigColor = new(1f, 0.8f, 0.25f);
-        [Tooltip("Numbers at or above this are gold. Numbers are per-enemy sums over ~0.3 s.")]
+        [Tooltip("Bu değer ve üstündeki sayılar altın renkli. Sayılar her düşman için ~0.3 sn'lik toplamlardır.")]
         [SerializeField, Min(1f)] private float bigHit = 80f;
 
         private class Entry

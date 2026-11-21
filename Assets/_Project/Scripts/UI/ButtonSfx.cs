@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace PixelSurvivor
 {
-    /// <summary>Hover and click sounds for a UI button.</summary>
+    /// <summary>Bir UI butonu için üstüne gelme ve tıklama sesleri.</summary>
     [RequireComponent(typeof(Selectable))]
     public class ButtonSfx : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     {

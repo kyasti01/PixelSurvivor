@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace PixelSurvivor
 {
-    /// <summary>Main-menu shop: spend gold on permanent upgrades.</summary>
+    /// <summary>Ana menü dükkanı: altınla kalıcı yükseltmeler al.</summary>
     public class ShopView : MonoBehaviour
     {
         [Serializable]

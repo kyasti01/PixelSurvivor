@@ -3,18 +3,18 @@ using UnityEngine.Pool;
 
 namespace PixelSurvivor
 {
-    /// <summary>Drops experience gems (and the odd potion or magnet) where enemies die.</summary>
+    /// <summary>Düşmanların öldüğü yere XP taşı (ve arada bir iksir ya da mıknatıs) düşürür.</summary>
     public class DropManager : MonoBehaviour
     {
         [SerializeField] private Pickup pickupPrefab;
 
         [Header("Experience gems")]
-        [Tooltip("Small, medium, large.")]
+        [Tooltip("Küçük, orta, büyük.")]
         [SerializeField] private Sprite[] gemSprites = new Sprite[3];
-        [Tooltip("Gems worth at least this much use the medium / large sprite.")]
+        [Tooltip("En az bu değerdeki taşlar orta / büyük sprite'ı kullanır.")]
         [SerializeField] private int mediumGemValue = 3;
         [SerializeField] private int largeGemValue = 10;
-        [Tooltip("Above this many pickups, new XP is merged into existing gems.")]
+        [Tooltip("Yerde bundan fazla pickup varsa yeni XP mevcut taşlara eklenir.")]
         [SerializeField, Min(10)] private int maxPickups = 400;
 
         [Header("Rare drops")]
@@ -27,7 +27,7 @@ namespace PixelSurvivor
         [Header("Gold")]
         [SerializeField] private Sprite goldSprite;
         [SerializeField, Range(0f, 1f)] private float goldChance = 0.07f;
-        [Tooltip("Coins scattered around a dead boss.")]
+        [Tooltip("Ölen boss'un etrafına saçılan altın sayısı.")]
         [SerializeField, Min(0)] private int bossGoldCoins = 8;
         [SerializeField, Min(1)] private int bossCoinValue = 3;
         [SerializeField, Min(0.1f)] private float goldScale = 0.55f;
@@ -38,7 +38,7 @@ namespace PixelSurvivor
 
         [Header("Chest (from bosses)")]
         [SerializeField] private Sprite chestSprite;
-        [Tooltip("Free upgrade picks a chest gives.")]
+        [Tooltip("Bir sandığın verdiği bedava yükseltme seçimi sayısı.")]
         [SerializeField, Min(1)] private int chestPicks = 1;
 
         private ObjectPool<Pickup> pool;
@@ -97,7 +97,7 @@ namespace PixelSurvivor
         {
             if (Pickup.Active.Count >= maxPickups)
             {
-                // Too many on the ground: top up a random existing gem instead.
+                // Yerde çok fazla var: onun yerine rastgele bir mevcut taşa ekle.
                 for (int i = 0; i < 8; i++)
                 {
                     Pickup p = Pickup.Active[Random.Range(0, Pickup.Active.Count)];

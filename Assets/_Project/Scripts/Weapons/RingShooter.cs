@@ -3,8 +3,8 @@ using UnityEngine;
 namespace PixelSurvivor
 {
     /// <summary>
-    /// Fires a ring of projectiles in every direction. Each burst is rotated by half a step,
-    /// so consecutive rings cover each other's gaps.
+    /// Her yöne bir çember mermi atar. Her atış yarım adım döndürülür;
+    /// böylece arka arkaya gelen çemberler birbirinin boşluklarını kapatır.
     /// </summary>
     public class RingShooter : MonoBehaviour
     {
@@ -17,9 +17,9 @@ namespace PixelSurvivor
         [SerializeField, Min(0f)] private float damage = 10f;
         [SerializeField, Min(0.5f)] private float projectileSpeed = 7f;
         [SerializeField, Min(0)] private int pierce = 1;
-        [Tooltip("Keep low: a ring firing in every direction with strong knockback makes the player untouchable.")]
+        [Tooltip("Düşük tut: her yöne ateş eden çember güçlü geri itmeyle oyuncuyu dokunulmaz yapar.")]
         [SerializeField, Min(0f)] private float knockback = 0.8f;
-        [Tooltip("Only fires while an enemy is this close, to avoid shooting at nothing.")]
+        [Tooltip("Sadece bu mesafede bir düşman varken ateş eder; boşa ateş etmesin diye.")]
         [SerializeField, Min(1f)] private float activationRange = 10f;
 
         private ProjectilePool pool;

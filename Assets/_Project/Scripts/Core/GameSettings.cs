@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>Player settings stored in PlayerPrefs (volume levels).</summary>
+    /// <summary>PlayerPrefs'te saklanan oyuncu ayarları (ses seviyeleri).</summary>
     public static class GameSettings
     {
         private const string MusicKey = "settings.musicVolume";
         private const string SfxKey = "settings.sfxVolume";
 
-        /// <summary>Raised whenever a setting changes.</summary>
+        /// <summary>Bir ayar her değiştiğinde tetiklenir.</summary>
         public static event Action Changed;
 
         public static float MusicVolume

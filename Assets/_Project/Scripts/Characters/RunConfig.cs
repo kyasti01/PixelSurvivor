@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace PixelSurvivor
 {
-    /// <summary>Choices made in the main menu that the game scene reads when a run starts.</summary>
+    /// <summary>Ana menüde yapılan seçimler; oyun sahnesi oyun başlarken bunları okur.</summary>
     public static class RunConfig
     {
-        /// <summary>Null when the game scene is played directly; the player then uses its default.</summary>
+        /// <summary>Oyun sahnesi doğrudan açılırsa null olur; o zaman oyuncu varsayılan karakteri kullanır.</summary>
         public static CharacterDefinition SelectedCharacter { get; set; }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
