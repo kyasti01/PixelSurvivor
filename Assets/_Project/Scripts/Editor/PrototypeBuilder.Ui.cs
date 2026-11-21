@@ -40,7 +40,9 @@ namespace PixelSurvivor.EditorTools
             var scaler = go.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
-            scaler.matchWidthOrHeight = 0.5f;
+            // Expand: the whole 1920x1080 layout always fits on screen, whatever the aspect ratio
+            // (match-width/height cut panels off on wide or small Game views).
+            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
             return canvas;
         }
 
@@ -189,7 +191,7 @@ namespace PixelSurvivor.EditorTools
                 name.rectTransform.offsetMin = new Vector2(210, -62);
                 name.rectTransform.offsetMax = new Vector2(-20, -22);
 
-                Text desc = UiText("Description", button.transform, "Description", 32, TextAnchor.UpperLeft, Color.white);
+                Text desc = BodyText("Description", button.transform, "Description", 28, TextAnchor.UpperLeft, Color.white);
                 desc.horizontalOverflow = HorizontalWrapMode.Wrap;
                 Place(desc.rectTransform, Vector2.zero, Vector2.one, Center, Vector2.zero, Vector2.zero);
                 desc.rectTransform.offsetMin = new Vector2(210, 18);
@@ -349,7 +351,7 @@ namespace PixelSurvivor.EditorTools
                 Text name = UiText("Name", card.transform, "Name", 46, TextAnchor.MiddleCenter, Gold);
                 Place(name.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -275), new Vector2(360, 60));
 
-                Text desc = UiText("Description", card.transform, "", 26, TextAnchor.UpperCenter, Muted);
+                Text desc = BodyText("Description", card.transform, "", 26, TextAnchor.UpperCenter, Color.white);
                 desc.horizontalOverflow = HorizontalWrapMode.Wrap;
                 Place(desc.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -330), new Vector2(330, 240));
 
@@ -422,7 +424,7 @@ namespace PixelSurvivor.EditorTools
                 title.rectTransform.offsetMin = new Vector2(150, 0);
                 title.rectTransform.offsetMax = new Vector2(-260, -14);
 
-                Text desc = UiText("Description", row.transform, "", 26, TextAnchor.UpperLeft, Muted);
+                Text desc = BodyText("Description", row.transform, "", 26, TextAnchor.UpperLeft, Color.white);
                 Place(desc.rectTransform, Vector2.zero, new Vector2(1, 0.5f), Center, Vector2.zero, Vector2.zero);
                 desc.rectTransform.offsetMin = new Vector2(150, 14);
                 desc.rectTransform.offsetMax = new Vector2(-260, -4);
@@ -447,32 +449,27 @@ namespace PixelSurvivor.EditorTools
         }
 
         private const string HowToControls =
-            "<color=#FFD15A>KONTROLLER</color>\n" +
-            "WASD / Ok tuşları   Hareket\n" +
-            "Shift / Space       Atıl (kısa süre\n" +
-            "                    hasar almazsın)\n" +
-            "1 / 2 / 3 ya da tık Yükseltme seç\n" +
-            "Esc                 Duraklat / Ayarlar\n\n" +
-            "<color=#FFD15A>SİLAHLAR</color>\n" +
-            "Silahlar kendiliğinden ateş eder.\n" +
-            "Sen sadece hayatta kalmaya bak!";
+            "<b>WASD / Ok tuşları</b>  –  Hareket\n" +
+            "<b>Shift / Space</b>  –  Atıl: kısa süre hasar almazsın ve düşmanların içinden geçersin\n" +
+            "<b>1 / 2 / 3</b> veya fare  –  Yükseltme seç (oyun durmaz)\n" +
+            "<b>Esc</b>  –  Duraklat, ses ayarları";
+
+        private const string HowToWeapons =
+            "Silahların kendiliğinden ateş eder. Sen hareket et, kalabalıktan kaç ve XP topla!";
 
         private const string HowToGoal =
-            "<color=#FFD15A>AMAÇ</color>\n" +
-            "XP taşlarını topla, seviye atla,\n" +
-            "her seviyede bir yükseltme seç.\n" +
-            "Her dakika bir BOSS gelir: yen ve\n" +
-            "düşürdüğü sandığı al.\n" +
-            "8:00'de gelen SON BOSS'u yenersen\n" +
-            "oyunu kazanırsın.\n\n" +
-            "<color=#FFD15A>İPUÇLARI</color>\n" +
-            "Altın düşmanlar = elit, daha çok ödül.\n" +
-            "Altınla Dükkan'dan kalıcı güç al.\n" +
-            "İki yükseltmeyi doldur: EVRİM!";
+            "Düşmanların düşürdüğü XP taşlarını topla, seviye atla ve her seviyede bir yükseltme seç.\n" +
+            "Her dakika bir <b>BOSS</b> gelir: yen ve düşürdüğü hazine sandığını al.\n" +
+            "8:00'de gelen <b>SON BOSS</b>'u yenersen oyunu kazanırsın!";
+
+        private const string HowToTips =
+            "• Altın renkli düşmanlar <b>elit</b>tir, daha çok ödül verir.\n" +
+            "• Topladığın altınla <b>Dükkan</b>'dan kalıcı güç al.\n" +
+            "• Bir silahın iki yükseltmesini doldur: <b>EVRİM!</b>";
 
         private const string Credits =
-            "Görseller/sesler: Undead Survivor (Goldmetal), Monsters Creatures Fantasy (Luiz Melo), " +
-            "Brackeys 2D Mega Pack, Dragon Warrior, Horror Atmosphere LITE, GUI Parts, Neo둥근모 font";
+            "Görseller / sesler: Undead Survivor (Goldmetal), Monsters Creatures Fantasy (Luiz Melo), " +
+            "Brackeys 2D Mega Pack, Dragon Warrior (Graphictoon), Horror Atmosphere LITE, GUI Parts, Neo둥근모 font";
 
         private static RectTransform BuildHowToPlay(Transform holder, out Button back)
         {
@@ -480,25 +477,35 @@ namespace PixelSurvivor.EditorTools
             Stretch(panel);
             Heading(panel, "NASIL OYNANIR");
 
-            Image window = Window(panel, new Vector2(1620, 720));
-            window.rectTransform.anchoredPosition = new Vector2(0, 10);
+            Image window = Window(panel, new Vector2(1620, 700));
+            window.rectTransform.anchoredPosition = new Vector2(0, 0);
 
-            // Two columns; 32 pt keeps the 16 px pixel font crisp.
-            Text left = UiText("Controls", window.transform, HowToControls, 32, TextAnchor.UpperLeft, Color.white);
-            left.supportRichText = true;
-            Place(left.rectTransform, new Vector2(0, 1), new Vector2(0, 1), new Vector2(0, 1), new Vector2(90, -70), new Vector2(700, 580));
+            // Left column: controls + weapons. Right column: goal + tips.
+            // Section titles use the pixel font, paragraphs the readable body font.
+            HowToSection(window.transform, "KONTROLLER", HowToControls, new Vector2(80, -60), 300);
+            HowToSection(window.transform, "SİLAHLAR", HowToWeapons, new Vector2(80, -450), 140);
+            HowToSection(window.transform, "AMAÇ", HowToGoal, new Vector2(850, -60), 300);
+            HowToSection(window.transform, "İPUÇLARI", HowToTips, new Vector2(850, -400), 220);
 
-            Text right = UiText("Goal", window.transform, HowToGoal, 32, TextAnchor.UpperLeft, Color.white);
-            right.supportRichText = true;
-            Place(right.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, 1), new Vector2(30, -70), new Vector2(720, 580));
-
-            Text credits = UiText("Credits", panel, Credits, 16, TextAnchor.MiddleCenter, Muted);
+            Text credits = BodyText("Credits", panel, Credits, 20, TextAnchor.MiddleCenter, Muted);
             credits.horizontalOverflow = HorizontalWrapMode.Wrap;
-            Place(credits.rectTransform, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0, 8), new Vector2(1700, 40));
+            Place(credits.rectTransform, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0, 6), new Vector2(1800, 40));
 
-            back = UiButton("Back", panel, new Vector2(0, -430), new Vector2(360, 90));
+            back = UiButton("Back", panel, new Vector2(0, -420), new Vector2(360, 80));
             Stretch(UiText("Label", back.transform, "GERİ  [Esc]", 32, TextAnchor.MiddleCenter, Gold).rectTransform);
             return panel;
+        }
+
+        /// <summary>Gold pixel-font title with a wrapped body paragraph below it (positions from the window's top-left).</summary>
+        private static void HowToSection(Transform window, string title, string body, Vector2 topLeft, float bodyHeight)
+        {
+            var anchor = new Vector2(0, 1);
+            Text heading = UiText(title, window, title, 32, TextAnchor.UpperLeft, Gold);
+            Place(heading.rectTransform, anchor, anchor, anchor, topLeft, new Vector2(660, 44));
+
+            Text text = BodyText(title + "Text", window, body, 30, TextAnchor.UpperLeft, Color.white);
+            text.horizontalOverflow = HorizontalWrapMode.Wrap;
+            Place(text.rectTransform, anchor, anchor, anchor, topLeft + new Vector2(0, -52), new Vector2(660, bodyHeight));
         }
 
         private static void Heading(Transform parent, string text)
@@ -564,6 +571,23 @@ namespace PixelSurvivor.EditorTools
             img.fillMethod = Image.FillMethod.Horizontal;
             img.fillOrigin = (int)Image.OriginHorizontal.Left;
             img.fillAmount = 1f;
+        }
+
+        /// <summary>
+        /// Unity's built-in sans-serif font: readable at any scale and has every Turkish letter.
+        /// Used for longer body text; titles and buttons keep the pixel font.
+        /// </summary>
+        private static Font BodyFont => Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+
+        /// <summary>Paragraph text in the readable body font (see <see cref="BodyFont"/>).</summary>
+        private static Text BodyText(string name, Transform parent, string text, int size, TextAnchor anchor, Color color)
+        {
+            Text t = UiText(name, parent, text, size, anchor, color);
+            t.font = BodyFont;
+            t.supportRichText = true;
+            t.lineSpacing = 1.1f;
+            t.GetComponent<Outline>().effectDistance = new Vector2(1.5f, -1.5f);
+            return t;
         }
 
         private static Text UiText(string name, Transform parent, string text, int size, TextAnchor anchor, Color color)

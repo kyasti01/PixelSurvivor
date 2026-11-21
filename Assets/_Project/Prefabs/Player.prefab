@@ -276,6 +276,7 @@ MonoBehaviour:
   damageFlashTime: 0.1
   hurtRadius: 0.5
   hurtOffset: {x: 0, y: -0.2}
+  maxContactAttackers: 4
   hurtSfx: {fileID: 8300000, guid: 87e2452fe2c754248926c9a9ab93a467, type: 3}
   deathSfx: {fileID: 8300000, guid: bd8857660a16ba549b8cc522d93d9117, type: 3}
   hurtFeedbackInterval: 0.35

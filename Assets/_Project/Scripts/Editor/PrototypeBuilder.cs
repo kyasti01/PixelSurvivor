@@ -40,7 +40,7 @@ namespace PixelSurvivor.EditorTools
         private const string Renderer2DPath = "Assets/Settings/Renderer2D.asset";
 
         /// <summary>Bump when the builder changes, so the Console shows which version ran.</summary>
-        private const int BuilderVersion = 17;
+        private const int BuilderVersion = 18;
 
         [MenuItem("PixelSurvivor/Build Prototype", priority = 0)]
         public static void Build()
@@ -171,17 +171,17 @@ namespace PixelSurvivor.EditorTools
         }
 
         /// <summary>
-        /// neodgm is a pixel font: render it without anti-aliasing so text stays crisp
-        /// (the default smooth mode blurs it, especially at sizes that aren't multiples of 16).
+        /// Smooth (anti-aliased) rendering for the pixel font. Raster mode looked crisp at exactly
+        /// 1080p but broke glyphs apart whenever the UI was scaled down (small Game view, laptops).
         /// </summary>
         private static void ConfigurePixelFont()
         {
             string path = Art + "/Fonts/neodgm.ttf";
             if (AssetImporter.GetAtPath(path) is not TrueTypeFontImporter importer)
                 throw new InvalidOperationException("Font not found: " + path);
-            if (importer.fontRenderingMode == FontRenderingMode.HintedRaster) return;
+            if (importer.fontRenderingMode == FontRenderingMode.Smooth) return;
 
-            importer.fontRenderingMode = FontRenderingMode.HintedRaster;
+            importer.fontRenderingMode = FontRenderingMode.Smooth;
             importer.SaveAndReimport();
         }
 
