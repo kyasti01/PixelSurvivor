@@ -53,8 +53,9 @@ Oyun içinde ana menüdeki **NASIL OYNANIR** ekranı da aynı bilgileri gösteri
 **Sahneleri yeniden üretmek:** Sahneler ve prefab'lar bir editör aracıyla koddan üretilir.
 Menüden **PixelSurvivor → Build Prototype** çalıştırılınca hepsi baştan kurulur.
 
-**Windows .exe almak:** **PixelSurvivor → Build Windows (.exe)**. Çıktı `Builds/Windows/` klasörüne yazılır.
-Başka bir bilgisayarda çalıştırmak için klasörün **tamamı** kopyalanmalıdır.
+**Windows .exe almak:** **PixelSurvivor → Build Windows (.exe)**. Oyun `Builds/Windows/` klasörüne yazılır ve
+paylaşmaya hazır bir zip olarak `Builds/PixelSurvivor_Windows.zip` dosyası oluşturulur. Zip'i açıp
+`PixelSurvivor/PixelSurvivor.exe` dosyasını çalıştırmak yeterlidir; kurulum gerekmez (Windows 10/11, 64 bit).
 
 ---
 
