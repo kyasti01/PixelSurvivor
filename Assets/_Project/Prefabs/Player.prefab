@@ -49,7 +49,7 @@ MonoBehaviour:
   count: 0
   radius: 1.6
   degreesPerSecond: 200
-  damage: 12
+  damage: 15
   knockback: 2
   spriteAngleOffset: -90
 --- !u!1 &1675310783943210583
@@ -98,9 +98,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: PixelSurvivor::PixelSurvivor.AutoGun
   projectilePrefab: {fileID: 1879346264030889146, guid: 0ad1a2b54105529418b8ea40064e2ff2, type: 3}
   fireSfx: {fileID: 8300000, guid: 6f0c572d865b4664db7a460972bc4768, type: 3}
-  fireInterval: 0.6
+  fireInterval: 0.5
   range: 8
-  damage: 10
+  damage: 13
   projectileSpeed: 10
   pierce: 1
   knockback: 1.2
@@ -397,7 +397,7 @@ MonoBehaviour:
   count: 0
   fireInterval: 2.2
   radius: 1.5
-  damage: 30
+  damage: 37
   knockback: 3
   range: 9
 --- !u!1 &3869049317604965817
@@ -448,7 +448,7 @@ MonoBehaviour:
   fireSfx: {fileID: 8300000, guid: d1bef3102d08ba944ac7bcac65733a26, type: 3}
   fireInterval: 1.4
   count: 8
-  damage: 8
+  damage: 10
   projectileSpeed: 7
   pierce: 1
   knockback: 0.8
@@ -908,7 +908,7 @@ MonoBehaviour:
   throwSfx: {fileID: 8300000, guid: 2ebf2421dddc15a45b7fc6ae8197b1c0, type: 3}
   count: 0
   fireInterval: 1.5
-  damage: 22
+  damage: 27
   upSpeed: 10
   sideSpeed: 3
   pierce: 50
