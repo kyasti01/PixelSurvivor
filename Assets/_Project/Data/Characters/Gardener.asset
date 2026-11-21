@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f382baf67589245904bc163f912086, type: 3}
+  m_Name: Gardener
+  m_EditorClassIdentifier: PixelSurvivor::PixelSurvivor.CharacterDefinition
+  displayName: "Bah\xE7\u0131van"
+  description: "T\xFCfek + 3 D\xF6nen K\xFCrek.\nSa\u011Flam ama yava\u015F.\n\nCan 130"
+  standFrames:
+  - {fileID: -150523396, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  - {fileID: -1592204662, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  - {fileID: 1438553564, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  - {fileID: 381631601, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  runFrames:
+  - {fileID: 1363809998, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  - {fileID: -188091907, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  - {fileID: 847793873, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  - {fileID: 937111007, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  - {fileID: 1842362625, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  - {fileID: -1732568499, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  deadFrames:
+  - {fileID: 1375599644, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  - {fileID: 1929632063, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
+  maxHealth: 130
+  moveSpeed: 2.7
+  pickupRadius: 2.5
+  gun: 1
+  gunProjectiles: 1
+  ring: 0
+  ringCount: 8
+  ringInterval: 1.4
+  orbitBlades: 3
+  unlockCost: 100
+  requiresVictory: 0

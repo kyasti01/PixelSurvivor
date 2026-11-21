@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac5bf6c2e0ef99489977e690210cafa, type: 3}
+  m_Name: BombCount
+  m_EditorClassIdentifier: PixelSurvivor::PixelSurvivor.UpgradeDefinition
+  displayName: "Alev Bombas\u0131"
+  description: "D\xFC\u015Fmanlar\u0131n aras\u0131na +1 bomba"
+  icon: {fileID: 21300006, guid: 947c0cbf176869a45b7fd547776a2b0c, type: 3}
+  kind: 15
+  value: 1
+  maxLevel: 5
+  requires: {fileID: 0}
+  requiresMaxed: []
+  isEvolution: 0
+  weight: 1.2

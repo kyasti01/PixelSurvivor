@@ -1,0 +1,20 @@
+{
+    "name": "PixelSurvivor.Editor",
+    "rootNamespace": "PixelSurvivor.EditorTools",
+    "references": [
+        "PixelSurvivor",
+        "Unity.InputSystem",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

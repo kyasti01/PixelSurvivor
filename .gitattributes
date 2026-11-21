@@ -1,0 +1,27 @@
+# Normalise text line endings; keep binary assets untouched.
+* text=auto
+
+# Unity YAML assets are text
+*.unity     text
+*.prefab    text
+*.asset     text
+*.meta      text
+*.mat       text
+*.anim      text
+*.controller text
+*.overrideController text
+*.physicsMaterial2D text
+*.inputactions text
+*.cs        text diff=csharp
+*.md        text
+
+# Binary assets
+*.png  binary
+*.jpg  binary
+*.psd  binary
+*.wav  binary
+*.mp3  binary
+*.ogg  binary
+*.ttf  binary
+*.otf  binary
+*.pdf  binary
