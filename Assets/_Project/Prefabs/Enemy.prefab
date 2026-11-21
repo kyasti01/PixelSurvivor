@@ -135,6 +135,7 @@ MonoBehaviour:
   maxApproachAngle: 15
   hitFlashColor: {r: 1, g: 0.35, b: 0.35, a: 1}
   hitFlashTime: 0.08
+  damageNumberInterval: 0.3
   hitSfx: {fileID: 8300000, guid: 0bddcb411d826e14bb26d40ae45d8e22, type: 3}
   deathSfx: {fileID: 8300000, guid: 291608b8d286e2a4580ff36324455ce2, type: 3}
 --- !u!1 &7338172020313189467

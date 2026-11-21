@@ -14,7 +14,7 @@ namespace PixelSurvivor
         [Header("Stats")]
         [SerializeField, Min(0.05f)] private float fireInterval = 1.4f;
         [SerializeField, Min(1)] private int count = 8;
-        [SerializeField, Min(0f)] private float damage = 8f;
+        [SerializeField, Min(0f)] private float damage = 10f;
         [SerializeField, Min(0.5f)] private float projectileSpeed = 7f;
         [SerializeField, Min(0)] private int pierce = 1;
         [Tooltip("Keep low: a ring firing in every direction with strong knockback makes the player untouchable.")]

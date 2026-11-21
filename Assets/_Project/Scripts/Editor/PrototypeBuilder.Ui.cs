@@ -55,11 +55,11 @@ namespace PixelSurvivor.EditorTools
 
             // XP bar across the top edge (Undead Survivor bar sprites).
             Image xpBack = UiImage("XpBar", hud, null, new Color(0.08f, 0.08f, 0.1f, 0.9f));
-            Place(xpBack.rectTransform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0.5f, 1), Vector2.zero, new Vector2(0, 30));
+            Place(xpBack.rectTransform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0.5f, 1), Vector2.zero, new Vector2(0, 36));
             Image xpFill = UiImage("Fill", xpBack.transform, SpriteNamed(UiSheet, "Front 0"), Color.white);
             Stretch(xpFill.rectTransform, 3f);
             MakeFilled(xpFill);
-            Text level = UiText("Level", xpBack.transform, "Lv.1", 26, TextAnchor.MiddleRight, Color.white);
+            Text level = UiText("Level", xpBack.transform, "Lv.1", 30, TextAnchor.MiddleRight, Color.white);
             Stretch(level.rectTransform);
             level.rectTransform.offsetMax = new Vector2(-14, 0);
 
@@ -71,7 +71,7 @@ namespace PixelSurvivor.EditorTools
             Stretch(hpFill.rectTransform, 4f);
             MakeFilled(hpFill);
             Stretch(UiImage("Frame", hp, GuiSprite("Hp_frame"), Color.white, Image.Type.Sliced, 0.8f).rectTransform);
-            Text hpText = UiText("Value", hp, "100 / 100", 32, TextAnchor.MiddleCenter, Color.white);
+            Text hpText = UiText("Value", hp, "100 / 100", 34, TextAnchor.MiddleCenter, Color.white);
             Stretch(hpText.rectTransform);
 
             // Dash readiness, a thin bar under the health bar.
@@ -86,8 +86,8 @@ namespace PixelSurvivor.EditorTools
             Text goldText = IconCounter(hud, "Gold", BrackeysSprite("Items & Icons/Pixel Art/Coin.png"), -94);
 
             // Countdown to the final boss, top-centre.
-            Text timer = UiText("Timer", hud, "00:00", 42, TextAnchor.MiddleCenter, Color.white);
-            Place(timer.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -38), new Vector2(300, 56));
+            Text timer = UiText("Timer", hud, "00:00", 44, TextAnchor.MiddleCenter, Color.white);
+            Place(timer.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -42), new Vector2(500, 56));
 
             // Boss health bar under the timer (hidden until a boss appears) and the warning text.
             RectTransform bossBar = UiRect("BossBar", hud);
@@ -96,15 +96,15 @@ namespace PixelSurvivor.EditorTools
             Stretch(bossFill.rectTransform, 4f);
             MakeFilled(bossFill);
             Stretch(UiImage("Frame", bossBar, GuiSprite("Hp_frame"), Color.white, Image.Type.Sliced, 0.8f).rectTransform);
-            Stretch(UiText("Label", bossBar, "BOSS", 28, TextAnchor.MiddleCenter, Color.white).rectTransform);
+            Stretch(UiText("Label", bossBar, "BOSS", 30, TextAnchor.MiddleCenter, Color.white).rectTransform);
             bossBar.gameObject.SetActive(false);
 
             Text announcement = UiText("Announcement", hud, "", 72, TextAnchor.MiddleCenter, new Color(1f, 0.3f, 0.25f));
             Place(announcement.rectTransform, Center, Center, Center, new Vector2(0, 220), new Vector2(1400, 100));
             announcement.enabled = false;
 
-            Text hint = UiText("Hint", hud, "Shift/Space: Atıl     Esc: Duraklat", 22, TextAnchor.LowerLeft, new Color(1f, 1f, 1f, 0.6f));
-            Place(hint.rectTransform, Vector2.zero, Vector2.zero, Vector2.zero, new Vector2(20, 14), new Vector2(500, 30));
+            Text hint = UiText("Hint", hud, "Shift/Space: Atıl     Esc: Duraklat", 28, TextAnchor.LowerLeft, new Color(1f, 1f, 1f, 0.75f));
+            Place(hint.rectTransform, Vector2.zero, Vector2.zero, Vector2.zero, new Vector2(20, 12), new Vector2(700, 36));
 
             var view = hud.gameObject.AddComponent<HudView>();
             Set(view, "bossBar", bossBar.gameObject);
@@ -129,7 +129,7 @@ namespace PixelSurvivor.EditorTools
             Image img = UiImage("Icon", root, icon, Color.white);
             img.preserveAspect = true;
             Place(img.rectTransform, new Vector2(0, 0.5f), new Vector2(0, 0.5f), new Vector2(0, 0.5f), Vector2.zero, new Vector2(40, 40));
-            Text text = UiText("Value", root, "0", 34, TextAnchor.MiddleRight, Color.white);
+            Text text = UiText("Value", root, "0", 40, TextAnchor.MiddleRight, Color.white);
             Stretch(text.rectTransform);
             return text;
         }
@@ -138,7 +138,7 @@ namespace PixelSurvivor.EditorTools
         {
             RectTransform layer = UiRect("DamageNumbers", canvas);
             Stretch(layer);
-            Set(layer.gameObject.AddComponent<DamageNumbers>(), "font", uiFont);
+            Set(layer.gameObject.AddComponent<DamageNumbers>(), "font", BodyFont);
         }
 
         // ------------------------------------------------------------------ level up
@@ -186,12 +186,12 @@ namespace PixelSurvivor.EditorTools
                 Place(badge.rectTransform, Vector2.zero, Vector2.zero, Vector2.zero, new Vector2(10, 12), new Vector2(196, 40));
 
                 // Right side: name, then description.
-                Text name = UiText("Title", button.transform, "Upgrade", 32, TextAnchor.UpperLeft, Gold);
+                Text name = UiText("Title", button.transform, "Upgrade", 34, TextAnchor.UpperLeft, Gold);
                 Place(name.rectTransform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0, 1), Vector2.zero, Vector2.zero);
                 name.rectTransform.offsetMin = new Vector2(210, -62);
                 name.rectTransform.offsetMax = new Vector2(-20, -22);
 
-                Text desc = BodyText("Description", button.transform, "Description", 28, TextAnchor.UpperLeft, Color.white);
+                Text desc = BodyText("Description", button.transform, "Description", 32, TextAnchor.UpperLeft, Color.white);
                 desc.horizontalOverflow = HorizontalWrapMode.Wrap;
                 Place(desc.rectTransform, Vector2.zero, Vector2.one, Center, Vector2.zero, Vector2.zero);
                 desc.rectTransform.offsetMin = new Vector2(210, 18);
@@ -229,9 +229,9 @@ namespace PixelSurvivor.EditorTools
             Slider sfx = LabeledSlider(window.transform, "Efektler", new Vector2(0, 30));
 
             Button resume = UiButton("Resume", window.transform, new Vector2(0, -100), new Vector2(460, 110));
-            Stretch(UiText("Label", resume.transform, "DEVAM  [Esc]", 34, TextAnchor.MiddleCenter, Gold).rectTransform);
+            Stretch(UiText("Label", resume.transform, "DEVAM  [Esc]", 38, TextAnchor.MiddleCenter, Gold).rectTransform);
             Button menu = UiButton("Menu", window.transform, new Vector2(0, -225), new Vector2(460, 110));
-            Stretch(UiText("Label", menu.transform, "ANA MENÜ", 34, TextAnchor.MiddleCenter, Gold).rectTransform);
+            Stretch(UiText("Label", menu.transform, "ANA MENÜ", 38, TextAnchor.MiddleCenter, Gold).rectTransform);
 
             Set(view, "root", panel.gameObject);
             Set(view, "resumeButton", resume);
@@ -264,13 +264,13 @@ namespace PixelSurvivor.EditorTools
             title.preserveAspect = true;
             Place(title.rectTransform, Center, Center, Center, new Vector2(0, 170), new Vector2(252, 66));
 
-            Text stats = UiText("Stats", panel.transform, "", 38, TextAnchor.MiddleCenter, Color.white);
-            Place(stats.rectTransform, Center, Center, Center, new Vector2(0, 10), new Vector2(1500, 120));
+            Text stats = UiText("Stats", panel.transform, "", 42, TextAnchor.MiddleCenter, Color.white);
+            Place(stats.rectTransform, Center, Center, Center, new Vector2(0, 10), new Vector2(1700, 130));
 
             Button restart = UiButton("Restart", panel.transform, new Vector2(-260, -170), new Vector2(460, 120));
-            Stretch(UiText("Label", restart.transform, "TEKRAR OYNA  [R]", 34, TextAnchor.MiddleCenter, Gold).rectTransform);
+            Stretch(UiText("Label", restart.transform, "TEKRAR OYNA  [R]", 38, TextAnchor.MiddleCenter, Gold).rectTransform);
             Button menu = UiButton("Menu", panel.transform, new Vector2(260, -170), new Vector2(460, 120));
-            Stretch(UiText("Label", menu.transform, "ANA MENÜ", 34, TextAnchor.MiddleCenter, Gold).rectTransform);
+            Stretch(UiText("Label", menu.transform, "ANA MENÜ", 38, TextAnchor.MiddleCenter, Gold).rectTransform);
 
             Set(view, "root", panel.gameObject);
             Set(view, "title", title);
@@ -307,7 +307,7 @@ namespace PixelSurvivor.EditorTools
             Button start = UiButton("Start", main, new Vector2(0, -10), new Vector2(480, 100));
             Stretch(UiText("Label", start.transform, "BAŞLA", 48, TextAnchor.MiddleCenter, Gold).rectTransform);
             Button howTo = UiButton("HowTo", main, new Vector2(0, -125), new Vector2(480, 100));
-            Stretch(UiText("Label", howTo.transform, "NASIL OYNANIR", 32, TextAnchor.MiddleCenter, Gold).rectTransform);
+            Stretch(UiText("Label", howTo.transform, "NASIL OYNANIR", 48, TextAnchor.MiddleCenter, Gold).rectTransform);
             Button shop = UiButton("Shop", main, new Vector2(0, -240), new Vector2(480, 100));
             Stretch(UiText("Label", shop.transform, "DÜKKAN", 48, TextAnchor.MiddleCenter, Gold).rectTransform);
             Button quit = UiButton("Quit", main, new Vector2(0, -355), new Vector2(480, 100));
@@ -318,7 +318,7 @@ namespace PixelSurvivor.EditorTools
             Stretch(select);
 
             Heading(select, "KARAKTERİNİ SEÇ");
-            Text selectGold = UiText("Gold", select, "Altın: 0", 40, TextAnchor.MiddleRight, Gold);
+            Text selectGold = UiText("Gold", select, "Altın: 0", 44, TextAnchor.MiddleRight, Gold);
             Place(selectGold.rectTransform, new Vector2(1, 1), new Vector2(1, 1), new Vector2(1, 1), new Vector2(-60, -70), new Vector2(500, 60));
 
             var so = new SerializedObject(view);
@@ -331,7 +331,7 @@ namespace PixelSurvivor.EditorTools
             for (int i = 0; i < 3; i++)
             {
                 Button b = UiButton($"Difficulty{i}", select, new Vector2(-300 + i * 300, 300), new Vector2(280, 70));
-                Text label = UiText("Label", b.transform, DifficultySettings.DisplayName((Difficulty)i), 32, TextAnchor.MiddleCenter, Gold);
+                Text label = UiText("Label", b.transform, DifficultySettings.DisplayName((Difficulty)i), 38, TextAnchor.MiddleCenter, Gold);
                 Stretch(label.rectTransform);
                 diffButtons.GetArrayElementAtIndex(i).objectReferenceValue = b;
                 diffLabels.GetArrayElementAtIndex(i).objectReferenceValue = label;
@@ -348,10 +348,10 @@ namespace PixelSurvivor.EditorTools
                 portrait.preserveAspect = true;
                 Place(portrait.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -50), new Vector2(180, 200));
 
-                Text name = UiText("Name", card.transform, "Name", 46, TextAnchor.MiddleCenter, Gold);
+                Text name = UiText("Name", card.transform, "Name", 48, TextAnchor.MiddleCenter, Gold);
                 Place(name.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -275), new Vector2(360, 60));
 
-                Text desc = BodyText("Description", card.transform, "", 26, TextAnchor.UpperCenter, Color.white);
+                Text desc = BodyText("Description", card.transform, "", 30, TextAnchor.UpperCenter, Color.white);
                 desc.horizontalOverflow = HorizontalWrapMode.Wrap;
                 Place(desc.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -330), new Vector2(330, 240));
 
@@ -363,7 +363,7 @@ namespace PixelSurvivor.EditorTools
             }
 
             Button back = UiButton("Back", select, new Vector2(0, -440), new Vector2(360, 90));
-            Stretch(UiText("Label", back.transform, "GERİ  [Esc]", 34, TextAnchor.MiddleCenter, Gold).rectTransform);
+            Stretch(UiText("Label", back.transform, "GERİ  [Esc]", 38, TextAnchor.MiddleCenter, Gold).rectTransform);
             so.FindProperty("goldText").objectReferenceValue = selectGold;
             so.FindProperty("unlockSfx").objectReferenceValue = buySfx;
 
@@ -396,7 +396,7 @@ namespace PixelSurvivor.EditorTools
             var view = panel.gameObject.AddComponent<ShopView>();
 
             Heading(panel, "DÜKKAN");
-            Text gold = UiText("Gold", panel, "Altın: 0", 40, TextAnchor.MiddleRight, Gold);
+            Text gold = UiText("Gold", panel, "Altın: 0", 44, TextAnchor.MiddleRight, Gold);
             Place(gold.rectTransform, new Vector2(1, 1), new Vector2(1, 1), new Vector2(1, 1), new Vector2(-60, -70), new Vector2(500, 60));
 
             var stats = new (MetaStat stat, Sprite icon)[]
@@ -419,17 +419,17 @@ namespace PixelSurvivor.EditorTools
                 icon.preserveAspect = true;
                 Place(icon.rectTransform, new Vector2(0, 0.5f), new Vector2(0, 0.5f), Center, new Vector2(80, 0), new Vector2(84, 84));
 
-                Text title = UiText("Title", row.transform, "", 36, TextAnchor.LowerLeft, Gold);
+                Text title = UiText("Title", row.transform, "", 40, TextAnchor.LowerLeft, Gold);
                 Place(title.rectTransform, new Vector2(0, 0.5f), new Vector2(1, 1), Center, Vector2.zero, Vector2.zero);
                 title.rectTransform.offsetMin = new Vector2(150, 0);
                 title.rectTransform.offsetMax = new Vector2(-260, -14);
 
-                Text desc = BodyText("Description", row.transform, "", 26, TextAnchor.UpperLeft, Color.white);
+                Text desc = BodyText("Description", row.transform, "", 30, TextAnchor.UpperLeft, Color.white);
                 Place(desc.rectTransform, Vector2.zero, new Vector2(1, 0.5f), Center, Vector2.zero, Vector2.zero);
                 desc.rectTransform.offsetMin = new Vector2(150, 14);
                 desc.rectTransform.offsetMax = new Vector2(-260, -4);
 
-                Text cost = UiText("Cost", row.transform, "", 34, TextAnchor.MiddleRight, Gold);
+                Text cost = UiText("Cost", row.transform, "", 40, TextAnchor.MiddleRight, Gold);
                 Place(cost.rectTransform, new Vector2(1, 0), new Vector2(1, 1), new Vector2(1, 0.5f), new Vector2(-40, 0), new Vector2(240, 0));
 
                 SerializedProperty r = rows.GetArrayElementAtIndex(i);
@@ -444,7 +444,7 @@ namespace PixelSurvivor.EditorTools
             so.ApplyModifiedPropertiesWithoutUndo();
 
             back = UiButton("Back", panel, new Vector2(0, -440), new Vector2(360, 100));
-            Stretch(UiText("Label", back.transform, "GERİ  [Esc]", 34, TextAnchor.MiddleCenter, Gold).rectTransform);
+            Stretch(UiText("Label", back.transform, "GERİ  [Esc]", 38, TextAnchor.MiddleCenter, Gold).rectTransform);
             return panel;
         }
 
@@ -487,12 +487,12 @@ namespace PixelSurvivor.EditorTools
             HowToSection(window.transform, "AMAÇ", HowToGoal, new Vector2(850, -60), 300);
             HowToSection(window.transform, "İPUÇLARI", HowToTips, new Vector2(850, -400), 220);
 
-            Text credits = BodyText("Credits", panel, Credits, 20, TextAnchor.MiddleCenter, Muted);
+            Text credits = BodyText("Credits", panel, Credits, 22, TextAnchor.MiddleCenter, Muted);
             credits.horizontalOverflow = HorizontalWrapMode.Wrap;
             Place(credits.rectTransform, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0, 6), new Vector2(1800, 40));
 
             back = UiButton("Back", panel, new Vector2(0, -420), new Vector2(360, 80));
-            Stretch(UiText("Label", back.transform, "GERİ  [Esc]", 32, TextAnchor.MiddleCenter, Gold).rectTransform);
+            Stretch(UiText("Label", back.transform, "GERİ  [Esc]", 38, TextAnchor.MiddleCenter, Gold).rectTransform);
             return panel;
         }
 
@@ -500,10 +500,10 @@ namespace PixelSurvivor.EditorTools
         private static void HowToSection(Transform window, string title, string body, Vector2 topLeft, float bodyHeight)
         {
             var anchor = new Vector2(0, 1);
-            Text heading = UiText(title, window, title, 32, TextAnchor.UpperLeft, Gold);
+            Text heading = UiText(title, window, title, 38, TextAnchor.UpperLeft, Gold);
             Place(heading.rectTransform, anchor, anchor, anchor, topLeft, new Vector2(660, 44));
 
-            Text text = BodyText(title + "Text", window, body, 30, TextAnchor.UpperLeft, Color.white);
+            Text text = BodyText(title + "Text", window, body, 33, TextAnchor.UpperLeft, Color.white);
             text.horizontalOverflow = HorizontalWrapMode.Wrap;
             Place(text.rectTransform, anchor, anchor, anchor, topLeft + new Vector2(0, -52), new Vector2(660, bodyHeight));
         }
@@ -584,16 +584,26 @@ namespace PixelSurvivor.EditorTools
         {
             Text t = UiText(name, parent, text, size, anchor, color);
             t.font = BodyFont;
+            t.fontStyle = FontStyle.Normal;
             t.supportRichText = true;
             t.lineSpacing = 1.1f;
             t.GetComponent<Outline>().effectDistance = new Vector2(1.5f, -1.5f);
             return t;
         }
 
+        /// <summary>The pixel font is only used at or above this size; below it, it blurs when the UI is scaled down.</summary>
+        private const int PixelFontMinSize = 48;
+
+        /// <summary>
+        /// Label text. Big titles use the pixel font for style; everything smaller uses the bold body font,
+        /// which stays readable even when the 1920x1080 UI is shown on a small window or laptop.
+        /// </summary>
         private static Text UiText(string name, Transform parent, string text, int size, TextAnchor anchor, Color color)
         {
             var t = UiRect(name, parent).gameObject.AddComponent<Text>();
-            t.font = uiFont;
+            bool pixel = size >= PixelFontMinSize;
+            t.font = pixel ? uiFont : BodyFont;
+            t.fontStyle = pixel ? FontStyle.Normal : FontStyle.Bold;
             t.text = text;
             t.fontSize = size;
             t.alignment = anchor;

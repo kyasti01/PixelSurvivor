@@ -16,7 +16,7 @@ namespace PixelSurvivor
         [SerializeField, Min(0)] private int count;
         [SerializeField, Min(0.3f)] private float radius = 1.6f;
         [SerializeField] private float degreesPerSecond = 200f;
-        [SerializeField, Min(0f)] private float damage = 12f;
+        [SerializeField, Min(0f)] private float damage = 15f;
         [SerializeField, Min(0f)] private float knockback = 2f;
         [Tooltip("Rotation added so the sprite points outward (-90 for sprites drawn pointing up).")]
         [SerializeField] private float spriteAngleOffset = -90f;

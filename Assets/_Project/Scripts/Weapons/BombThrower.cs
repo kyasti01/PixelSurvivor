@@ -19,7 +19,7 @@ namespace PixelSurvivor
         [SerializeField, Min(0)] private int count;
         [SerializeField, Min(0.1f)] private float fireInterval = 2.2f;
         [SerializeField, Min(0.2f)] private float radius = 1.5f;
-        [SerializeField, Min(0f)] private float damage = 30f;
+        [SerializeField, Min(0f)] private float damage = 37f;
         [SerializeField, Min(0f)] private float knockback = 3f;
         [SerializeField, Min(1f)] private float range = 9f;
 

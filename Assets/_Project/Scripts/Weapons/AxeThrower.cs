@@ -14,7 +14,7 @@ namespace PixelSurvivor
         [Header("Stats")]
         [SerializeField, Min(0)] private int count;
         [SerializeField, Min(0.1f)] private float fireInterval = 1.5f;
-        [SerializeField, Min(0f)] private float damage = 22f;
+        [SerializeField, Min(0f)] private float damage = 27f;
         [SerializeField, Min(1f)] private float upSpeed = 10f;
         [Tooltip("Sideways speed range; several axes fan out across it.")]
         [SerializeField, Min(0f)] private float sideSpeed = 3f;

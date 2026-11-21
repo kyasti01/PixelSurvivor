@@ -9,9 +9,9 @@ namespace PixelSurvivor
         [SerializeField] private AudioClip fireSfx;
 
         [Header("Stats")]
-        [SerializeField, Min(0.02f)] private float fireInterval = 0.6f;
+        [SerializeField, Min(0.02f)] private float fireInterval = 0.5f;
         [SerializeField, Min(0.5f)] private float range = 8f;
-        [SerializeField, Min(0f)] private float damage = 10f;
+        [SerializeField, Min(0f)] private float damage = 13f;
         [SerializeField, Min(0.5f)] private float projectileSpeed = 10f;
         [Tooltip("How many extra enemies a projectile passes through.")]
         [SerializeField, Min(0)] private int pierce = 1;
