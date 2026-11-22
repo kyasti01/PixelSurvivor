@@ -40,7 +40,7 @@ namespace PixelSurvivor.EditorTools
         private const string Renderer2DPath = "Assets/Settings/Renderer2D.asset";
 
         /// <summary>Builder her değiştiğinde artır; Console hangi sürümün çalıştığını göstersin.</summary>
-        private const int BuilderVersion = 20;
+        private const int BuilderVersion = 21;
 
         [MenuItem("PixelSurvivor/Build Prototype", priority = 0)]
         public static void Build()

@@ -255,16 +255,27 @@ namespace PixelSurvivor.EditorTools
             Stretch(holder);
             var view = holder.gameObject.AddComponent<GameOverView>();
 
+            // Arka plan rengi kazanma/kaybetmeye göre çalışma anında değişir (GameOverView).
             Image panel = UiImage("Panel", holder, null, new Color(0f, 0f, 0f, 0.75f));
             panel.raycastTarget = true;
             Stretch(panel.rectTransform);
 
+            // Konfeti, panelin üstünde ama yazıların ve butonların altında.
+            RectTransform confettiLayer = UiRect("Confetti", panel.transform);
+            Stretch(confettiLayer);
+            var confetti = confettiLayer.gameObject.AddComponent<Confetti>();
+
+            // Büyük KAZANDIN! / ÖLDÜN... yazısı: durum ilk bakışta anlaşılsın.
+            Text headline = UiText("Headline", panel.transform, "KAZANDIN!", 112, TextAnchor.MiddleCenter, Gold);
+            headline.GetComponent<Outline>().effectDistance = new Vector2(4f, -4f);
+            Place(headline.rectTransform, Center, Center, Center, new Vector2(0, 300), new Vector2(1600, 140));
+
             Image title = UiImage("Title", panel.transform, SpriteNamed(UiSheet, "Title 2"), Color.white);
             title.preserveAspect = true;
-            Place(title.rectTransform, Center, Center, Center, new Vector2(0, 170), new Vector2(252, 66));
+            Place(title.rectTransform, Center, Center, Center, new Vector2(0, 160), new Vector2(252, 66));
 
             Text stats = UiText("Stats", panel.transform, "", 42, TextAnchor.MiddleCenter, Color.white);
-            Place(stats.rectTransform, Center, Center, Center, new Vector2(0, 10), new Vector2(1700, 130));
+            Place(stats.rectTransform, Center, Center, Center, new Vector2(0, 20), new Vector2(1700, 130));
 
             Button restart = UiButton("Restart", panel.transform, new Vector2(-260, -170), new Vector2(460, 120));
             Stretch(UiText("Label", restart.transform, "TEKRAR OYNA  [R]", 38, TextAnchor.MiddleCenter, Gold).rectTransform);
@@ -272,6 +283,9 @@ namespace PixelSurvivor.EditorTools
             Stretch(UiText("Label", menu.transform, "ANA MENÜ", 38, TextAnchor.MiddleCenter, Gold).rectTransform);
 
             Set(view, "root", panel.gameObject);
+            Set(view, "background", panel);
+            Set(view, "headline", headline);
+            Set(view, "confetti", confetti);
             Set(view, "title", title);
             Set(view, "defeatTitle", SpriteNamed(UiSheet, "Title 2"));  // "DEAD..."
             Set(view, "victoryTitle", SpriteNamed(UiSheet, "Title 1")); // "SURVIVED!"

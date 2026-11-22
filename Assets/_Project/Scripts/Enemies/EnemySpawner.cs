@@ -13,8 +13,7 @@ namespace PixelSurvivor
         [SerializeField] private EnemyStats[] enemyTypes;
 
         [Header("Steady stream")]
-        // Normal modda ilk denemede ~4-6. dakikaya, iyi gelişimle 8:00'deki son boss'a ulaşılsın diye ayarlandı
-        // (eski değerlerle 2:20'de saniyede ~14 düşman doğuyordu ve oyuncular o civarda ölüyordu).
+       
         [SerializeField, Min(0.01f)] private float initialInterval = 0.9f;
         [SerializeField, Min(0.01f)] private float minInterval = 0.08f;
         [Tooltip("Doğma aralığı bu kadar saniyede bir yarıya iner.")]
