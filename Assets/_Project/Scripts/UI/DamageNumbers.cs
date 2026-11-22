@@ -13,11 +13,11 @@ namespace PixelSurvivor
         [SerializeField, Min(8)] private int poolSize = 50;
         [SerializeField, Min(8)] private int fontSize = 32;
         [SerializeField, Min(0.1f)] private float lifetime = 0.6f;
-        [Tooltip("Sayının ömrü boyunca yukarı süzüldüğü mesafe (dünya birimi).")]
+        // Sayının ömrü boyunca yukarı süzüldüğü mesafe (dünya birimi).
         [SerializeField] private float rise = 0.8f;
         [SerializeField] private Color normalColor = Color.white;
         [SerializeField] private Color bigColor = new(1f, 0.8f, 0.25f);
-        [Tooltip("Bu değer ve üstündeki sayılar altın renkli. Sayılar her düşman için ~0.3 sn'lik toplamlardır.")]
+        // Bu değer ve üstündeki sayılar altın renkli. Sayılar her düşman için ~0.3 sn'lik toplamlardır.
         [SerializeField, Min(1f)] private float bigHit = 80f;
 
         private class Entry

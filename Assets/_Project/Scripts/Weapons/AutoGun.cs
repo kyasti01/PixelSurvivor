@@ -13,11 +13,11 @@ namespace PixelSurvivor
         [SerializeField, Min(0.5f)] private float range = 8f;
         [SerializeField, Min(0f)] private float damage = 13f;
         [SerializeField, Min(0.5f)] private float projectileSpeed = 10f;
-        [Tooltip("Bir merminin delip geçtiği ek düşman sayısı.")]
+        // Bir merminin delip geçtiği ek düşman sayısı.
         [SerializeField, Min(0)] private int pierce = 1;
         [SerializeField, Min(0f)] private float knockback = 1.2f;
         [SerializeField, Min(1)] private int projectileCount = 1;
-        [Tooltip("Aynı anda birden fazla mermi atılırken mermiler arası açı (derece).")]
+        // Aynı anda birden fazla mermi atılırken mermiler arası açı (derece).
         [SerializeField, Min(0f)] private float spreadAngle = 12f;
 
         private ProjectilePool pool;

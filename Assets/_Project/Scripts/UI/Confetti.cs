@@ -12,7 +12,7 @@ namespace PixelSurvivor
     {
         [SerializeField, Min(10)] private int maxPieces = 260;
         [SerializeField] private Vector2 pieceSize = new(14f, 24f);
-        [Tooltip("Aşağı doğru çekim (UI pikseli / saniye²).")]
+        // Aşağı doğru çekim (UI pikseli / saniye²).
         [SerializeField, Min(0f)] private float gravity = 1100f;
         [SerializeField] private Vector2 launchSpeed = new(1100f, 1700f);
         [SerializeField] private Color[] colors =
@@ -24,7 +24,7 @@ namespace PixelSurvivor
         [Header("Dalgalar")]
         [SerializeField, Min(1)] private int firstBurst = 140;
         [SerializeField, Min(0)] private int laterBurst = 40;
-        [Tooltip("İlk patlamadan sonra bu süre boyunca küçük dalgalar devam eder.")]
+        // İlk patlamadan sonra bu süre boyunca küçük dalgalar devam eder.
         [SerializeField, Min(0f)] private float burstDuration = 3f;
         [SerializeField, Min(0.1f)] private float burstInterval = 0.6f;
 

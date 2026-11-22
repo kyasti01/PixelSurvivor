@@ -9,11 +9,11 @@ namespace PixelSurvivor
     public class BossDirector : MonoBehaviour
     {
         [SerializeField] private EnemySpawner spawner;
-        [Tooltip("Boss Times'daki her satır için boss (daha az boss varsa sonuncusu tekrarlanır).")]
+        // Boss Times'daki her satır için boss (daha az boss varsa sonuncusu tekrarlanır).
         [SerializeField] private EnemyStats[] bosses;
-        [Tooltip("Her boss'un geldiği saniye. Son satır son boss'tur.")]
+        // Her boss'un geldiği saniye. Son satır son boss'tur.
         [SerializeField] private float[] bossTimes = { 60f, 120f, 180f, 240f, 300f, 360f, 420f, 480f };
-        [Tooltip("Sonraki her boss için ek can (0.5 = boss başına +%50), oyunun zaman çarpanına ek olarak.")]
+        // Sonraki her boss için ek can (0.5 = boss başına +%50), oyunun zaman çarpanına ek olarak.
         [SerializeField, Min(0f)] private float healthGrowthPerBoss;
         [SerializeField, Min(0.5f)] private float announcementDuration = 3f;
         [SerializeField] private string announcement = "BOSS GELİYOR!";
@@ -28,7 +28,7 @@ namespace PixelSurvivor
         [Header("Boss death")]
         [SerializeField] private Sprite[] deathExplosionFrames;
         [SerializeField, Min(1f)] private float deathExplosionFps = 12f;
-        [Tooltip("Boss ölçeğinin her birimi başına patlama ölçeği.")]
+        // Boss ölçeğinin her birimi başına patlama ölçeği.
         [SerializeField, Min(0.1f)] private float deathExplosionScale = 1f;
         [SerializeField] private AudioClip deathSfx;
 

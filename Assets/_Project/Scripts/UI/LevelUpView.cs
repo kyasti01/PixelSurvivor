@@ -20,7 +20,7 @@ namespace PixelSurvivor
             public Image icon;
             public Text title;
             public Text description;
-            [Tooltip("YENİ! / Sv.2 / EVRİM! gibi küçük etiket (isteğe bağlı).")]
+            // YENİ! / Sv.2 / EVRİM! gibi küçük etiket (isteğe bağlı).
             public Text badge;
         }
 
@@ -31,7 +31,7 @@ namespace PixelSurvivor
         [SerializeField] private GameObject root;
         [SerializeField] private Text titleText;
         [SerializeField] private Option[] options;
-        [Tooltip("Açıldıktan hemen sonra girdiyi kısa süre yok say; basılı tutulan tuş ya da tıklama yanlışlıkla seçim yapmasın.")]
+        // Açıldıktan hemen sonra girdiyi kısa süre yok say; basılı tutulan tuş ya da tıklama yanlışlıkla seçim yapmasın.
         [SerializeField, Min(0f)] private float inputDelay = 0.3f;
 
         private readonly List<UpgradeDefinition> current = new();

@@ -10,7 +10,7 @@ namespace PixelSurvivor
     public class InfiniteGround : MonoBehaviour
     {
         [SerializeField] private TileBase tile;
-        [Tooltip("Ekran kenarının ötesine fazladan döşenen karo sayısı.")]
+        // Ekran kenarının ötesine fazladan döşenen karo sayısı.
         [SerializeField, Min(0)] private int margin = 4;
 
         private Tilemap map;

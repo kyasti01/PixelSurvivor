@@ -15,19 +15,19 @@ namespace PixelSurvivor
 
         [SerializeField] private SpriteRenderer body;
         [SerializeField] private Animator animator;
-        [Tooltip("Orijinal sprite çevrilmemişken sağa bakıyorsa işaretle.")]
+        // Orijinal sprite çevrilmemişken sağa bakıyorsa işaretle.
         [SerializeField] private bool spriteFacesRight = true;
         [SerializeField, Min(0f)] private float deathDuration = 0.6f;
-        [Tooltip("Geri itilme, takibi ne kadar süre bastırır.")]
+        // Geri itilme, takibi ne kadar süre bastırır.
         [SerializeField, Min(0f)] private float knockbackTime = 0.08f;
-        [Tooltip("Bu kadar geride kalan düşmanlar oyuncunun önüne taşınır.")]
+        // Bu kadar geride kalan düşmanlar oyuncunun önüne taşınır.
         [SerializeField, Min(5f)] private float recycleDistance = 22f;
         [SerializeField, Min(1f)] private float recycleSpawnDistance = 15f;
-        [Tooltip("Her düşmana özel, oyuncuya giden düz çizgiden rastgele sapma (derece).")]
+        // Her düşmana özel, oyuncuya giden düz çizgiden rastgele sapma (derece).
         [SerializeField, Range(0f, 45f)] private float maxApproachAngle = 15f;
         [SerializeField] private Color hitFlashColor = new(1f, 0.35f, 0.35f);
         [SerializeField, Min(0f)] private float hitFlashTime = 0.08f;
-        [Tooltip("Bu süre içindeki vuruşlar tek bir hasar sayısında toplanır.")]
+        // Bu süre içindeki vuruşlar tek bir hasar sayısında toplanır.
         [SerializeField, Min(0f)] private float damageNumberInterval = 0.3f;
         [SerializeField] private AudioClip hitSfx;
         [SerializeField] private AudioClip deathSfx;

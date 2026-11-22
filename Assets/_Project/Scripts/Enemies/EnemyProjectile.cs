@@ -11,7 +11,7 @@ namespace PixelSurvivor
         [SerializeField] private Sprite[] frames;
         [SerializeField, Min(1f)] private float fps = 10f;
         [SerializeField, Min(0.5f)] private float lifetime = 4f;
-        [Tooltip("Sprite uçuş yönünü göstersin diye eklenen dönüş (yukarı bakacak çizilmiş görseller için -90).")]
+        // Sprite uçuş yönünü göstersin diye eklenen dönüş (yukarı bakacak çizilmiş görseller için -90).
         [SerializeField] private float spriteAngleOffset = -90f;
 
         private Rigidbody2D rb;

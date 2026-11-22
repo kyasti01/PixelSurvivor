@@ -36,15 +36,15 @@ namespace PixelSurvivor
         public Sprite icon;
         public UpgradeKind kind;
         public float value = 0.1f;
-        [Tooltip("0 = sınırsız alınabilir.")]
+        // 0 = sınırsız alınabilir.
         [Min(0)] public int maxLevel = 5;
-        [Tooltip("Sadece bu yükseltme en az bir kez alındıktan sonra sunulur.")]
+        // Sadece bu yükseltme en az bir kez alındıktan sonra sunulur.
         public UpgradeDefinition requires;
-        [Tooltip("Sadece bunların HEPSİ maks seviyedeyken sunulur (silah evrimleri).")]
+        // Sadece bunların HEPSİ maks seviyedeyken sunulur (silah evrimleri).
         public UpgradeDefinition[] requiresMaxed = System.Array.Empty<UpgradeDefinition>();
-        [Tooltip("Seviye atlama ekranında EVRİM rozetiyle gösterilir.")]
+        // Seviye atlama ekranında EVRİM rozetiyle gösterilir.
         public bool isEvolution;
-        [Tooltip("Sunulma ihtimalinin göreli ağırlığı.")]
+        // Sunulma ihtimalinin göreli ağırlığı.
         [Min(0f)] public float weight = 1f;
     }
 }

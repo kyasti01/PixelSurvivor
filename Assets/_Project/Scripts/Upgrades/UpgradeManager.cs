@@ -10,16 +10,16 @@ namespace PixelSurvivor
     public class UpgradeManager : MonoBehaviour
     {
         [SerializeField] private UpgradeDefinition[] upgrades;
-        [Tooltip("Her şey maks seviyeye gelince boş kalan yerleri doldurmak için sunulur.")]
+        // Her şey maks seviyeye gelince boş kalan yerleri doldurmak için sunulur.
         [SerializeField] private UpgradeDefinition fallback;
         [SerializeField] private LevelUpView view;
         [SerializeField, Min(1)] private int choicesPerLevel = 3;
         [SerializeField] private AudioClip selectSfx;
-        [Tooltip("Bir önceki seviyede sunulan yükseltmelerin ağırlık çarpanı; seçenekler çeşitlensin diye.")]
+        // Bir önceki seviyede sunulan yükseltmelerin ağırlık çarpanı; seçenekler çeşitlensin diye.
         [SerializeField, Range(0f, 1f)] private float repeatPenalty = 0.3f;
         [SerializeField] private string levelUpTitle = "SEVİYE ATLADIN!";
         [SerializeField] private string chestTitle = "HAZİNE SANDIĞI!";
-        [Tooltip("Kapalı: seçenekler oyun devam ederken ekranın altında çıkar.")]
+        // Kapalı: seçenekler oyun devam ederken ekranın altında çıkar.
         [SerializeField] private bool pauseWhileChoosing;
 
         private string currentTitle;

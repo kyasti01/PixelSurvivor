@@ -18,23 +18,23 @@ namespace PixelSurvivor
         {
             public Sprite sprite;
             [Min(0f)] public float weight = 1f;
-            [Tooltip("Yerde yatar (karakterlerin altında çizilir, üzerinden geçilir), örn. pentagram.")]
+            // Yerde yatar (karakterlerin altında çizilir, üzerinden geçilir), örn. pentagram.
             public bool flat;
         }
 
         [Header("Obstacles")]
-        [Tooltip("Collider yarıçapı, sprite'ın kısa kenarının bu oranı kadar. Yerde yatmayan dekorlar hareketi engeller.")]
+        // Collider yarıçapı, sprite'ın kısa kenarının bu oranı kadar. Yerde yatmayan dekorlar hareketi engeller.
         [SerializeField, Range(0.1f, 0.6f)] private float colliderSize = 0.38f;
-        [Tooltip("Başlangıç noktasına bu mesafeden yakın katı dekor konmaz; oyuncu sıkışmış başlamasın diye.")]
+        // Başlangıç noktasına bu mesafeden yakın katı dekor konmaz; oyuncu sıkışmış başlamasın diye.
         [SerializeField, Min(0f)] private float clearRadiusAtStart = 3f;
 
         [SerializeField] private Item[] items;
         [SerializeField, Min(2f)] private float chunkSize = 8f;
         [SerializeField, Min(0)] private int minPerChunk;
         [SerializeField, Min(0)] private int maxPerChunk = 3;
-        [Tooltip("Kameranın etrafında her yönde tutulan parça (chunk) sayısı.")]
+        // Kameranın etrafında her yönde tutulan parça (chunk) sayısı.
         [SerializeField, Min(1)] private int viewChunks = 2;
-        [Tooltip("Sprite'lar bu pixels-per-unit değerine göre ölçeklenir; farklı paketlerin çizimleri aynı boyutta görünsün diye.")]
+        // Sprite'lar bu pixels-per-unit değerine göre ölçeklenir; farklı paketlerin çizimleri aynı boyutta görünsün diye.
         [SerializeField, Min(1f)] private float referencePpu = 18f;
         [SerializeField] private int seed = 1337;
 

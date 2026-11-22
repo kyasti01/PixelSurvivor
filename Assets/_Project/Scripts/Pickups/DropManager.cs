@@ -9,12 +9,12 @@ namespace PixelSurvivor
         [SerializeField] private Pickup pickupPrefab;
 
         [Header("Experience gems")]
-        [Tooltip("Küçük, orta, büyük.")]
+        // Küçük, orta, büyük.
         [SerializeField] private Sprite[] gemSprites = new Sprite[3];
-        [Tooltip("En az bu değerdeki taşlar orta / büyük sprite'ı kullanır.")]
+        // En az bu değerdeki taşlar orta / büyük sprite'ı kullanır.
         [SerializeField] private int mediumGemValue = 3;
         [SerializeField] private int largeGemValue = 10;
-        [Tooltip("Yerde bundan fazla pickup varsa yeni XP mevcut taşlara eklenir.")]
+        // Yerde bundan fazla pickup varsa yeni XP mevcut taşlara eklenir.
         [SerializeField, Min(10)] private int maxPickups = 400;
 
         [Header("Rare drops")]
@@ -27,7 +27,7 @@ namespace PixelSurvivor
         [Header("Gold")]
         [SerializeField] private Sprite goldSprite;
         [SerializeField, Range(0f, 1f)] private float goldChance = 0.07f;
-        [Tooltip("Ölen boss'un etrafına saçılan altın sayısı.")]
+        // Ölen boss'un etrafına saçılan altın sayısı.
         [SerializeField, Min(0)] private int bossGoldCoins = 8;
         [SerializeField, Min(1)] private int bossCoinValue = 3;
         [SerializeField, Min(0.1f)] private float goldScale = 0.55f;
@@ -38,7 +38,7 @@ namespace PixelSurvivor
 
         [Header("Chest (from bosses)")]
         [SerializeField] private Sprite chestSprite;
-        [Tooltip("Bir sandığın verdiği bedava yükseltme seçimi sayısı.")]
+        // Bir sandığın verdiği bedava yükseltme seçimi sayısı.
         [SerializeField, Min(1)] private int chestPicks = 1;
 
         private ObjectPool<Pickup> pool;

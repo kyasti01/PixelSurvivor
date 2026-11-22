@@ -17,9 +17,9 @@ namespace PixelSurvivor
         [SerializeField, Min(0f)] private float damage = 10f;
         [SerializeField, Min(0.5f)] private float projectileSpeed = 7f;
         [SerializeField, Min(0)] private int pierce = 1;
-        [Tooltip("Düşük tut: her yöne ateş eden çember güçlü geri itmeyle oyuncuyu dokunulmaz yapar.")]
+        // Düşük tut: her yöne ateş eden çember güçlü geri itmeyle oyuncuyu dokunulmaz yapar.
         [SerializeField, Min(0f)] private float knockback = 0.8f;
-        [Tooltip("Sadece bu mesafede bir düşman varken ateş eder; boşa ateş etmesin diye.")]
+        // Sadece bu mesafede bir düşman varken ateş eder; boşa ateş etmesin diye.
         [SerializeField, Min(1f)] private float activationRange = 10f;
 
         private ProjectilePool pool;

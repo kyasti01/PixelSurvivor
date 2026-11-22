@@ -18,7 +18,7 @@ namespace PixelSurvivor
         [SerializeField, Min(0.05f)] private float collectDistance = 0.4f;
         [SerializeField, Min(1f)] private float acceleration = 40f;
         [SerializeField, Min(1f)] private float maxSpeed = 16f;
-        [Tooltip("Sprite'lar bu pixels-per-unit değerine göre ölçeklenir; farklı paketlerin çizimleri aynı boyutta görünsün diye.")]
+        // Sprite'lar bu pixels-per-unit değerine göre ölçeklenir; farklı paketlerin çizimleri aynı boyutta görünsün diye.
         [SerializeField, Min(1f)] private float referencePpu = 18f;
         [SerializeField, Min(0.1f)] private float baseScale = 1.3f;
 

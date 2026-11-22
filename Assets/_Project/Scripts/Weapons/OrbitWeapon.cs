@@ -18,7 +18,7 @@ namespace PixelSurvivor
         [SerializeField] private float degreesPerSecond = 200f;
         [SerializeField, Min(0f)] private float damage = 15f;
         [SerializeField, Min(0f)] private float knockback = 2f;
-        [Tooltip("Sprite dışarı baksın diye eklenen dönüş (yukarı bakacak çizilmiş sprite'lar için -90).")]
+        // Sprite dışarı baksın diye eklenen dönüş (yukarı bakacak çizilmiş sprite'lar için -90).
         [SerializeField] private float spriteAngleOffset = -90f;
 
         private readonly List<OrbitBlade> blades = new();

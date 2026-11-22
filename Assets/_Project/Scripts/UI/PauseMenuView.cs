@@ -12,7 +12,7 @@ namespace PixelSurvivor
         [SerializeField] private Button menuButton;
         [SerializeField] private Slider musicSlider;
         [SerializeField] private Slider sfxSlider;
-        [Tooltip("Seviye atlama ekranı oyunu duraklatıyorsa (Pause While Choosing açıksa) menü onun üstünde açılmaz.")]
+        // Seviye atlama ekranı oyunu duraklatıyorsa (Pause While Choosing açıksa) menü onun üstünde açılmaz.
         [SerializeField] private LevelUpView levelUpView;
 
         public bool IsOpen => root.activeSelf;

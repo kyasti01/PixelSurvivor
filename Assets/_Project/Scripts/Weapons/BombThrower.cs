@@ -11,7 +11,7 @@ namespace PixelSurvivor
     {
         [SerializeField] private Sprite[] explosionFrames;
         [SerializeField, Min(1f)] private float explosionFps = 14f;
-        [Tooltip("Son patlama karesinin ölçek 1'deki dünya genişliği; sprite'ı patlama yarıçapına uydurmak için kullanılır.")]
+        // Son patlama karesinin ölçek 1'deki dünya genişliği; sprite'ı patlama yarıçapına uydurmak için kullanılır.
         [SerializeField, Min(0.01f)] private float explosionSpriteWidth = 1.5f;
         [SerializeField] private AudioClip explosionSfx;
 

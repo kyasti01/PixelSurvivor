@@ -6,9 +6,9 @@ namespace PixelSurvivor
     public class PlayerExperience : MonoBehaviour
     {
         [SerializeField, Min(0.1f)] private float pickupRadius = 2.5f;
-        [Tooltip("Seviye 1 -> 2 için gereken XP.")]
+        // Seviye 1 -> 2 için gereken XP.
         [SerializeField, Min(1)] private int baseXpToLevel = 3;
-        [Tooltip("Sonraki her seviye için gereken ek XP.")]
+        // Sonraki her seviye için gereken ek XP.
         [SerializeField, Min(0)] private int xpGrowthPerLevel = 3;
         [SerializeField] private AudioClip levelUpSfx;
 

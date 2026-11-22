@@ -16,9 +16,9 @@ namespace PixelSurvivor
        
         [SerializeField, Min(0.01f)] private float initialInterval = 0.9f;
         [SerializeField, Min(0.01f)] private float minInterval = 0.08f;
-        [Tooltip("Doğma aralığı bu kadar saniyede bir yarıya iner.")]
+        // Doğma aralığı bu kadar saniyede bir yarıya iner.
         [SerializeField, Min(1f)] private float intervalHalvingTime = 150f;
-        [Tooltip("Her bu kadar saniyede doğuş başına bir düşman daha eklenir.")]
+        // Her bu kadar saniyede doğuş başına bir düşman daha eklenir.
         [SerializeField, Min(1f)] private float extraEnemyEvery = 90f;
 
         [Header("Ring waves")]
@@ -27,18 +27,18 @@ namespace PixelSurvivor
         [SerializeField, Min(0)] private int waveGrowthPerWave = 8;
 
         [Header("Scaling over time (m = minutes into the run)")]
-        [Tooltip("Can x (1 + perMinute*m + quadratic*m²): başta yavaş, sonra hızlı artar.")]
+        // Can x (1 + perMinute*m + quadratic*m²): başta yavaş, sonra hızlı artar.
         [SerializeField, Min(0f)] private float healthGrowthPerMinute = 0.35f;
-        [Tooltip("Düşman sınırı düşürülünce artırıldı: daha az ama daha dayanıklı düşman, aynı zorluk ve daha az karmaşa.")]
+        // Düşman sınırı düşürülünce artırıldı: daha az ama daha dayanıklı düşman, aynı zorluk ve daha az karmaşa.
         [SerializeField, Min(0f)] private float healthGrowthQuadratic = 0.14f;
-        [Tooltip("Temas hasarı x (1 + bu*m).")]
+        // Temas hasarı x (1 + bu*m).
         [SerializeField, Min(0f)] private float damageGrowthPerMinute = 0.12f;
-        [Tooltip("Hareket hızı x (1 + bu*m), alttaki değerle sınırlı.")]
+        // Hareket hızı x (1 + bu*m), alttaki değerle sınırlı.
         [SerializeField, Min(0f)] private float speedGrowthPerMinute = 0.05f;
         [SerializeField, Min(1f)] private float maxSpeedMultiplier = 1.4f;
 
         [Header("Elites")]
-        [Tooltip("Normal bir doğuşun elit olma şansı: temel + perMinute*m, sınırlı.")]
+        // Normal bir doğuşun elit olma şansı: temel + perMinute*m, sınırlı.
         [SerializeField, Range(0f, 1f)] private float eliteBaseChance = 0.02f;
         [SerializeField, Range(0f, 1f)] private float eliteChancePerMinute = 0.01f;
         [SerializeField, Range(0f, 1f)] private float maxEliteChance = 0.1f;
@@ -48,7 +48,7 @@ namespace PixelSurvivor
 
         [Header("Limits")]
         [SerializeField, Min(1)] private int maxAlive = 180;
-        [Tooltip("Düşmanların göründüğü, ekran kenarının ötesindeki mesafe.")]
+        // Düşmanların göründüğü, ekran kenarının ötesindeki mesafe.
         [SerializeField, Min(0f)] private float spawnPadding = 1.5f;
 
         private ObjectPool<Enemy> pool;

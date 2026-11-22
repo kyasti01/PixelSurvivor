@@ -28,9 +28,9 @@ namespace PixelSurvivor
         [Min(0)] public int orbitBlades;
 
         [Header("Unlock")]
-        [Tooltip("Karakter seçiminde kilidi açmak için gereken altın (0 = ücretsiz).")]
+        // Karakter seçiminde kilidi açmak için gereken altın (0 = ücretsiz).
         [Min(0)] public int unlockCost;
-        [Tooltip("Son boss bir kez yenilince açılır (Unlock Cost değerini yok sayar).")]
+        // Son boss bir kez yenilince açılır (Unlock Cost değerini yok sayar).
         public bool requiresVictory;
     }
 }

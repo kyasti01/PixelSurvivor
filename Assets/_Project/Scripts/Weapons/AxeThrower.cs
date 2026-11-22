@@ -16,7 +16,7 @@ namespace PixelSurvivor
         [SerializeField, Min(0.1f)] private float fireInterval = 1.5f;
         [SerializeField, Min(0f)] private float damage = 27f;
         [SerializeField, Min(1f)] private float upSpeed = 10f;
-        [Tooltip("Yanlara hız aralığı; birden fazla balta bu aralığa yelpaze gibi dağılır.")]
+        // Yanlara hız aralığı; birden fazla balta bu aralığa yelpaze gibi dağılır.
         [SerializeField, Min(0f)] private float sideSpeed = 3f;
         [SerializeField, Min(0)] private int pierce = 50;
         [SerializeField, Min(0f)] private float knockback = 1.5f;

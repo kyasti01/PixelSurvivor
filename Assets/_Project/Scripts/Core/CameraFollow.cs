@@ -6,7 +6,7 @@ namespace PixelSurvivor
     public class CameraFollow : MonoBehaviour
     {
         [SerializeField] private Transform target;
-        [Tooltip("0 = hedefe kilitli. Daha yüksek değerler hafif bir gecikme ekler.")]
+        // 0 = hedefe kilitli. Daha yüksek değerler hafif bir gecikme ekler.
         [SerializeField, Min(0f)] private float smoothTime = 0.05f;
 
         private static CameraFollow instance;

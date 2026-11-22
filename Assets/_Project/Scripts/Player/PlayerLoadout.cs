@@ -9,7 +9,7 @@ namespace PixelSurvivor
     [DefaultExecutionOrder(-100)]
     public class PlayerLoadout : MonoBehaviour
     {
-        [Tooltip("Oyun sahnesi menü yerine doğrudan açılırsa kullanılır.")]
+        // Oyun sahnesi menü yerine doğrudan açılırsa kullanılır.
         [SerializeField] private CharacterDefinition defaultCharacter;
 
         public CharacterDefinition Character { get; private set; }

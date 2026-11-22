@@ -17,28 +17,28 @@ namespace PixelSurvivor
         [SerializeField] private AudioClip dashSfx;
         [SerializeField] private Sprite[] dashEffectFrames;
         [SerializeField, Min(0.05f)] private float dashEffectScale = 0.7f;
-        [Tooltip("Efekt sprite'ı doğru yöne baksın diye atılma açısına eklenir (sola doğru hareket ederken çizilmiş görseller için 180).")]
+        // Efekt sprite'ı doğru yöne baksın diye atılma açısına eklenir (sola doğru hareket ederken çizilmiş görseller için 180).
         [SerializeField] private float dashEffectAngleOffset = 180f;
 
         [Header("Visuals")]
         [SerializeField] private SpriteRenderer body;
         [SerializeField] private SpriteFrameAnimator frameAnimator;
-        [Tooltip("Orijinal sprite çevrilmemişken sağa bakıyorsa işaretle.")]
+        // Orijinal sprite çevrilmemişken sağa bakıyorsa işaretle.
         [SerializeField] private bool spriteFacesRight = true;
         [SerializeField] private Color damageFlashColor = new(1f, 0.45f, 0.45f);
         [SerializeField, Min(0f)] private float damageFlashTime = 0.1f;
 
         [Header("Contact damage")]
-        [Tooltip("Collider'ı bu daireyle kesişen düşmanlar oyuncuya hasar verir.")]
+        // Collider'ı bu daireyle kesişen düşmanlar oyuncuya hasar verir.
         [SerializeField, Min(0.1f)] private float hurtRadius = 0.5f;
         [SerializeField] private Vector2 hurtOffset = new(0f, -0.2f);
-        [Tooltip("Sadece en güçlü N temas eden düşman hasar verir; kuşatılmak tehlikeli olur ama anında ölüm olmaz.")]
+        // Sadece en güçlü N temas eden düşman hasar verir; kuşatılmak tehlikeli olur ama anında ölüm olmaz.
         [SerializeField, Min(1)] private int maxContactAttackers = 4;
 
         [Header("Feedback")]
         [SerializeField] private AudioClip hurtSfx;
         [SerializeField] private AudioClip deathSfx;
-        [Tooltip("Sürekli hasar alırken hasar sesleri/sarsıntıları arasındaki en kısa süre (saniye).")]
+        // Sürekli hasar alırken hasar sesleri/sarsıntıları arasındaki en kısa süre (saniye).
         [SerializeField, Min(0.05f)] private float hurtFeedbackInterval = 0.35f;
         [SerializeField, Min(0f)] private float hurtShake = 0.12f;
 
