@@ -3,10 +3,6 @@ using UnityEngine.Pool;
 
 namespace PixelSurvivor
 {
-    /// <summary>
-    /// Düşmanları kamera görüşünün hemen dışında doğurur. Baskı zamanla üç şekilde artar:
-    /// daha kısa aralık, her doğuşta daha çok düşman ve oyuncuyu saran periyodik çember dalgaları.
-    /// </summary>
     public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private Enemy enemyPrefab;

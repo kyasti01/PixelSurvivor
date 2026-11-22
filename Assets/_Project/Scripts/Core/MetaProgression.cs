@@ -30,7 +30,12 @@ namespace PixelSurvivor
 
         public static int Level(MetaStat stat) => PlayerPrefs.GetInt(LevelKey(stat), 0);
         public static bool IsMaxed(MetaStat stat) => Level(stat) >= MaxLevel;
-        public static int Cost(MetaStat stat) => 25 * (Level(stat) + 1);
+        // Fiyat her seviyede 1,8 katına çıkar ve 5'e yuvarlanır: 50, 90, 160, 290, 525.
+        // İlk seviyeler hemen alınabilir; dükkanın tamamı (~5.600 altın) 15-20 oyunluk bir hedeftir.
+        public const int BaseCost = 50;
+        public const float CostGrowth = 1.8f;
+        public static int Cost(MetaStat stat) =>
+            Mathf.RoundToInt(BaseCost * Mathf.Pow(CostGrowth, Level(stat)) / 5f) * 5;
         public static bool CanBuy(MetaStat stat) => !IsMaxed(stat) && Gold >= Cost(stat);
 
         public static bool TryBuy(MetaStat stat)

@@ -313,9 +313,13 @@ namespace PixelSurvivor.EditorTools
             RectTransform main = UiRect("MainPanel", holder);
             Stretch(main);
 
-            Sprite logo = SpriteNamed(UiSheet, "Title 0"); // "UNDEAD SURVIVOR"
-            Image logoImg = UiImage("Logo", main, logo, Color.white);
-            Place(logoImg.rectTransform, Center, Center, Center, new Vector2(0, 250), logo.rect.size * 10f);
+            // Oyunun adı, piksel fontla iki satır: beyaz "PIXEL", altın "SURVIVOR".
+            Text logoTop = UiText("LogoPixel", main, "PIXEL", 112, TextAnchor.MiddleCenter, Color.white);
+            logoTop.GetComponent<Outline>().effectDistance = new Vector2(5f, -5f);
+            Place(logoTop.rectTransform, Center, Center, Center, new Vector2(0, 330), new Vector2(1400, 130));
+            Text logoBottom = UiText("LogoSurvivor", main, "SURVIVOR", 144, TextAnchor.MiddleCenter, Gold);
+            logoBottom.GetComponent<Outline>().effectDistance = new Vector2(6f, -6f);
+            Place(logoBottom.rectTransform, Center, Center, Center, new Vector2(0, 190), new Vector2(1600, 160));
 
             Button start = UiButton("Start", main, new Vector2(0, -10), new Vector2(480, 100));
             Stretch(UiText("Label", start.transform, "BAŞLA", 48, TextAnchor.MiddleCenter, Gold).rectTransform);

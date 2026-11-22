@@ -40,7 +40,7 @@ namespace PixelSurvivor.EditorTools
         private const string Renderer2DPath = "Assets/Settings/Renderer2D.asset";
 
         /// <summary>Builder her değiştiğinde artır; Console hangi sürümün çalıştığını göstersin.</summary>
-        private const int BuilderVersion = 21;
+        private const int BuilderVersion = 22;
 
         [MenuItem("PixelSurvivor/Build Prototype", priority = 0)]
         public static void Build()
@@ -574,8 +574,8 @@ namespace PixelSurvivor.EditorTools
         // Her karakterin nasıl açıldığı: altın fiyatı ya da son boss'u bir kez yenmek. Listede olmayan = ücretsiz.
         private static readonly Dictionary<string, (int cost, bool victory)> CharacterUnlocks = new()
         {
-            { "Gardener", (100, false) },
-            { "Firestarter", (200, false) },
+            { "Gardener", (250, false) },
+            { "Firestarter", (500, false) },
             { "Wanderer", (0, true) },
         };
 

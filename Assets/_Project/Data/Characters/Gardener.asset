@@ -38,5 +38,5 @@ MonoBehaviour:
   ringCount: 8
   ringInterval: 1.4
   orbitBlades: 3
-  unlockCost: 100
+  unlockCost: 250
   requiresVictory: 0
