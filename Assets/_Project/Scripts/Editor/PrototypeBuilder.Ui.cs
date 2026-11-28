@@ -21,6 +21,7 @@ namespace PixelSurvivor.EditorTools
 
             HudView hud = BuildHud(root);
             BuildDamageNumbers(root);   // panellerin altında, HUD'un üstünde
+            BuildCountdown(root);       // oyun başı geri sayımı; Esc menüsü üstünde açılabilsin diye ondan önce
             LevelUpView levelUp = BuildLevelUp(root);
             BuildPauseMenu(root, levelUp);
             GameOverView gameOver = BuildGameOver(root);

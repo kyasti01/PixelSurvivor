@@ -23,12 +23,13 @@ namespace PixelSurvivor
         /// <summary>Bu oyunda toplanan altın (Açgözlülük yükseltmesiyle zaten çarpılmış).</summary>
         public int RunGold { get; private set; }
         public bool IsGameOver { get; private set; }
-        public bool IsPaused => levelUpPaused || menuPaused;
+        public bool IsPaused => levelUpPaused || menuPaused || introPaused;
         public bool IsMenuPaused => menuPaused;
 
         private Health playerHealth;
         private bool levelUpPaused;
         private bool menuPaused;
+        private bool introPaused;
         private bool goldBanked;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -80,6 +81,13 @@ namespace PixelSurvivor
         public void SetMenuPaused(bool paused)
         {
             menuPaused = paused;
+            ApplyTimeScale();
+        }
+
+        /// <summary>Oyun başındaki geri sayım için duraklatma (bkz. <see cref="StartCountdown"/>).</summary>
+        public void SetIntroPaused(bool paused)
+        {
+            introPaused = paused;
             ApplyTimeScale();
         }
 
